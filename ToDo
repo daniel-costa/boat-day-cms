@@ -1,0 +1,19 @@
+- Delete useless à, Parse, _ defines in views
+- Create templates for each view type "list"
+- Clean unused inti and render methods
+- add focus, blur events in pages that need to have a filter
+- Use _.each instead of $.each
+- Use this.$el.find instead of $()
+- All Object pages, order as follow : ID, CreatedAt, UpdatedAt, Status
+- Add form-control to every filter input
+- Delete all id="search**"
+- Finish top navigation
+- Host page order of fields :  Host type, F Name, L Name, SSN, birthdate, phone, address, zip code, city state
+- Delete country from host
+- Boat page order: name, type, buildyear, hull id, length, capacity,
+- Add after boat features : boat pictures.
+- Add after boat features : boat captains
+- Add link to host at begining of boat profile
+- delete captains page (useless because it's a profile)
+- Add certifications to the host page
+- boatday page: add link to boat, host, to the captain's profile

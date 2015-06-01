@@ -1,0 +1,196 @@
+<form class="form-horizontal"> 
+	<div class="container"> 
+		<div class="col-xs-24 col-md-20 col-lg-16 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading area-business">
+					<h3 class="panel-title text-center">Update host</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="profileId" class="col-sm-2 control-label">Host id</label>
+							<div class="col-sm-8">
+								<%= objectId %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
+							<div class="col-sm-8">
+								<%= createdAt %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="updatedAt" class="col-sm-2 control-label">Updated at</label>
+							<div class="col-sm-8">
+								<%= updatedAt %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ssn" class="col-sm-2 control-label">SSN</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="ssn" name="ssn" value="<%= SSN %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="accountHolder" class="col-sm-2 control-label">Account holder</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountHolder" name="accountHolder" value="<%= accountHolder %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="accountRout" class="col-sm-2 control-label">Account routing</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountRout" name="accountRout" value="<%= accountRouting %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="accountNum" class="col-sm-2 control-label">Account number</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="accountNum" name="accountNum" value="<%= accountNumber %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="birthDate" class="col-sm-2 control-label">Date of birth</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="birthDate" name="birthDate" value="<%= birthdate.iso %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="city" class="col-sm-2 control-label">City</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="city" name="city" value="<%= city %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="country" class="col-sm-2 control-label">Country</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="country" name="country" value="<%= country %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="firstname" class="col-sm-2 control-label">First name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="firstname" name="firstname" value="<%= firstname %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">Last name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="lastname" name="lastname" value="<%= lastname %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="phone" class="col-sm-2 control-label">Phone</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="phone" name="phone" value="<%= phone %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="state" class="col-sm-2 control-label">State</label>
+							<div class="col-sm-8">
+								<select class="col-sm-8 form-control" id="state" name="state">
+									<option value="AL" <%= state && state == "AL" ? 'selected' : '' %>>Alabama</option>
+									<option value="AK" <%= state && state == "AK" ? 'selected' : '' %>>Alaska</option>
+									<option value="AS" <%= state && state == "AS" ? 'selected' : '' %>>American Samoa</option>
+									<option value="AZ" <%= state && state == "AZ" ? 'selected' : '' %>>Arizona</option>
+									<option value="AR" <%= state && state == "AR" ? 'selected' : '' %>>Arkansas</option>
+									<option value="CA" <%= state && state == "CA" ? 'selected' : '' %>>California</option>
+									<option value="CO" <%= state && state == "CO" ? 'selected' : '' %>>Colorado</option>
+									<option value="CT" <%= state && state == "CT" ? 'selected' : '' %>>Connecticut</option>
+									<option value="DE" <%= state && state == "DE" ? 'selected' : '' %>>Delaware</option>
+									<option value="DC" <%= state && state == "DC" ? 'selected' : '' %>>Dist. of Columbia</option>
+									<option value="FL" <%= state && state == "FL" ? 'selected' : '' %>>Florida</option>
+									<option value="GA" <%= state && state == "GA" ? 'selected' : '' %>>Georgia</option>
+									<option value="GU" <%= state && state == "GU" ? 'selected' : '' %>>Guam</option>
+									<option value="HI" <%= state && state == "HI" ? 'selected' : '' %>>Hawaii</option>
+									<option value="ID" <%= state && state == "ID" ? 'selected' : '' %>>Idaho</option>
+									<option value="IL" <%= state && state == "IL" ? 'selected' : '' %>>Illinois</option>
+									<option value="IN" <%= state && state == "IN" ? 'selected' : '' %>>Indiana</option>
+									<option value="IA" <%= state && state == "IA" ? 'selected' : '' %>>Iowa</option>
+									<option value="KS" <%= state && state == "KS" ? 'selected' : '' %>>Kansas</option>
+									<option value="KY" <%= state && state == "KY" ? 'selected' : '' %>>Kentucky</option>
+									<option value="LA" <%= state && state == "LA" ? 'selected' : '' %>>Louisiana</option>
+									<option value="ME" <%= state && state == "ME" ? 'selected' : '' %>>Maine</option>
+									<option value="MD" <%= state && state == "MD" ? 'selected' : '' %>>Maryland</option>
+									<option value="MH" <%= state && state == "MH" ? 'selected' : '' %>>Marshall Islands</option>
+									<option value="MA" <%= state && state == "MA" ? 'selected' : '' %>>Massachusetts</option>
+									<option value="MI" <%= state && state == "MI" ? 'selected' : '' %>>Michigan</option>
+									<option value="FM" <%= state && state == "FM" ? 'selected' : '' %>>Micronesia</option>
+									<option value="MN" <%= state && state == "MN" ? 'selected' : '' %>>Minnesota</option>
+									<option value="MS" <%= state && state == "MS" ? 'selected' : '' %>>Mississippi</option>
+									<option value="MO" <%= state && state == "MO" ? 'selected' : '' %>>Missouri</option>
+									<option value="MT" <%= state && state == "MT" ? 'selected' : '' %>>Montana</option>
+									<option value="NE" <%= state && state == "NE" ? 'selected' : '' %>>Nebraska</option>
+									<option value="NV" <%= state && state == "NV" ? 'selected' : '' %>>Nevada</option>
+									<option value="NH" <%= state && state == "NH" ? 'selected' : '' %>>New Hampshire</option>
+									<option value="NJ" <%= state && state == "NJ" ? 'selected' : '' %>>New Jersey</option>
+									<option value="NM" <%= state && state == "NM" ? 'selected' : '' %>>New Mexico</option>
+									<option value="NY" <%= state && state == "NY" ? 'selected' : '' %>>New York</option>
+									<option value="NC" <%= state && state == "NC" ? 'selected' : '' %>>North Carolina</option>
+									<option value="ND" <%= state && state == "ND" ? 'selected' : '' %>>North Dakota</option>
+									<option value="MP" <%= state && state == "MP" ? 'selected' : '' %>>Northern Marianas</option>
+									<option value="OH" <%= state && state == "OH" ? 'selected' : '' %>>Ohio</option>
+									<option value="OK" <%= state && state == "OK" ? 'selected' : '' %>>Oklahoma</option>
+									<option value="OR" <%= state && state == "OR" ? 'selected' : '' %>>Oregon</option>
+									<option value="PW" <%= state && state == "PW" ? 'selected' : '' %>>Palau</option>
+									<option value="PA" <%= state && state == "PA" ? 'selected' : '' %>>Pennsylvania</option>
+									<option value="PR" <%= state && state == "PR" ? 'selected' : '' %>>Puerto Rico</option>
+									<option value="RI" <%= state && state == "RI" ? 'selected' : '' %>>Rhode Island</option>
+									<option value="SC" <%= state && state == "SC" ? 'selected' : '' %>>South Carolina</option>
+									<option value="SD" <%= state && state == "SD" ? 'selected' : '' %>>South Dakota</option>
+									<option value="TN" <%= state && state == "TN" ? 'selected' : '' %>>Tennessee</option>
+									<option value="TX" <%= state && state == "TX" ? 'selected' : '' %>>Texas</option>
+									<option value="UT" <%= state && state == "UT" ? 'selected' : '' %>>Utah</option>
+									<option value="VT" <%= state && state == "VT" ? 'selected' : '' %>>Vermont</option>
+									<option value="VA" <%= state && state == "VA" ? 'selected' : '' %>>Virginia</option>
+									<option value="VI" <%= state && state == "VI" ? 'selected' : '' %>>Virgin Islands</option>
+									<option value="WA" <%= state && state == "WA" ? 'selected' : '' %>>Washington</option>
+									<option value="WV" <%= state && state == "WV" ? 'selected' : '' %>>West Virginia</option>
+									<option value="WI" <%= state && state == "WI" ? 'selected' : '' %>>Wisconsin</option>
+									<option value="WY" <%= state && state == "WY" ? 'selected' : '' %>>Wyoming</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label">Status</label>
+							<div class="col-sm-8">
+								<select class="input-small form-control" id="status" name="status">
+									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="street" class="col-sm-2 control-label">Street address</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="street" name="street" value="<%= street %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="hostType" class="col-sm-2 control-label">Host type</label>
+							<div class="col-sm-8">
+								<select class="input-small form-control" id="hostType" name="hostType">
+									<option value="personal" <%= type && type == "personal" ? 'selected' : '' %>>Personal</option> 
+									<option value="business" <%= type && type == "business" ? 'selected' : '' %>>Business</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="zipcode" class="col-sm-2 control-label">Zip code</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="zipcode" name="zipcode" value="<%= zipCode %>">
+							</div>
+						</div>
+					</div>
+				</div> 
+
+				<div class="panel-footer text-center">
+						<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

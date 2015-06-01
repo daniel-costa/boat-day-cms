@@ -1,0 +1,38 @@
+<form class="form-horizontal"> 
+	<div class="container"> 
+		<div class="col-xs-24 col-md-20 col-lg-16 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading area-business">
+					<h3 class="panel-title text-center">Captain profile</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="profileId" class="col-sm-2 control-label">Captain id</label>
+							<div class="col-sm-8">
+								<%= objectId %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
+							<div class="col-sm-8">
+								<%= createdAt %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="updatedAt" class="col-sm-2 control-label">Updated at</label>
+							<div class="col-sm-8">
+								<%= updatedAt %>
+							</div>
+						</div>
+					</div>
+				</div> 
+
+				<div class="panel-footer text-center">
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

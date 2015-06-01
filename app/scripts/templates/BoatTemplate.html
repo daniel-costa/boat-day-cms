@@ -1,0 +1,165 @@
+<form class="form-horizontal"> 
+	<div class="container"> 
+		<div class="col-xs-24 col-md-20 col-lg-16 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading area-business">
+					<h3 class="panel-title text-center">Update Boat</h3>
+				</div>
+
+				<div class="panel-body">
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="profileId" class="col-sm-2 control-label">Boat id</label>
+							<div class="col-sm-8">
+								<%= objectId %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
+							<div class="col-sm-8">
+								<%= createdAt %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="updatedAt" class="col-sm-2 control-label">Updated at</label>
+							<div class="col-sm-8">
+								<%= updatedAt %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="buildYear" class="col-sm-2 control-label">Build year</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="buildYear" name="buildYear" value= "<%= buildYear %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="capacity" class="col-sm-2 control-label">Capacity</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="capacity" name="capacity" value= "<%= capacity %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="hullID" class="col-sm-2 control-label">Hull id</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="hullID" name="hullID" value= "<%= hullID %>">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="length" class="col-sm-2 control-label">Length</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="length" name="length" value= "<%= length %>" > 
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="name" class="col-sm-2 control-label">Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="name" name="name" value= "<%= name %>" > 
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label">Status</label>
+							<div class="col-sm-8">
+								<select class="input-small form-control" id="status" name="status">
+									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+									
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="type" class="col-sm-2 control-label">Type</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="type" name="type" value= "<%= type %>">
+							</div> 
+						</div>
+					</div>
+				</div>
+
+				<div class="panel-heading">
+					<h3 class="panel-title text-center">Boat Features</h3>
+				</div>
+				<div class="panel-body">
+
+						<div class="col-sm-3">	
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureAirConditioning" class="boatfeatures" <%= features.airConditioning ? 'checked': '' %>> Air Conditioning 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureAutopilot" class="boatfeatures" <%= features.autopilot ? 'checked': '' %>> Autopilot 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureCooler" class="boatfeatures" <%= features.cooler ? 'checked': '' %>> Cooler
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureDepthFinder" class="boatfeatures" <%= features.depthFinder ? 'checked': '' %>> Depth Finder 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureFishFinder" class="boatfeatures" <%= features.fishFinder ? 'checked': '' %>> Fish Finder  
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureGps" class="boatfeatures" <%= features.gps ? 'checked': '' %>> GPS
+							</label><br>
+						</div>
+						<div class="col-sm-3">
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureGrill" class="boatfeatures" <%= features.grill ? 'checked': '' %>> Grill
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureInternet" class="boatfeatures" <%= features.internet ? 'checked': '' %>> Internet 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureLiveBaitWell" class="boatfeatures" <%= features.liveBaitWell ? 'checked': '' %>> Live Bait Well 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureMicrowave" class="boatfeatures" <%= features.microwave ? 'checked': '' %>> Microwave
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureRefrigeration" class="boatfeatures" <%= features.refrigeration ? 'checked': '' %>> Refrigeration
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureRodHolder" class="boatfeatures" <%= features.rodHolder ? 'checked': '' %>> Rod Holder 
+							</label><br>
+						</div>
+						<div class="col-sm-3">
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureShower" class="boatfeatures" <%= features.shower ? 'checked': '' %>> Shower
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureSink" class="boatfeatures" <%= features.sink ? 'checked': '' %>> Sink
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureStereo" class="boatfeatures" <%= features.stereo ? 'checked': '' %>> Stereo 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureStereoAuxInput" class="boatfeatures" <%= features.stereoAuxInput ? 'checked': '' %>> Stereo Aux Input
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureSonar" class="boatfeatures" <%= features.sonar ? 'checked': '' %>> Sonar
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureSwimLadder" class="boatfeatures" <%= features.swimLadder ? 'checked': '' %>> Swim Ladder
+							</label><br>
+						</div>
+						<div class="col-sm-3">
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureTvDvd" class="boatfeatures" <%= features.tvDvd ? 'checked': '' %>> TV/DVD 
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureTrollingMotor" class="boatfeatures" <%= features.trollingMotor ? 'checked': '' %>> Trolling Motor
+							</label><br>
+							<label style="font-weight:normal">
+								<input type="checkbox" name="featureWakeboardTower" class="boatfeatures" <%= features.wakeboardTower ? 'checked': '' %>> Wakeboard Tower 
+							</label>
+						</div>
+
+				</div>  
+
+				<div class="panel-footer text-center">
+					<button type="submit" class="btn btn-primary">Update</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

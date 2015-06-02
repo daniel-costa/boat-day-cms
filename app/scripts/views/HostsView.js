@@ -1,10 +1,8 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
-'text!templates/HostsTemplate.html'
-], function($, _, Parse, BaseView, HostsTemplate){
+'text!templates/HostsTemplate.html', 
+'text!templates/HostsRowTemplate.html'
+], function(BaseView, HostsTemplate, HostsRowTemplate){
 	var HostsView = BaseView.extend({
 
 		className: "view-hosts-lists",
@@ -12,23 +10,24 @@ define([
 		template: _.template(HostsTemplate),
 
 		events : {
-			"blur .searchFilter": "renderHosts",
+			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn"
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			this.renderHosts();
+			this.renderRows();
 			
 			return this;
 
 		},
 
-		renderHosts: function() {
+		renderRows: function() {
 
-			var hosts = Parse.Object.extend("Host");
-			var query = new Parse.Query(hosts);
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("Host"));
+			var tpl = _.template(HostsRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -58,30 +57,32 @@ define([
 				query.contains("type", this._in("searchType").val());
 			}
 
-			$("#tbody").html("");
+			this.$el.find('tbody').html("");
 
-			query.find({
+			var cbSuccess = function(hosts) {
 
-				success: function(hosts) {
+				_.each(hosts, function(host) {
 
-					var json = JSON.stringify(hosts);
-					var hosts = JSON.parse(json);
+					var data = {
+						id: host.id, 
+						ssn: host.get('SSN'), 
+						birthdate: host.get('birthdate'), 
+						firstname: host.get('firstname'),
+						lastname: host.get('lastname'),
+						phone: host.get('phone'), 
+						status: host.get('status'), 
+						type: host.get('type')
+					}
 
-					var output = '';
+					self.$el.find('tbody').append( tpl(data) );
 
-					$.each (hosts, function(i,hosts) {
+				});
 
-						$("#tbody").append("<tr><td class='info'>" + hosts.objectId + "</td><td class='info'>" + hosts.SSN + "</td><td class='info'>" + (hosts.birthdate ? hosts.birthdate.iso : "not specified") + "</td><td class='info'>" 
-							+ hosts.firstname + "</td><td class='info'>" + hosts.lastname + "</td><td class='info'> " + hosts.phone + "</td><td class='info'>" + hosts.status + "</td><td class='info'>"
-							+ hosts.type + "</td><td class='info'><a href='#/host/" + hosts.objectId + 
-							"'><span class='glyphicon glyphicon-pencil'></span></a></td></tr>");
-					});
-				}
+			};
 
-			});
-
+			query.find().then(cbSuccess);
 		}
-
+		
 	});
 	return HostsView;
 });

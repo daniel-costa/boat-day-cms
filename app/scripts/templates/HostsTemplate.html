@@ -1,33 +1,46 @@
-<div class="container">
-	<h1>Hosts lists</h1>
-	<a href="#/dashboard" class="btn btn-primary">Dashboard</a>
-	<div class="col-sm-12">
-		<table class="table table-condensed" style="width:100%">
-  			<thead>
-				<tr>
-					<th>ObjectId</th>
-					<th>SSN</th>
-					<th>Birth date</th>
-					<th>First name</th>
-					<th>Last name</th>
-					<th>Phone</th>
-					<th>Status</th>
-				   	<th>Host type</th>  
-				   	<th>Update</th>  
-				</tr>
-				<tr>
-					<td><input type="text" class="searchFilter" name="searchobjectId" id="searchobjectId"></td>
-					<td><input type="text" class="searchFilter" name="searchSSN" id="searchSSN"></td>
-					<td></td>
-					<td><input type="text" class="searchFilter" name="searchFirstName" id="searchFirstName"></td>
-					<td><input type="text" class="searchFilter" name="searchLastName" id="searchLastName"></td>
-					<td><input type="text" class="searchFilter" name="searchPhone" id="searchPhone"></td>
-					<td><input type="text" class="searchFilter" name="searchStatus" id="searchStatus"></td>
-					<td><input type="text" class="searchFilter" name="searchType" id="searchType"></td>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-			</tbody>
-		</table>
-	</div>
+<div class="top-nav"></div>
+
+<div class="container-fluid">
+	<h1>Host lists</h1>
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					ID
+					<input type="text" class="searchFilter form-control" name="searchobjectId">
+				</th>
+				<th>
+					SSN
+					<input type="text" class="searchFilter form-control" name="searchSSN">
+				</th>
+				<th>
+					Birth date
+				</th>
+				<th>
+					First name
+					<input type="text" class="searchFilter form-control" name="searchFirstName">
+				</th>
+				<th>
+					Last name
+					<input type="text" class="searchFilter form-control" name="searchLastName">
+				</th>
+				<th>
+					Phone
+					<input type="text" class="searchFilter form-control" name="searchPhone">
+				</th>
+				<th>
+					Status
+					<input type="text" class="searchFilter form-control" name="searchStatus">
+				</th>
+				<th>
+					Host type
+					<input type="text" class="searchFilter form-control" name="searchType">
+				</th>
+				<th>
+					Update
+				</th>
+			</tr>
+		</thead>
+		<tbody> </tbody>
+	</table>
 </div>

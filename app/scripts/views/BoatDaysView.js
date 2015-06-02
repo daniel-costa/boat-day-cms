@@ -1,10 +1,8 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
-'text!templates/BoatDaysTemplate.html'
-], function($, _, Parse, BaseView, BoatDaysTemplate){
+'text!templates/BoatDaysTemplate.html', 
+'text!templates/BoatDaysRowTemplate.html'
+], function(BaseView, BoatDaysTemplate, BoatDaysRowTemplate){
 	var BoatDaysView = BaseView.extend({
 
 		className: "view-boatdays-lists",
@@ -13,7 +11,7 @@ define([
 
 		events : {
 
-			"blur .searchFilter": "renderBoatDays",
+			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn"
 		},
 
@@ -25,15 +23,20 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			this.renderBoatDays();
+			this.renderRows();
 			return this;
 
 		},
 
-		renderBoatDays: function() {
-			var boatdays = Parse.Object.extend("BoatDay");
-			var query = new Parse.Query(boatdays);
+		renderRows: function() {
 
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
+			query.include('host');
+			query.include('boat');
+			query.include('captain');
+
+			var tpl = _.template(BoatDaysRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -59,40 +62,44 @@ define([
 				query.contains("status", this._in("searchStatus").val());
 			}
 
-			$("#tbody").html("");
-			query.include("host");
-			query.include("boat");
-			query.include("captain");
-			query.find({
 
-				success: function(boatdays) {
+			this.$el.find('tbody').html("");
 
-					var json = JSON.stringify(boatdays);
-					var boatdays = JSON.parse(json);
+			var cbSuccess = function(boatdays) {
 
-					var output = '';
+				_.each(boatdays, function(boatday) {
 
-					$.each (boatdays, function(i,boatdays) {
-						var host = boatdays.host;
-						var boat = boatdays.boat;
-						var captain = boatdays.captain;
+					var host = boatday.get('host');
+					var boat = boatday.get('boat');
+					var captain = boatday.get('captain');
+					if(captain != null) {
 
-						if(captain != null){
-						
-							$("#tbody").append("<tr><td class='info'>" + boatdays.objectId + "</td><td class='info'>" + boatdays.availableSeats 
-								+ "</td><td class='info'>" + boatdays.date.iso + "</td><td class='info'>" + boatdays.departureTime + "</td><td class='info'>"
-								+ boatdays.name + "</td><td class='info'>" + boatdays.price + "</td><td class='info'>" + boatdays.status + "</td><td class='info'><a href='#/host/"+ host.objectId +
-								"'class='btn btn-primary'>Host</a></td><td class='info'><a href='#/boat/"+ boat.objectId +
-								"'class='btn btn-primary'>Boat</a></td><td class='info'><a href='#/captain/"+ captain.objectId +"'class='btn btn-primary'>Captain</a></td><td class='info'><a href='#/boatday/" + boatdays.objectId + 
-								"'><span class='glyphicon glyphicon-pencil'></span></a></td></tr>");
-						}
-						
-					});
+						console.log(captain.id);
+					}
+					var data = {
+						id: boatday.id, 
+						availableSeats: boatday.get('availableSeats'), 
+						date: boatday.get('date'), 
+						departureTime: boatday.get('departureTime'), 
+						name: boatday.get('name'), 
+						price: boatday.get('price'), 
+						status: boatday.get('status'), 
+						hostId: host.id, 
+						boatId: boat.id,
+						captainId: captain.id
 
-				}
+					}
 
-			});
+					//if(captain != null){
 
+					self.$el.find('tbody').append( tpl(data) );
+
+					//}
+				});
+
+			};
+
+			query.find().then(cbSuccess);
 		}
 
 	});

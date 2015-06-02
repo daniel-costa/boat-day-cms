@@ -17,6 +17,7 @@ define([
 			event.preventDefault();
 
 			var data = {
+				
 				displayName: this._in('displayName').val(), 
 				about: this._in('about').val(), 
 				status: this._in('status').val()

@@ -32,9 +32,9 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
-			query.include('host');
-			query.include('boat');
-			query.include('captain');
+			// query.include('host');
+			// query.include('boat');
+			// query.include('captain');
 
 			var tpl = _.template(BoatDaysRowTemplate);
 
@@ -68,14 +68,12 @@ define([
 			var cbSuccess = function(boatdays) {
 
 				_.each(boatdays, function(boatday) {
+					console.log(boatday.length);
 
 					var host = boatday.get('host');
 					var boat = boatday.get('boat');
 					var captain = boatday.get('captain');
-					if(captain != null) {
-
-						console.log(captain.id);
-					}
+				
 					var data = {
 						id: boatday.id, 
 						availableSeats: boatday.get('availableSeats'), 
@@ -84,17 +82,14 @@ define([
 						name: boatday.get('name'), 
 						price: boatday.get('price'), 
 						status: boatday.get('status'), 
-						hostId: host.id, 
-						boatId: boat.id,
-						captainId: captain.id
+						hostId: host.id ? host.id : null, 
+						boatId: boat.id ? boat.id: null,
+						captainId: captain ? captain.id: null
 
 					}
 
-					//if(captain != null){
-
 					self.$el.find('tbody').append( tpl(data) );
 
-					//}
 				});
 
 			};

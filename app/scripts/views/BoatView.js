@@ -2,7 +2,8 @@ define([
 'views/BaseView',
 'text!templates/BoatTemplate.html', 
 'text!templates/BoatPictureTemplate.html',
-], function(BaseView, BoatTemplate, BoatPictureTemplate){
+'text!templates/BoatCaptainTemplate.html'
+], function(BaseView, BoatTemplate, BoatPictureTemplate, BoatCaptainTemplate){
 	var BoatView = BaseView.extend({
 
 		className: "view-boat-update",
@@ -18,6 +19,7 @@ define([
 
 			BaseView.prototype.render.call(this);
 			this.displayBoatPictures();
+			this.displayCaptains();
 			return this;
 
 		},
@@ -93,7 +95,32 @@ define([
 			this.boatPictures[FileHolder.id] = FileHolder;
 		},
 
+		displayCaptains: function() {
+			
+			var self = this;
+			
+			self.$el.find('.captains-list').html('');
 
+			var displayAll = function(matches) {
+				_.each(matches, self.appendCaptain, self);
+			};
+
+			var query = self.model.relation('captains').query();
+			query.ascending("createdAt");
+			query.find().then(displayAll);
+
+		},
+
+		appendCaptain: function(CaptainRequest) {
+
+			this.$el.find('.captains-list').append(_.template(BoatCaptainTemplate)({ 
+				id: CaptainRequest.id, 
+				email: CaptainRequest.get('email'),
+				status: CaptainRequest.get('status')
+			}));
+
+		}
+	
 	});
 	return BoatView;
 });

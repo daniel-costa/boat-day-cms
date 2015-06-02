@@ -11,8 +11,8 @@
 - [Done]Host page order of fields :  Host type, F Name, L Name, SSN, birthdate, phone, address, zip code, city state
 - [Done]Delete country from host
 - [Done]Boat page order: name, type, buildyear, hull id, length, capacity,
-- Add after boat features : boat pictures.
-- Add after boat features : boat captains
+- [Done]Add after boat features : boat pictures.
+- [Done]Add after boat features : boat captains
 - [Done]Add link to host at begining of boat profile
 - [Done]delete captains page (useless because it's a profile)
 - Add certifications to the host page

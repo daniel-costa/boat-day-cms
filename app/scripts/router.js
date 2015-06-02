@@ -8,10 +8,9 @@ define([
 	'views/ProfilesView', 
 	'views/ProfileView',
 	'views/BoatsView', 
-	'views/BoatView',
-	'views/BoatPicturesView', 
-	'views/CaptainView'
-], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, BoatPicturesView, CaptainView) {
+	'views/BoatView'
+	//'views/BoatPicturesView', 
+], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -26,8 +25,7 @@ define([
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
-			'captain/:captainid': 'showCaptainView', 
-			'boatPics': 'showBoatPicturesView', 
+			//'boatPics': 'showBoatPicturesView', 
 			'*actions': 'showDashboardView'
 		},
 
@@ -87,18 +85,18 @@ define([
 
 		},
 
-		showBoatPicturesView: function() {
+		// showBoatPicturesView: function() {
 
-			var self = this;
-			var cb = function() {
+		// 	var self = this;
+		// 	var cb = function() {
 				
-				self.render(new BoatPicturesView());
+		// 		self.render(new BoatPicturesView());
 
-			};
+		// 	};
 
-			self.handleAdminAndSignUp(cb);
+		// 	self.handleAdminAndSignUp(cb);
 
-		}, 
+		// }, 
 
 		showProfileView: function( profileid ) {
 			
@@ -167,25 +165,7 @@ define([
 				};
 
 				new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
-			};
 
-			this.handleAdminAndSignUp(cb);
-
-		},
-
-		showCaptainView: function( captainid ) {
-
-			var self = this;
-			
-			var cb = function() {
-
-				var captainQuerySuccess = function( captain ) {
-
-					self.render(new CaptainView({ model: captain }));
-
-				};
-
-				new Parse.Query(Parse.Object.extend('Profile')).get(captainid).then(captainQuerySuccess);
 			};
 
 			this.handleAdminAndSignUp(cb);

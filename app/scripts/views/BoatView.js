@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
-'text!templates/BoatTemplate.html'
-], function(BaseView, BoatTemplate){
+'text!templates/BoatTemplate.html', 
+'text!templates/BoatPictureTemplate.html',
+], function(BaseView, BoatTemplate, BoatPictureTemplate){
 	var BoatView = BaseView.extend({
 
 		className: "view-boat-update",
@@ -16,7 +17,7 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			
+			this.displayBoatPictures();
 			return this;
 
 		},
@@ -61,19 +62,37 @@ define([
 
 			var boatUpdateSuccess = function( boat ) {
 
-				data.boat = boat;
-
 				Parse.history.navigate('boats', true);
 
 			};
 
-			var boatUpdateError = function(error) {
-
-				console.log(error);
-			};
-
-			this.model.save(data).then(boatUpdateSuccess, boatUpdateError);
+			this.model.save(data).then(boatUpdateSuccess);
 		},
+
+		displayBoatPictures: function() {
+			
+			var self = this;
+
+			self.$el.find('.picture-files').html('');
+			self.boatPictures = {};
+
+			var query = self.model.relation('boatPictures').query();
+			query.ascending("createdAt");
+			query.find().then(function(matches) {
+				_.each(matches, self.appendBoatPicture, self);
+			});
+		},
+
+		appendBoatPicture: function(FileHolder) {
+
+			this.$el.find('.picture-files').append(_.template(BoatPictureTemplate)({ 
+				id: FileHolder.id,
+				file: FileHolder.get('file')
+			}));
+			
+			this.boatPictures[FileHolder.id] = FileHolder;
+		},
+
 
 	});
 	return BoatView;

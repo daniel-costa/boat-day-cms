@@ -13,10 +13,6 @@ define([
 			"submit form" : "update"
 		},
 
-		initialize: function() {
-
-		},
-
 		render: function() {
 
 			BaseView.prototype.render.call(this);

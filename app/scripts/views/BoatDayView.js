@@ -1,10 +1,7 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
 'text!templates/BoatDayTemplate.html'
-], function($, _, Parse, BaseView, BoatDayTemplate){
+], function(BaseView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",

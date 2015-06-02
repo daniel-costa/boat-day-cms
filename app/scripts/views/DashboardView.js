@@ -1,23 +1,12 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
 'text!templates/DashboardTemplate.html'
-], function($, _, Parse, BaseView, DashboardTemplate){
+], function(BaseView, DashboardTemplate){
 	var DashboardView = BaseView.extend({
 
 		className: "view-dashboard",
 		
 		template: _.template(DashboardTemplate),
-
-		events : {
-
-		},
-
-		initialize: function() {
-
-		},
 
 		render: function() {
 

@@ -1,10 +1,7 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
 'text!templates/HostTemplate.html'
-], function($, _, Parse, BaseView, HostTemplate){
+], function(BaseView, HostTemplate){
 	var HostView = BaseView.extend({
 
 		className: "view-host-update",
@@ -41,7 +38,6 @@ define([
 				accountNumber: this._in('accountNum').val(), 
 				//birthdate: this._in('birthDate').val(), 
 				city: this._in('city').val(),
-				country: this._in('country').val(),
 				firstname: this._in('firstname').val(), 
 				lastname: this._in('lastname').val(), 
 				phone: this._in('phone').val(), 
@@ -56,17 +52,11 @@ define([
 			
 			var hostUpdateSuccess = function( profile ) {
 
-				data.profile = profile;
-
 				Parse.history.navigate('hosts', true);
-			} ;
 
-			var hostUpdateError = function(error) {
-
-				console.log(error);
 			};
-
-			this.model.save(data).then(hostUpdateSuccess, hostUpdateError);
+			
+			this.model.save(data).then(hostUpdateSuccess);
 
 		},
 

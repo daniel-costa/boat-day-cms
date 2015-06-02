@@ -1,33 +1,40 @@
-<div class="container">
-	<h1>Boat lists</h1>
-	<a href="#/dashboard" class="btn btn-primary">Dashboard</a>
-	<a href="#/boatPics" class="btn btn-primary">Boat pictures</a>
-	<div class="col-sm-12">
-		<table class="table table-condensed">
-  			<thead>
-				<tr>
-					<th>ObjectId</th>
-					<th>Build</th>
-					<th>HullId</th>
-					<th>Name</th>
-					<th>Status</th>
-				   	<th>Boat type</th>
-				   	<th>Host</th>
-				   	<th>Update</th>
+<div class="top-nav"></div>
 
-				</tr>
-				<tr>
-					<td><input type="text" class="searchFilter" name="searchobjectId" id="searchobjectId"></td>
-					<td></td>
-					<td></td>
-					<td><input type="text" class="searchFilter" name="searchName" id="searchName"></td>
-					<td><input type="text" class="searchFilter" name="searchStatus" id="searchStatus"></td>
-					<td><input type="text" class="searchFilter" name="searchType" id="searchType"></td>
-				</tr>
-			</thead>
-			<tbody id="tbody">
-				
-			</tbody>
-		</table>
-	</div>
+<div class="container-fluid">
+	<h1>Boat lists</h1>
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					ID
+					<input type="text" class="searchFilter form-control" name="searchobjectId">
+				</th>
+				<th>
+					Build
+				</th>
+				<th>
+					Hull Id
+				</th>
+				<th>
+					Name
+					<input type="text" class="searchFilter form-control" name="searchName">
+				</th>
+				<th>
+					Status
+					<input type="text" class="searchFilter form-control" name="searchStatus">
+				</th>
+				<th>
+					Boat type
+					<input type="text" class="searchFilter form-control" name="searchType">
+				</th>
+				<th>
+					Host
+				</th>
+				<th>
+					Update
+				</th>
+			</tr>
+		</thead>
+		<tbody> </tbody>
+	</table>
 </div>

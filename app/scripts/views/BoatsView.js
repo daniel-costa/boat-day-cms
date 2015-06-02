@@ -1,10 +1,8 @@
 define([
-'jquery', 
-'underscore', 
-'parse',
 'views/BaseView',
-'text!templates/BoatsTemplate.html'
-], function($, _, Parse, BaseView, BoatsTemplate){
+'text!templates/BoatsTemplate.html', 
+'text!templates/BoatsRowTemplate.html'
+], function(BaseView, BoatsTemplate, BoatsRowTemplate){
 	var BoatsView = BaseView.extend({
 
 		className: "view-boats-lists",
@@ -12,23 +10,25 @@ define([
 		template: _.template(BoatsTemplate),
 
 		events : {
-			"blur .searchFilter": "renderBoats",
+			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn"
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			this.renderBoats();
+			this.renderRows();
 			
 			return this;
 
 		},
 
-		renderBoats: function() {
+		renderRows: function() {
 
-			var boats = Parse.Object.extend("Boat");
-			var query = new Parse.Query(boats);
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("Boat"));
+			query.include('Host');
+			var tpl = _.template(BoatsRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -46,36 +46,33 @@ define([
 				query.contains("type", this._in("searchType").val());
 			}
 
-			$("#tbody").html("");
+			this.$el.find('tbody').html("");
 
-			query.include("host");
-			query.find({
+			var cbSuccess = function(boats) {
 
-				success: function(boats) {
+				_.each(boats, function(boat) {
 
-					var json = JSON.stringify(boats);
-					var boats = JSON.parse(json);
+					var host = boat.get('host');
 
-					var output = '';
+					var data = {
+						id: boat.id,
+						build: boat.get('buildYear'), 
+						hullId: boat.get('hullID'), 
+						name: boat.get('name'), 
+						status: boat.get('status'), 
+						type: boat.get('type'), 
+						hostId: host.id
 
-					$.each (boats, function(i,boats) {
+					}
 
-						var host = boats.host;
-						//<td class='info'><a href='"+ boats.proofOfInsurance.url +"' target='_blank' class='btn btn-primary'>POF</a></td>
+					self.$el.find('tbody').append( tpl(data) );
 
-						$("#tbody").append("<tr><td class='info'>" + boats.objectId + "</td><td class='info'>" + boats.buildYear 
-							+ "</td><td class='info'>" + boats.hullID + "</td><td class='info'>" + boats.name + "</td><td class='info'>"
-							+ boats.status + "</td><td class='info'>" + boats.type + 
-							"</td><td class='info'><a href='#/host/"+ host.objectId+"'class='btn btn-primary'>Host</a></td><td class='info'><a href='#/boat/" + boats.objectId + 
-							"'><span class='glyphicon glyphicon-pencil'></span></a></td></tr>");
+				});
 
-					});
+			};
 
-				}
-
-			});
-
-		},
+			query.find().then(cbSuccess);
+		}
 
 	});
 	return BoatsView;

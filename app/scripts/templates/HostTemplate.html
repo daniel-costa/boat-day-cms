@@ -66,7 +66,7 @@
 						<div class="form-group">
 							<label for="birthDate" class="col-sm-2 control-label">Date of birth</label>
 							<div class="col-sm-8">
-								<input type="text" class="form-control" id="birthDate" name="birthDate" value="<%= birthdate.iso %>">
+								<input type="text" class="form-control" id="birthDate" name="birthDate" value="<%= birthdate ? birthdate.iso : '' %>">
 							</div>
 						</div>
 						<div class="form-group">
@@ -178,7 +178,69 @@
 							</div>
 						</div>
 					</div>
-				</div> 
+				</div>
+
+				<div class="panel-heading">
+					<h3 class="panel-title text-center">Host certifications</h3>
+				</div>
+				<div class="panel-body">
+					<div class="col-sm-22 col-sm-offset-1 col-md-10 col-md-offset-2 col-ls-9 col-lg-offset-2">
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certBSC ) { %>
+									<a href="<%= certBSC.url %>" target="_blank">Boater Safety Course</a>
+								<% } else { %>
+									No Boater Safety Course available
+								<% } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certCCL ) { %>
+									<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain <em>("6 Pack")</em></a>
+								<% } else { %>
+									No charterboat captain available
+								<% } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certMCL ) { %>
+									<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
+								<% } else { %>
+									No Master Captain's License available
+								<% } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certFL ) { %>
+									<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
+								<% } else { %>
+									No Fishing License available
+								<% } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certSL ) { %>
+									<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
+								<% } else { %>
+									No Sailing Certification available
+								<% } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-24">
+								<% if( certFAC ) { %>
+									<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
+								<% } else { %>
+									No First Aid Certification available
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>  
 
 				<div class="panel-footer text-center">
 						<button type="submit" class="btn btn-primary">Update</button>

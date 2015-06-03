@@ -9,7 +9,6 @@ define([
 	'views/ProfileView',
 	'views/BoatsView', 
 	'views/BoatView'
-	//'views/BoatPicturesView', 
 ], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView) {
 	
 	var AppRouter = Parse.Router.extend({
@@ -25,7 +24,6 @@ define([
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
-			//'boatPics': 'showBoatPicturesView', 
 			'*actions': 'showDashboardView'
 		},
 
@@ -84,19 +82,6 @@ define([
 			self.handleAdminAndSignUp(cb);
 
 		},
-
-		// showBoatPicturesView: function() {
-
-		// 	var self = this;
-		// 	var cb = function() {
-				
-		// 		self.render(new BoatPicturesView());
-
-		// 	};
-
-		// 	self.handleAdminAndSignUp(cb);
-
-		// }, 
 
 		showProfileView: function( profileid ) {
 			

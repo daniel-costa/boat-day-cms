@@ -41,7 +41,13 @@ define([
 				status: this._in('status').val(), 
 				street: this._in('street').val(), 
 				type: this._in('hostType').val(), 
-				zipCode: this._in('zipcode').val()
+				zipCode: this._in('zipcode').val(), 
+				certStatusBSC: this._in('certStatusBSC').val(), 
+				certStatusCCL: this._in('certStatusCCL').val(), 
+				certStatusFAC: this._in('certStatusFAC').val(), 
+				certStatusFL: this._in('certStatusFL').val(), 
+				certStatusMCL: this._in('certStatusMCL').val(), 
+				certStatusSL: this._in('certStatusSL').val()
 
 			
 			};

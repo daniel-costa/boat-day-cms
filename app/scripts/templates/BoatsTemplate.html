@@ -10,18 +10,24 @@
 					<input type="text" class="searchFilter form-control" name="searchobjectId">
 				</th>
 				<th>
-					Build
+					Name
 				</th>
 				<th>
 					Hull Id
 				</th>
 				<th>
-					Name
+					Build
 					<input type="text" class="searchFilter form-control" name="searchName">
 				</th>
 				<th>
 					Status
-					<input type="text" class="searchFilter form-control" name="searchStatus">
+					<!-- <input type="text" class="searchFilter form-control" name="searchStatus"> -->
+					<select class="searchFilter form-control" name="searchStatus">
+						<option value ="" selected>Select one</option>
+						<option value="creation">Creation</option> 
+						<option value="editing">Editing</option>
+						<option value="complete">Complete</option>
+					</select>
 				</th>
 				<th>
 					Boat type

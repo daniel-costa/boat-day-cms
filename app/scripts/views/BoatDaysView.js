@@ -32,9 +32,6 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
-			// query.include('host');
-			// query.include('boat');
-			// query.include('captain');
 
 			var tpl = _.template(BoatDaysRowTemplate);
 

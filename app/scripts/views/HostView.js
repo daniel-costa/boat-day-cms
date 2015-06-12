@@ -10,7 +10,30 @@ define([
 
 		events : {
 
-			"submit form" : "update"
+			"submit form" : "update", 
+			"change .upload": "uploadBgScreen", 
+			"click .btn-upload": "clickUpload"
+		},
+
+		uploadBgScreen: function(event) {
+
+			var cb = function(file) {
+				
+				var parent = $(event.currentTarget).closest('div');
+				var preview = parent.find('.preview');
+
+				if( preview.length == 1 ) {
+					preview.attr('href', file.url());
+
+				} else {
+					
+					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');
+					parent.append($('<p>').append(link));	
+				}
+
+			}
+
+			this.uploadFile(event, cb);
 		},
 
 		render: function() {
@@ -24,6 +47,7 @@ define([
 		update: function(event) {
 			
 			event.preventDefault();
+			var self = this;
 
 			var data = {
 
@@ -33,6 +57,8 @@ define([
 				accountRouting: this._in('accountRout').val(), 
 				accountNumber: this._in('accountNum').val(), 
 				//birthdate: this._in('birthDate').val(), 
+				validationText: this._in('validationText').val(), 
+				validationTextInternal: this._in('validationTextInternal').val(), 
 				city: this._in('city').val(),
 				firstname: this._in('firstname').val(), 
 				lastname: this._in('lastname').val(), 
@@ -47,7 +73,8 @@ define([
 				certStatusFAC: this._in('certStatusFAC').val(), 
 				certStatusFL: this._in('certStatusFL').val(), 
 				certStatusMCL: this._in('certStatusMCL').val(), 
-				certStatusSL: this._in('certStatusSL').val()
+				certStatusSL: this._in('certStatusSL').val(), 
+				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
 
 			
 			};

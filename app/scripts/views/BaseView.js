@@ -10,6 +10,8 @@ define([
 
 		debug: true,
 
+		tempBinaries: { },
+	
 		topNav: _.template(NavigationTopTemplate),
 
 		__ANIMATION_ENDS__: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
@@ -185,6 +187,87 @@ define([
 			this.$el.find('.has-error').removeClass('has-error has-feedback');
 			this.$el.find('.field-error-flag').popover('hide').unbind('focus mouseenter mouseleave hover blur');
 
+		},
+
+		clickUpload: function(event) {
+
+			this.$el.find('input[name="'+$(event.currentTarget).attr('for')+'"]').click();
+			
+		},
+
+		uploadFile: function(event, cb, opts) {
+
+			if( typeof opts === "undefined" ) {
+				opts = {};
+			}
+
+			var _opts = {
+				png: typeof opts.png === "undefined" || opts.png,
+				jpg: typeof opts.jpg === "undefined" || opts.jpg,
+				pdf: typeof opts.pdf === "undefined" || opts.pdf
+			};
+
+			var self = this;
+			var files = event.target.files;
+			var parseFile = null;
+			var fieldName = $(event.currentTarget).attr('name');
+			var btn = self.$el.find('.btn[for="'+fieldName+'"]');
+			
+			self.cleanForm();
+			self.buttonLoader('Uploading');
+
+			if( btn.length === 1 ) {
+
+				self.buttonLoader('Uploading', btn);
+
+			}
+
+			if( files.length == 1) {
+
+				if( _opts.png && files[0].type == 'image/png' ) {
+					
+					parseFile = new Parse.File(fieldName+'.png', files[0]);
+
+				} else if( _opts.jpg && files[0].type == 'image/jpeg' ) {
+
+					parseFile = new Parse.File(fieldName+'.jpg', files[0]);
+
+				} else if( _opts.pdf && files[0].type == 'application/pdf') {
+
+					parseFile = new Parse.File(fieldName+'.pdf', files[0]);
+
+				} else {
+
+					var formats = "";
+					formats += _opts.png ? ' PNG' : '';
+					formats += _opts.jpg ? ' JPEG' : '';
+					formats += _opts.pdf ? ' PDF' : '';
+					self.fieldError(fieldName, 'Bad format. Supported formats:'+formats);
+					self.buttonLoader();
+					$(event.target).val('');
+					return null;
+
+				}
+
+				var uploadSuccess = function(file) {
+					
+					self.tempBinaries[fieldName] = file;
+					cb(file);
+					$(event.target).val('');
+					self.buttonLoader();
+
+				};
+
+				var uploadError = function(error) {
+
+					self.fieldError(fieldName, 'An error occured when we tried to upload your picture, try again please.');
+					self.buttonLoader();
+
+				};
+				
+				parseFile.save().then(uploadSuccess, uploadError);
+
+			}
 		},
 
 		buttonLoader: function( text, button ) {

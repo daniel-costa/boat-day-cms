@@ -15,11 +15,6 @@ define([
 			"keyup .searchFilter": "watchForReturn"
 		},
 
-
-		initialize: function() {
-
-		},
-
 		render: function() {
 
 			BaseView.prototype.render.call(this);
@@ -65,8 +60,7 @@ define([
 			var cbSuccess = function(boatdays) {
 
 				_.each(boatdays, function(boatday) {
-					console.log(boatday.length);
-
+					
 					var host = boatday.get('host');
 					var boat = boatday.get('boat');
 					var captain = boatday.get('captain');

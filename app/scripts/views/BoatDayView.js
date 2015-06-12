@@ -22,7 +22,6 @@ define([
 				bookingPolicy: this.$el.find('[name="bookingPolicy"]:checked').val(), 
 				cancellationPolicy: this.$el.find('[name="cancellationPolicy"]:checked').val(), 
 				category: this._in('category').val(), 
-				//date: this._in('date').val(), 
 				//date: this._in('date').datepicker('getDate'),
 				departureTime: parseInt(this._in('departureTime').val()), 
 				description: this._in('description').val(), 

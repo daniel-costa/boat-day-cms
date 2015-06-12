@@ -71,6 +71,31 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="validationText" class="col-sm-2 control-label">Validation text</label>
+							<div class="col-sm-8">
+								<textarea rows="5" name="validationText" id="validationText" class="form-control"> <%= validationText %></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="validationTextInternal" class="col-sm-2 control-label">Validation Internal Text</label>
+							<div class="col-sm-8">
+								<textarea rows="5" name="validationTextInternal" id="validationTextInternal" class="form-control"><%= validationTextInternal %></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="bgCheck" class="col-sm-2 control-label">Bg Check</label>
+							<div class="col-sm-8">
+								<input value="" type="file" class="upload" id="bgCheck" name="bgCheck" delegate-error-to-button>
+								<button type="button" class="btn btn-default btn-block btn-lg btn-upload" for="bgCheck">Bg Check</button>
+							</div>
+							<% if( bgCheck ) { %>
+								<div class="col-sm-4 col-sm-offset-2">
+									<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
+								</div>
+							<% } %>
+
+						</div>
+						<div class="form-group">
 							<label for="phone" class="col-sm-2 control-label">Phone</label>
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="phone" name="phone" value="<%= phone %>">

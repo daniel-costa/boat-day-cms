@@ -1,8 +1,13 @@
-<div class="row file">
-	<div class="cell col-sm-18">
-		<%= email %>
-	</div>
-	<div class="cell col-sm-12 text-right">
-		<%= status %>
-	</div>
+
+<div class="col-sm-4">
+	<%= email %>
+</div>
+
+<div class="col-sm-6 text-right">
+	<%= status %>
+	<!-- <select class="col-sm-15 form-control" name="status">
+		<option value="pending" <%= status && status == "pending" ? 'selected' : '' %>>Pending</option>
+		<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
+		<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+	</select> -->
 </div>

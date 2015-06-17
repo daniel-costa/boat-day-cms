@@ -17,3 +17,8 @@
 - [Done]delete captains page (useless because it's a profile)
 - [Done]Add certifications to the host page
 - [Done]boatday page: add link to boat, host, to the captain's profile
+
+- Send email when sending a notification, add function in parse cloud to send an email & notifiation at same time.
+
+
+- !!!!!!!! It's fucking not workin !!! You removed the date picker from bower.json without taking it from your code. AMATEUR AMATEUR WORK.

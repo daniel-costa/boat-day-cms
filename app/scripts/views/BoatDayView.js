@@ -12,6 +12,22 @@ define([
 			"submit form" : "update", 
 		},
 
+		render: function() {
+			BaseView.prototype.render.call(this);
+
+			this.$el.find('.date').datepicker({
+				startDate: '0d',
+				autoclose: true
+			});
+			if( this.model.get('date') ) {
+				console.log(this.model.get('date'));
+				this.$el.find('.date').datepicker('setDate', this.model.get('date'));
+
+			}
+			return this;
+
+		}, 
+
 		update: function(event) {
 			
 			event.preventDefault();
@@ -22,7 +38,7 @@ define([
 				bookingPolicy: this.$el.find('[name="bookingPolicy"]:checked').val(), 
 				cancellationPolicy: this.$el.find('[name="cancellationPolicy"]:checked').val(), 
 				category: this._in('category').val(), 
-				//date: this._in('date').datepicker('getDate'),
+				date: this._in('date').datepicker('getDate'),
 				departureTime: parseInt(this._in('departureTime').val()), 
 				description: this._in('description').val(), 
 				duration: parseInt(this._in('duration').val()), 

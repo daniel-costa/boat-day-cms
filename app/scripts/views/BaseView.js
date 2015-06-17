@@ -272,19 +272,15 @@ define([
 
 		buttonLoader: function( text, button ) {
 
-			if( !button ) {
-			
-				var button = this.$el.find('[type="submit"]');
-
-			}
-
 			if( text ) {
+
+				if( !button ) var button = this.$el.find('[type="submit"]');
 
 				button.attr('data-loading-text', text).button('loading');
 
 			} else {
 
-				button.button('reset');
+				this.$el.find('[data-loading-text]').button('reset');
 
 			}
 		},

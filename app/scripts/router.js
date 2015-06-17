@@ -8,8 +8,9 @@ define([
 	'views/ProfilesView', 
 	'views/ProfileView',
 	'views/BoatsView', 
-	'views/BoatView'
-], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView) {
+	'views/BoatView', 
+	'views/SendNotificationView'
+], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -24,6 +25,7 @@ define([
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
+			'notification': 'showNotificationView', 
 			'*actions': 'showDashboardView'
 		},
 
@@ -42,12 +44,13 @@ define([
 
 		showBoatDaysView: function() {
 			
-			var self = this;
-			var cb = function() {
-				self.render(new BoatDaysView());
-			};
+			// var self = this;
+			// var cb = function() {
+			// 	self.render(new BoatDaysView());
+			// };
 
-			self.handleAdminAndSignUp(cb);
+			// self.handleAdminAndSignUp(cb);
+			this.render(new BoatDaysView());
 
 		}, 
 
@@ -59,82 +62,119 @@ define([
 
 		showProfilesView: function() {
 			
-			var self = this;
-			var cb = function() {
+			// var self = this;
+			// var cb = function() {
 				
-				self.render(new ProfilesView());
+			// 	self.render(new ProfilesView());
 
-			};
+			// };
 
-			self.handleAdminAndSignUp(cb);
+			// self.handleAdminAndSignUp(cb);
+			this.render(new ProfilesView());
 
 		},
 
 		showBoatsView: function() {
 
-			var self = this;
-			var cb = function() {
+			// var self = this;
+			// var cb = function() {
 				
-				self.render(new BoatsView());
+			// 	self.render(new BoatsView());
 
-			};
+			// };
 
-			self.handleAdminAndSignUp(cb);
-
+			// self.handleAdminAndSignUp(cb);
+			this.render(new BoatsView());
 		},
+
+		// showNotificationView: function() {
+
+		// 	this.render(new SendNotificationView());
+		// }, 
+
+		showNotificationView: function() {
+
+			//var notification = new NotificationModel({ host: Parse.User.current().get('host') });
+			var NotificationModel = Parse.Object.extend('Notification');
+			this.render(new SendNotificationView({ model: new NotificationModel() }));
+
+			//new Parse.Query(Parse.Object.extend('Notification')).then(notificationQuerySuccess);
+		}, 
 
 		showProfileView: function( profileid ) {
 			
 			var self = this;
+			var profileQuerySuccess = function( profile ) {
 
-			var cb = function() {
-
-				var profileQuerySuccess = function( profile ) {
-
-					self.render(new ProfileView({ model: profile }));
-
-				};
-
-				new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(profileQuerySuccess);
+				self.render(new ProfileView({ model: profile }));
 
 			};
 
-			this.handleAdminAndSignUp(cb);
+			new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(profileQuerySuccess);
+
+
+			// var cb = function() {
+
+			// 	var profileQuerySuccess = function( profile ) {
+
+			// 		self.render(new ProfileView({ model: profile }));
+
+			// 	};
+
+			// 	new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(profileQuerySuccess);
+
+			// };
+
+			// this.handleAdminAndSignUp(cb);
 
 		},
 
 		showHostView: function( hostid ) {
-
 			var self = this;
-			var cb = function() {
-
-				var hostQuerySuccess = function( host ) {
+			var hostQuerySuccess = function( host ) {
 
 					self.render(new HostView({ model: host }));
 
-				};
-
-				new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostQuerySuccess);
 			};
 
-			this.handleAdminAndSignUp(cb);
+			new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostQuerySuccess);
+
+			// var self = this;
+			// var cb = function() {
+
+			// 	var hostQuerySuccess = function( host ) {
+
+			// 		self.render(new HostView({ model: host }));
+
+			// 	};
+
+			// 	new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostQuerySuccess);
+			// };
+
+			// this.handleAdminAndSignUp(cb);
 
 		},
 
 		showBoatDayView: function( boatdayid ) {
 
 			var self = this;
-			var cb = function() {
+			var boatdayQuerySuccess = function( boatday ) {
 
-				var boatdayQuerySuccess = function( boatday ) {
-
-					self.render(new BoatDayView({ model: boatday }));
-				};
-
-				new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
+				self.render(new BoatDayView({ model: boatday }));
 			};
 
-			this.handleAdminAndSignUp(cb);
+			new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
+			// var cb = function() {
+
+			// 	var boatdayQuerySuccess = function( boatday ) {
+
+			// 		self.render(new BoatDayView({ model: boatday }));
+			// 	};
+
+			// 	new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
+			// };
+
+			// this.handleAdminAndSignUp(cb);
 
 		},
 
@@ -142,31 +182,36 @@ define([
 
 			var self = this;
 
-			var cb = function() {
+			var boatQuerySuccess = function( boat ) {
 
-				var boatQuerySuccess = function( boat ) {
-
-					self.render(new BoatView({ model: boat }));
-				};
-
-				new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
-
+				self.render(new BoatView({ model: boat }));
 			};
+			new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
+			// var cb = function() {
 
-			this.handleAdminAndSignUp(cb);
+			// 	var boatQuerySuccess = function( boat ) {
+
+			// 		self.render(new BoatView({ model: boat }));
+			// 	};
+
+			// 	new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
+
+			// };
+
+			// this.handleAdminAndSignUp(cb);
 
 		},
 
 		showDashboardView: function() {
-			
-			var self = this;
-			var cb = function() {
+			this.render(new DashboardView());
+			// var self = this;
+			// var cb = function() {
 				
-				self.render(new DashboardView());
+			// 	self.render(new DashboardView());
 
-			};
+			// };
 
-			this.handleAdminAndSignUp(cb);
+			// this.handleAdminAndSignUp(cb);
 
 		},
 

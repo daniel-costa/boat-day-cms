@@ -34,20 +34,23 @@ define([
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
-			if( this._in("searchavailableSeats").val() != "" ) {
-				query.contains("availableSeats", this._in("searchavailableSeats").val());
+			if( this._in("searchavailableSeats").val() != "") {
+				query.equalTo("availableSeats", parseInt(this._in("searchavailableSeats").val()));
 			}
 
 			if( this._in("searchDepartureTime").val() != "" ) {
-				query.contains("departureTime", this._in("searchDepartureTime").val());
+				query.equalTo("departureTime", parseInt(this._in("searchDepartureTime").val()));
 			}
 
 			if( this._in("searchName").val() != "" ) {
 				query.contains("name", this._in("searchName").val());
 			}
 
-			if( this._in("searchPrice").val() != "" ) {
-				query.contains("price", this._in("searchPrice").val());
+			if( this._in("searchPriceMin").val() != "" ) {
+				query.greaterThanOrEqualTo("price", parseFloat(this._in("searchPriceMin").val()));
+			}
+			if( this._in("searchPriceMax").val() != "" ) {
+				query.lessThanOrEqualTo("price", parseFloat(this._in("searchPriceMax").val()));
 			}
 
 			if( this._in("searchStatus").val() != "" ) {

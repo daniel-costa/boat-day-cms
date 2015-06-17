@@ -15,6 +15,14 @@ define([
 			"click .btn-upload": "clickUpload"
 		},
 
+		initialize: function() {
+
+			if( this.model.get("bgCheck") ) {
+				this.tempBinaries.bgCheck = this.model.get("bgCheck");
+			}
+			
+		},
+
 		uploadBgScreen: function(event) {
 
 			var cb = function(file) {
@@ -39,7 +47,6 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			
 			return this;
 
 		},
@@ -74,8 +81,7 @@ define([
 				certStatusFL: this._in('certStatusFL').val(), 
 				certStatusMCL: this._in('certStatusMCL').val(), 
 				certStatusSL: this._in('certStatusSL').val(), 
-				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
-
+				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null
 			
 			};
 			

@@ -1,18 +1,27 @@
 define([
 'views/BaseView',
+'models/FileHolderModel',
 'text!templates/BoatTemplate.html', 
 'text!templates/BoatPictureTemplate.html',
-'text!templates/BoatCaptainTemplate.html'
-], function(BaseView, BoatTemplate, BoatPictureTemplate, BoatCaptainTemplate){
+'text!templates/BoatCaptainTemplate.html', 
+'text!templates/BoatInsuranceTemplate.html'
+], function(BaseView, FileHolderModel, BoatTemplate, BoatPictureTemplate, BoatCaptainTemplate, BoatInsuranceTemplate){
 	var BoatView = BaseView.extend({
 
 		className: "view-boat-update",
 		
 		template: _.template(BoatTemplate),
 
+		boatPictures: {},
+		
+		proofOfInsurance: {},
+
 		events : {
 
-			"submit form" : "update"
+			"submit form" : "update",
+			"change .upload": "uploadNewFile",
+			"click .btn-upload": "clickUpload",
+			"click .delete-picture": 'deleteBoatPicture'
 		}, 
 
 		render: function() {
@@ -20,6 +29,7 @@ define([
 			BaseView.prototype.render.call(this);
 			this.displayBoatPictures();
 			this.displayCaptains();
+			this.displayInsuranceFiles();
 			return this;
 
 		},
@@ -37,7 +47,6 @@ define([
 				length: parseInt(this._in('length').val()),
 				capacity: parseInt(this._in('capacity').val()),
 				type: this._in('type').val(),
-				boatValidation: this._in('boatValidation').val(),
 				features: {
 					airConditioning: Boolean(this._in('featureAirConditioning').is(':checked')),
 					autopilot: Boolean(this._in('featureAutopilot').is(':checked')),
@@ -60,7 +69,7 @@ define([
 					tvDvd: Boolean(this._in('featureTvDvd').is(':checked')),
 					trollingMotor: Boolean(this._in('featureTrollingMotor').is(':checked')),
 					wakeboardTower: Boolean(this._in('featureWakeboardTower').is(':checked'))
-				}
+				}, 
 			};	
 
 			var boatUpdateSuccess = function( boat ) {
@@ -96,6 +105,17 @@ define([
 			this.boatPictures[FileHolder.id] = FileHolder;
 		},
 
+		deleteBoatPicture: function(event) {
+
+			event.preventDefault();
+			var id = $(event.currentTarget).attr('file-id');
+			this.model.relation('boatPictures').remove(this.boatPictures[id]);
+			this.model.save();
+			delete this.boatPictures[id];
+			$(event.currentTarget).closest('.boat-picture').remove();
+
+		},
+
 		displayCaptains: function() {
 			
 			var self = this;
@@ -120,7 +140,64 @@ define([
 				status: CaptainRequest.get('status')
 			}));
 
-		}
+		}, 
+
+
+		displayInsuranceFiles: function() {
+			
+			var self = this;
+
+			self.$el.find('.insurance-files').html('');
+			
+			self.proofOfInsurance = {};
+
+			var query = self.model.relation('proofOfInsurance').query();
+			query.ascending("createdAt");
+			query.find().then(function(matches) {
+				_.each(matches, self.appendInsurance, self);
+			});
+		},
+
+		appendInsurance: function(FileHolder) {
+
+			this.$el.find('.insurance-files').append(_.template(BoatInsuranceTemplate)({ 
+				id: FileHolder.id,
+				file: FileHolder.get('file')
+			}));
+
+			this.proofOfInsurance[FileHolder.id] = FileHolder;
+
+		},
+
+		uploadNewFile: function (event) {
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var opts = {};
+			var cb = null;
+
+			if( e.attr('name') == 'boat-picture' ) {
+				cb = function(file) {
+					new FileHolderModel({ file: file }).save().then(function(fh) {
+						self.appendBoatPicture(fh);
+						self.model.relation('boatPictures').add(fh);
+						self.model.save();
+					});
+				};
+				opts.pdf = false;
+			} else {
+				cb = function(file) {
+					new FileHolderModel({ file: file }).save().then(function(fh) {
+						self.appendInsurance(fh);
+						self.model.relation('proofOfInsurance').add(fh);
+						self.model.save();
+					});
+				};
+			}
+
+			this.uploadFile(event, cb, opts);
+
+		},
 	
 	});
 	return BoatView;

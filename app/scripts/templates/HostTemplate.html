@@ -82,6 +82,9 @@
 								<div class="col-sm-4 col-sm-offset-2">
 									<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
 								</div>
+								<div class="col-sm-4 col-sm-offset-2 uploadedTime">
+									
+								</div>
 							<% } %>
 
 						</div>
@@ -221,11 +224,11 @@
 									<div class="col-sm-4">
 										<a href="<%= certBSC.url %>" target="_blank">Boater Safety Course</a>
 									</div>
-									<div class="col-sm-4">
-										<select class="col-sm-15 form-control" name="certStatusBSC">
+									<div class="col-sm-2">
+										<select class="form-control" name="certStatusBSC">
 											<option value="pending" <%= certStatusBSC && certStatusBSC == "pending" ? 'selected' : '' %>>Pending</option>
-											<option value="approved" <%= certStatusBSC && certStatusBSC == "approved" ? 'selected' : '' %>>Approved</option>
-											<option value="denied" <%= certStatusBSC && certStatusBSC == "denied" ? 'selected' : '' %>>Denied</option>
+											<option value="accepted" <%= certStatusBSC && certStatusBSC == "accepted" ? 'selected' : '' %>>Accept</option>
+											<option value="denied" <%= certStatusBSC && certStatusBSC == "denied" ? 'selected' : '' %>>Deny</option>
 										</select>
 									</div>
 									<% } else { %>
@@ -241,16 +244,16 @@
 									<div class="col-sm-4">
 										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</em></a>
 									</div>
-									<div class="col-sm-24">
-										<select class="col-sm-15 form-control" name="certStatusCCL">
+									<div class="col-sm-2">
+										<select class="form-control" name="certStatusCCL">
 											<option value="pending" <%= certStatusCCL && certStatusCCL == "pending" ? 'selected' : '' %>>Pending</option>
-											<option value="approved" <%= certStatusCCL && certStatusCCL == "approved" ? 'selected' : '' %>>Approved</option>
-											<option value="denied" <%= certStatusCCL && certStatusCCL == "denied" ? 'selected' : '' %>>Denied</option>
+											<option value="accepted" <%= certStatusCCL && certStatusCCL == "accepted" ? 'selected' : '' %>>Accept</option>
+											<option value="denied" <%= certStatusCCL && certStatusCCL == "denied" ? 'selected' : '' %>>Deny</option>
 										</select>
 									</div>
-									<div class="col-sm-4">
+									<!-- <div class="col-sm-2">
 										<button type="submit" class="btn btn-primary">Send notification</button>
-									</div>
+									</div> -->
 									<% } else { %>
 										No charterboat captain available
 									<% } %>
@@ -264,11 +267,11 @@
 									<div class="col-sm-4">
 										<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
 									</div>
-									<div class="col-sm-4">
-										<select class="col-sm-15 form-control" name="certStatusMCL">
+									<div class="col-sm-2">
+										<select class="form-control" name="certStatusMCL">
 											<option value="pending" <%= certStatusMCL && certStatusMCL == "pending" ? 'selected' : '' %>>Pending</option>
-											<option value="approved" <%= certStatusMCL && certStatusMCL == "approved" ? 'selected' : '' %>>Approved</option>
-											<option value="denied" <%= certStatusMCL && certStatusMCL == "denied" ? 'selected' : '' %>>Denied</option>
+											<option value="accepted" <%= certStatusMCL && certStatusMCL == "accepted" ? 'selected' : '' %>>Accept</option>
+											<option value="denied" <%= certStatusMCL && certStatusMCL == "denied" ? 'selected' : '' %>>Deny</option>
 										</select>
 									</div>
 
@@ -285,11 +288,11 @@
 										<div class="col-sm-4">
 											<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
 										</div>
-										<div class="col-sm-4">
-											<select class="col-sm-15 form-control" name="certStatusFL">
+										<div class="col-sm-2">
+											<select class="form-control" name="certStatusFL">
 												<option value="pending"  <%= certStatusFL && certStatusFL == "pending" ? 'selected' : '' %>>Pending</option>
-												<option value="approved"  <%= certStatusFL && certStatusFL == "approved" ? 'selected' : '' %>>Approved</option>
-												<option value="denied"  <%= certStatusFL && certStatusFL == "denied" ? 'selected' : '' %>>Denied</option>
+												<option value="accepted"  <%= certStatusFL && certStatusFL == "accepted" ? 'selected' : '' %>>Accept</option>
+												<option value="denied"  <%= certStatusFL && certStatusFL == "denied" ? 'selected' : '' %>>Deny</option>
 											</select>
 										</div>
 									<% } else { %>
@@ -305,11 +308,11 @@
 									<div class="col-sm-4">
 										<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
 									</div>
-									<div class="col-sm-4">
-										<select class="col-sm-15 form-control" name="certStatusSL">
+									<div class="col-sm-2">
+										<select class="form-control" name="certStatusSL">
 											<option value="pending" <%= certStatusSL && certStatusSL == "pending" ? 'selected' : '' %>>Pending</option>
-											<option value="approved" <%= certStatusSL && certStatusSL == "approved" ? 'selected' : '' %>>Approved</option>
-											<option value="denied" <%= certStatusSL && certStatusSL == "denied" ? 'selected' : '' %>>Denied</option>
+											<option value="accepted" <%= certStatusSL && certStatusSL == "accepted" ? 'selected' : '' %>>Accept</option>
+											<option value="denied" <%= certStatusSL && certStatusSL == "denied" ? 'selected' : '' %>>Deny</option>
 										</select>
 									</div>
 									<% } else { %>
@@ -325,11 +328,11 @@
 									<div class="col-sm-4">
 										<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
 									</div>
-									<div class="col-sm-4">
-										<select class="col-sm-15 form-control" name="certStatusFAC">
+									<div class="col-sm-2">
+										<select class="form-control" name="certStatusFAC">
 											<option value="pending" <%= certStatusFAC && certStatusFAC == "pending" ? 'selected' : '' %>>Pending</option>
-											<option value="approved" <%= certStatusFAC && certStatusFAC == "approved" ? 'selected' : '' %>>Approved</option>
-											<option value="denied" <%= certStatusFAC && certStatusFAC == "denied" ? 'selected' : '' %>>Denied</option>
+											<option value="accepted" <%= certStatusFAC && certStatusFAC == "accepted" ? 'selected' : '' %>>Accept</option>
+											<option value="denied" <%= certStatusFAC && certStatusFAC == "denied" ? 'selected' : '' %>>Deny</option>
 										</select>
 									</div>
 									<% } else { %>

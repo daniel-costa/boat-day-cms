@@ -38,6 +38,29 @@ define([
 				query.contains("name", this._in("searchName").val());
 			}
 
+			if( this._in("searchBuildYear").val() != "" ) {
+				query.equalTo("buildYear", parseInt(this._in("searchBuildYear").val()));
+			}
+
+			if( this._in("searchbelow15").val() != "" ) {
+				query.lessThan("length", 15);
+			}
+
+			if( this._in("searchbetween15-30").val() != "" ) {
+				query.greaterThan("length", 15);
+				query.lessThan("length", 30);
+			}
+
+			if( this._in("searchbetween30-45").val() != "" ) {
+				query.greaterThan("length", 30);
+				query.lessThan("length", 45);
+			}
+
+			if( this._in("searchabove45").val() != "" ) {
+				query.greaterThan("length", 45);
+			}
+			
+
 			if( this._in("searchStatus").val() != "" ) {
 				query.contains("status", this._in("searchStatus").val());
 			}
@@ -57,6 +80,7 @@ define([
 					var data = {
 						id: boat.id,
 						build: boat.get('buildYear'), 
+						length: boat.get('length'),
 						hullId: boat.get('hullID'), 
 						name: boat.get('name'), 
 						status: boat.get('status'), 

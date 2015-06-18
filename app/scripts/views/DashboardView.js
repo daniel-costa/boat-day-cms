@@ -17,6 +17,11 @@ define([
 			this.renderUpcomingEvents();
 			this.renderGoneEvents();
 			this.renderBoatdaysNumber();
+			this.renderBoatDaysLeisure();
+			this.renderBoatDaysFishing();
+			this.renderBoatDaysSport();
+			this.renderBoatDaysSailing();
+			this.renderHostsNumber();
 			return this;
 
 		},
@@ -94,6 +99,78 @@ define([
 			});
 		},
 
+		renderBoatDaysLeisure: function() {
+
+			var boatDays = Parse.Object.extend("BoatDay");
+			var query = new Parse.Query(boatDays);
+			query.greaterThan("date", new Date());
+			query.equalTo("category", "leisure");
+
+			query.find({
+
+				success: function(results) {
+
+					var upcomingLeisure = results.length;
+					$('#leisureNumber').html(upcomingLeisure);
+				}
+			});
+
+		},
+
+		renderBoatDaysFishing: function() {
+
+			var boatDays = Parse.Object.extend("BoatDay");
+			var query = new Parse.Query(boatDays);
+			query.greaterThan("date", new Date());
+			query.equalTo("category", "fishing");
+
+			query.find({
+
+				success: function(results) {
+
+					var upcomingFishing = results.length;
+					$('#fishingNumber').html(upcomingFishing);
+				}
+			});
+
+		},
+
+		renderBoatDaysSport: function() {
+
+			var boatDays = Parse.Object.extend("BoatDay");
+			var query = new Parse.Query(boatDays);
+			query.greaterThan("date", new Date());
+			query.equalTo("category", "sports");
+
+			query.find({
+
+				success: function(results) {
+
+					var upcomingSports = results.length;
+					$('#sportNumber').html(upcomingSports);
+				}
+			});
+
+		},
+
+		renderBoatDaysSailing: function() {
+
+			var boatDays = Parse.Object.extend("BoatDay");
+			var query = new Parse.Query(boatDays);
+			query.greaterThan("date", new Date());
+			query.equalTo("category", "sailing");
+
+			query.find({
+
+				success: function(results) {
+
+					var upcomingSailing = results.length;
+					$('#sailingNumber').html(upcomingSailing);
+				}
+			});
+
+		},
+
 		renderStatistics: function() {
 
 			var boats = Parse.Object.extend("Boat");
@@ -160,8 +237,22 @@ define([
 				}
 
 			});
+		}, 
 
+		renderHostsNumber: function() {
 
+			var hosts = Parse.Object.extend("Host");
+			var query = new Parse.Query(hosts);
+
+			query.find({
+
+				success: function(results) {
+
+					var hostsNumber = results.length;
+					$('#hostsNumber').html(hostsNumber);
+				}
+
+			});
 		}
 
 

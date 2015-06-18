@@ -32,7 +32,6 @@ define([
 
 				if( preview.length == 1 ) {
 					preview.attr('href', file.url());
-
 				} else {
 					
 					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');

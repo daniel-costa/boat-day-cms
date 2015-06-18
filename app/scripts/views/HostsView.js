@@ -66,7 +66,7 @@ define([
 					var data = {
 						id: host.id, 
 						ssn: host.get('SSN'), 
-						birthdate: host.get('birthdate'), 
+						birthdate: host.get('birthdate').toUTCString().substring(0, 16), 
 						firstname: host.get('firstname'),
 						lastname: host.get('lastname'),
 						phone: host.get('phone'), 

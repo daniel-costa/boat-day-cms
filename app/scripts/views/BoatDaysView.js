@@ -71,9 +71,10 @@ define([
 					var data = {
 						id: boatday.id, 
 						availableSeats: boatday.get('availableSeats'), 
-						date: boatday.get('date'), 
+						date: boatday.get('date').toUTCString().substring(0, 16), 
 						departureTime: boatday.get('departureTime'), 
-						name: boatday.get('name'), 
+						name: boatday.get('name'),
+						category: boatday.get('category'),
 						price: boatday.get('price'), 
 						status: boatday.get('status'), 
 						hostId: host.id ? host.id : null, 

@@ -7,48 +7,71 @@
 		<a href="#/boats" class="btn btn-primary">List of Boats</a>
 		<a href="#/notification" class="btn btn-primary">Send notification</a>
 		<a href="#/sign-out" class="btn btn-primary">Log out</a>
-		<div class="col-xs-12 col-md-10 col-lg-8 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-2">
-			<div class="row">
-				<div class="col-sm-4">
-				  <h5>Boats with complete status</h5>
-				  <ul class="list-group" id="boats-status-complete"></ul>
-				</div>
-				<div class="col-sm-4">
-				  <h5>Boats with editing status</h5>
-				  <ul class="list-group" id="boats-status-editing"></ul>
-				</div>
-				<div class="col-sm-4">
-				  <h5>Table with statics</h5>  
-				  <table class="table table-bordered">
-					  <tr>
-						<td>Total amount of boats</td>
-						<td id="boatsNumber"></td>
-					  </tr>
-					  <tr>
-						<td>Total amount of boats in editing status</td>
-						<td id="boatsEditingStatus"></td>
-					  </tr>
-					  <tr>
-						<td>Total amount of boats in complete status</td>
-						<td id="boatsCompleteStatus"></td>
-					  </tr>
-					  <tr>
-						<td>Total amount of boat days</td>
-						<td id="boatdaysNumber"></td>
-					  </tr>
-					  <tr>
-						<td>Total amount of boat days in the past</td>
-						<td id="boatdaysPast"></td>
-					  </tr>
-					  <tr>
-						<td>Total amount of boat days in the future</td>
-						<td id="boatdaysFuture"></td>
-					  </tr>
-				  </table>		
-				</div>
-		  	</div>
-
-		</div>
+		
+		<div class="row">
+			<div class="col-sm-4">
+			  <h5>Boats with complete status</h5>
+			  <ul class="list-group" id="boats-status-complete"></ul>
+			</div>
+			<div class="col-sm-4">
+			  <h5>Boats with editing status</h5>
+			  <ul class="list-group" id="boats-status-editing"></ul>
+			</div>
+			<div class="col-sm-4">
+			  <h5>Table with statistics</h5>  
+			  <table class="table table-bordered">
+				  <tr>
+					<td>Total amount of boats</td>
+					<td id="boatsNumber"></td>
+				  </tr>
+				  <tr>
+					<td>Total amount of boats in editing status</td>
+					<td id="boatsEditingStatus"></td>
+				  </tr>
+				  <tr>
+					<td>Total amount of boats in complete status</td>
+					<td id="boatsCompleteStatus"></td>
+				  </tr>
+				  <tr>
+					<td>Total amount of boat days</td>
+					<td id="boatdaysNumber"></td>
+				  </tr>
+				  <tr>
+					<td>Total amount of boat days in the past</td>
+					<td id="boatdaysPast"></td>
+				  </tr>
+				  <tr>
+					<td>Total amount of boat days in the future</td>
+					<td id="boatdaysFuture"></td>
+				  </tr>
+				  <tr>
+					<td>Total Hosts</td>
+					<td id="hostsNumber"></td>
+				  </tr>
+			  </table>		
+			</div>
+			<div class="col-sm-4">
+				<h5>Number of upcoming boatdays with categories</h5>
+				<table class="table table-bordered">
+					<tr>
+						<td>Fishing</td>
+						<td id="fishingNumber"></td>
+					</tr>
+					<tr>
+						<td>Watersport</td>
+						<td id="sportNumber"></td>
+					</tr>
+					<tr>
+						<td>Leisure</td>
+						<td id="leisureNumber"></td>
+					</tr>
+					<tr>
+						<td>Sailing</td>
+						<td id="sailingNumber"></td>
+					</tr>
+				</table>
+			</div>
+	  	</div>
 	</div>
 </form>
 

@@ -9,8 +9,14 @@ define([
 		template: _.template(ProfileTemplate),
 
 		events : {
-			"submit form" : "update"
+			"submit form" : "update",
+			"click .delete-picture": 'deleteProfilePicture'
 		},
+
+		deleteProfilePicture: function() {
+
+			alert("hi");
+		}, 
 
 		update: function(event) {
 			

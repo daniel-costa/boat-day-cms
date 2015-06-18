@@ -14,3 +14,15 @@ img.app-loader {
 img.loader {
 	margin : 10px;
 }
+body.theme-dashboard .dashboard-table td:first-child .obj-thumb {
+  width: 90px;
+  height: 60px;
+  background: center center no-repeat;
+  background-size: cover;
+  display: block;
+  margin: auto;
+}
+body.theme-dashboard .dashboard-table td:first-child.profile .obj-thumb {
+  width: 60px;
+  border-radius: 60px;
+}

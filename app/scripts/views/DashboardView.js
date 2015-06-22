@@ -46,7 +46,7 @@ define([
 
 					  	var object = results[i];
 
-						output += '<li class = "list-group-item list-group-item-info">' + object.get('name') + '</li>';
+						output += '<div class="list-group"><a href="#/boat/'+ object.id +'" class="list-group-item active">' + object.get('name') + '</a></div>'
 
 					}
 
@@ -84,7 +84,8 @@ define([
 
 						var object = results[i];
 
-						output += '<li class="list-group-item list-group-item-info">' + object.get('name') + '</li>';
+						// output += '<li class="list-group-item list-group-item-info">' + object.get('name') + '</li>';
+						output += '<div class="list-group"><a href="#/boat/'+ object.id +'" class="list-group-item active">' + object.get('name') + '</a></div>'
 					}
 
 					$('#boats-status-editing').html(output);

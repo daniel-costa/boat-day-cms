@@ -34,12 +34,20 @@ define([
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
-			if( this._in("searchavailableSeats").val() != "") {
-				query.equalTo("availableSeats", parseInt(this._in("searchavailableSeats").val()));
+			if( this._in("searchavailableSeatsMin").val() != "") {
+				query.greaterThanOrEqualTo("availableSeats", parseInt(this._in("searchavailableSeatsMin").val()));
 			}
 
-			if( this._in("searchDepartureTime").val() != "" ) {
-				query.equalTo("departureTime", parseInt(this._in("searchDepartureTime").val()));
+			if( this._in("searchavailableSeatsMax").val() != "") {
+				query.lessThanOrEqualTo("availableSeats", parseInt(this._in("searchavailableSeatsMax").val()));
+			}
+
+			if( this._in("searchDepartureTimeMin").val() != "" ) {
+				query.greaterThanOrEqualTo("departureTime", parseInt(this._in("searchDepartureTimeMin").val()));
+			}
+
+			if( this._in("searchDepartureTimeMax").val() != "" ) {
+				query.lessThanOrEqualTo("departureTime", parseInt(this._in("searchDepartureTimeMax").val()));
 			}
 
 			if( this._in("searchName").val() != "" ) {

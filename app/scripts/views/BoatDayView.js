@@ -19,8 +19,8 @@ define([
 				startDate: '0d',
 				autoclose: true
 			});
+
 			if( this.model.get('date') ) {
-				console.log(this.model.get('date'));
 				this.$el.find('.date').datepicker('setDate', this.model.get('date'));
 
 			}

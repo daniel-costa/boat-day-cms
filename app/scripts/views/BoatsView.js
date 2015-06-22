@@ -38,8 +38,12 @@ define([
 				query.contains("name", this._in("searchName").val());
 			}
 
-			if( this._in("searchBuildYear").val() != "" ) {
-				query.equalTo("buildYear", parseInt(this._in("searchBuildYear").val()));
+			if( this._in("searchBuildYearMin").val() != "" ) {
+				query.greaterThanOrEqualTo("buildYear", parseInt(this._in("searchBuildYearMin").val()));
+			}
+
+			if( this._in("searchBuildYearMax").val() != "" ) {
+				query.lessThanOrEqualTo("buildYear", parseInt(this._in("searchBuildYearMax").val()));
 			}
 
 			if( this._in("searchbelow15").val() != "" ) {

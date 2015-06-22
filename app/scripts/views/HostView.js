@@ -12,7 +12,8 @@ define([
 
 			"submit form" : "update", 
 			"change .upload": "uploadBgScreen", 
-			"click .btn-upload": "clickUpload"
+			"click .btn-upload": "clickUpload", 
+			"click .btn-sendNotification": "validateCertification"
 		},
 
 		initialize: function() {
@@ -21,6 +22,13 @@ define([
 				this.tempBinaries.bgCheck = this.model.get("bgCheck");
 			}
 			
+		},
+
+		render: function() {
+
+			BaseView.prototype.render.call(this);
+
+			return this;
 		},
 
 		uploadBgScreen: function(event) {
@@ -36,6 +44,9 @@ define([
 					
 					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');
 					parent.append($('<p>').append(link));	
+
+					var uploadTime = new Date();
+					parent.append($('<p>').append(uploadTime));
 				}
 
 			}
@@ -43,12 +54,11 @@ define([
 			this.uploadFile(event, cb);
 		},
 
-		render: function() {
+		validateCertification: function(event) {
 
-			BaseView.prototype.render.call(this);
-			return this;
+			alert("Have to be done");
 
-		},
+		}, 
 
 		update: function(event) {
 			
@@ -61,8 +71,8 @@ define([
 				accountHolder: this._in('accountHolder').val(),
 				street: this._in('street').val(),
 				accountRouting: this._in('accountRout').val(), 
-				accountNumber: this._in('accountNum').val(), 
-				//birthdate: this._in('birthDate').val(), 
+				accountNumber: this._in('accountNum').val(),  
+				//birthdate: this._in('birthDate').val(),
 				validationText: this._in('validationText').val(), 
 				validationTextInternal: this._in('validationTextInternal').val(), 
 				city: this._in('city').val(),
@@ -80,6 +90,12 @@ define([
 				certStatusFL: this._in('certStatusFL').val(), 
 				certStatusMCL: this._in('certStatusMCL').val(), 
 				certStatusSL: this._in('certStatusSL').val(), 
+				certResponseBSC: this._in('certResponseBSC').val(), 
+				certResponseCCL: this._in('certResponseCCL').val(), 
+				certResponseMCL: this._in('certResponseMCL').val(), 
+				certResponseFL: this._in('certResponseFL').val(), 
+				certResponseSL: this._in('certResponseSL').val(), 
+				certResponseFAC: this._in('certResponseFAC').val(), 
 				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null
 			
 			};

@@ -43,6 +43,8 @@ define([
 						host: boat.get('host'),
 						profile: boat.get('host').get('profile')
 					}
+					
+					self.$el.find('#boatsComplete').append( tpl(data) );
 
 					self.$el.find('#boatsComplete').html(tpl(data));
 				});
@@ -99,7 +101,8 @@ define([
 					var data = { 
 						host: host,
 						user: host.get('user'),
-						profile: host.get('profile')
+						profile: host.get('profile'), 
+						profileId: host.get('profile').id
 					};
 
 					self.$el.find('#hostsComplete').append( tpl(data) );

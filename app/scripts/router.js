@@ -12,8 +12,8 @@ define([
 	'views/SendNotificationView', 
 	'views/HostValidationView',
 	'views/BoatValidationView', 
-], function(HomeView, DashboardView, BoatDaysView, BoatDayView, 
-	HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView, HostValidationView, BoatValidationView) {
+], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, 
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -25,7 +25,7 @@ define([
 			'host/:hostid': 'showHostView', 
 			'host-validation/:hostid': 'showHostValidationView', 
 			'profiles': 'showProfilesView',
-			'profile/:profileid': 'showProfileView', 
+			'profile/:profileid': 'showProfileView',
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
 			'boat-validation/:boatid': 'showBoatValidationView',
@@ -111,6 +111,20 @@ define([
 			// };
 
 			// this.handleAdminAndSignUp(cb);
+
+		},
+
+		showProfileValidationView: function( profileid ){
+
+			var self = this;
+			
+			var profileValidationQuerySuccess = function( profile ) {
+
+				self.render(new ProfileValidationView({ model: profile }));
+
+			};
+
+			new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(profileValidationQuerySuccess);
 
 		},
 

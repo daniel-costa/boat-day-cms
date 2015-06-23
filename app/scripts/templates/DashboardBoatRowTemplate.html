@@ -1,6 +1,13 @@
 <tr>
-	<td><%= name %></td>
-	<td><%= host %></td>
-	<td><%= hostStatus %></td>
-	<td><a href="#/boat-validation/<%= id %>" class='btn btn-default'>Boat</a></td>
+	<td>
+		<%= host.get('firstname') + " " + host.get('lastname') %>
+		(<%= host.get('status') %>)
+	</td>
+	<td>
+		<%= boat.get('name') %>,
+		<%= boat.get('type') %> from <%= boat.get('buildYear') %>
+	</td>
+	<td>
+		<a href="#/boat-validation/<%= boat.id %>" class='btn btn-success'>Validation</a>
+	</td>
 </tr>

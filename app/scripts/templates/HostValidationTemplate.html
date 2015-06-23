@@ -2,249 +2,217 @@
 <form class="form-horizontal"> 
 	<div class="container"> 
 		<div class="">
-			<div class="panel panel-primary">
-				<div class="panel-heading area-business">
-					<h3 class="panel-title text-center">Validate host</h3>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title text-center">Host, <%= objectId %></h3>
 				</div>
 
 				<div class="panel-body">
 					<div class="col-sm-12">
+						
 						<div class="form-group">
-							<label for="profileId" class="col-sm-2 control-label">Host id</label>
-							<div class="col-sm-8">
-								<%= objectId %>
+							<label for="firstname" class="col-sm-3 control-label">Host</label>
+							<div class="col-sm-6">
+								<%= firstname %> <%= lastname %>, <%= new Date(birthdate.iso).toLocaleDateString() %>, <%= SSN %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
-							<div class="col-sm-8">
-								<%= createdAt %>
+							<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+							<div class="col-sm-6">
+								<%= new Date(createdAt).toLocaleDateString() %> at
+								<%= new Date(createdAt).toLocaleTimeString() %> 
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="firstname" class="col-sm-2 control-label">First name</label>
-							<div class="col-sm-8">
-								<%= firstname %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="lastname" class="col-sm-2 control-label">Last name</label>
-							<div class="col-sm-8">
-								<%= lastname %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ssn" class="col-sm-2 control-label">SSN</label>
-							<div class="col-sm-8">
-								<%= SSN %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="birthDate" class="col-sm-2 control-label">Date of birth</label>
-							<div class="col-sm-8">
-								<%= birthdate.iso %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="bgScreen" class="col-sm-2 control-label">BG screen</label>
-							<div class="col-sm-8">
+							<label for="bgScreen" class="col-sm-3 control-label">BG screen</label>
+							<div class="col-sm-6">
 								<% if( bgCheck ) { %>
-										<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
+										<a href="<%= bgCheck.url %>" target="_blank">Background Screening file</a>
 								<%  } else {%>
-										No BG screen to show.
+										No background screening yet
 								<%  } %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="publicDecision" class="col-sm-2 control-label">Public decision</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="publicDecision" name="publicDecision">
+							<label for="validationText" class="col-sm-3 control-label">Decision</label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= validationText %></textarea>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="internalDecision" class="col-sm-2 control-label">Internal decision</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="internalDecision" name="internalDecision">
+							<label for="validationTextInternal" class="col-sm-3 control-label">Internal</label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= validationTextInternal %></textarea>
 							</div>
 						</div>
+
 					</div>
 				</div>
 
-				<div class="panel-heading area-business">
+				<div class="panel-heading">
 					<h3 class="panel-title text-center">Host Certifications</h3>
 				</div>
 
 				<div class="panel-body">
 					<table class="table table-condensed table-bordered table-striped">
-					<thead>
-						<tr>
-							<th>
-								Certification names
-							</th>
-							<th>
-								Certifications
-							</th>
-							<th>
-								Status
-							</th>
-							<th>
-								Send Notification
-							</th>
-							<th>
-								Decision
-							</th>
-						</tr>
-					</thead>
-					<tbody> 
-						<tr>
-							<td>Boater Safety Course</td>
-							<td>
-								<% if( certBSC ) { %>
-										<a href="<%= certBSC.url %>" target="_blank">Boater Safety Course</a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusBSC">
-									<option value="pending" <%= certStatusBSC && certStatusBSC == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted" <%= certStatusBSC && certStatusBSC == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied" <%= certStatusBSC && certStatusBSC == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
+						<thead>
+							<tr>
+								<th>Certification names</th>
+								<th>Certifications</th>
+								<th>Status</th>
+								<th>Decision</th>
+								<th> </th>
+							</tr>
+						</thead>
+						<tbody> 
+							<tr>
+								<td>Boater Safety Course</td>
+								<td>
+									<% if( certBSC ) { %>
+										<a href="<%= certBSC.url %>" target="_blank">certification file</a>
+									<% } else { %>
+										no file
+									<% } %>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusBSC">
+										<option value="pending" <%= certStatusBSC && certStatusBSC == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted" <%= certStatusBSC && certStatusBSC == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied" <%= certStatusBSC && certStatusBSC == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" name="certResponseBSC" id="certResponseBSC" class="form-control" value="<%= certResponseBSC %>" />
+								</td>
+								<td>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="Boater Safety Course">Notify User</button>
+								</td>
+							</tr>
 
-								<textarea rows="5" name="certResponseBSC" id="certResponseBSC" class="form-control"> <%= certResponseBSC %></textarea>
-							<% } else { %>
-								No Boater Safety Course available
-							<% } %>
-							</td>
+							<tr>
+								<td>Charterboat Captain</td>
+								<td>
+									<% if( certCCL ) { %>
+										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</em></a>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusCCL">
+										<option value="pending" <%= certStatusCCL && certStatusCCL == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted" <%= certStatusCCL && certStatusCCL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied" <%= certStatusCCL && certStatusCCL == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+								</td>
+								<td>
+									<textarea rows="5" name="certResponseCCL" id="certResponseCCL" class="form-control"> <%= certResponseCCL %></textarea>
+								<% } else { %>
+									No charterboat captain available
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td>Master Captain's License</td>
+								<td>
+									<% if( certMCL ) { %>
+										<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusMCL">
+										<option value="pending" <%= certStatusMCL && certStatusMCL == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted" <%= certStatusMCL && certStatusMCL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied" <%= certStatusMCL && certStatusMCL == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+								</td>
+								<td>
+									<textarea rows="5" name="certResponseMCL" id="certResponseMCL" class="form-control"> <%= certResponseMCL %></textarea>
+								<% } else { %>
+									No Master Captain's License available
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td>Fishing License</td>
+								<td>
+									<% if( certFL ) { %>
+										<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusFL">
+										<option value="pending"  <%= certStatusFL && certStatusFL == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted"  <%= certStatusFL && certStatusFL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied"  <%= certStatusFL && certStatusFL == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+								</td>
+								<td>
+									<textarea rows="5" name="certResponseFL" id="certResponseFL" class="form-control"><%= certResponseFL %></textarea>
+								<% } else { %>
+									No Fishing License available
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td>Sailing Certification</td>
+								<td>
+									<% if( certSL ) { %>
+										<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusSL">
+										<option value="pending" <%= certStatusSL && certStatusSL == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted" <%= certStatusSL && certStatusSL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied" <%= certStatusSL && certStatusSL == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+								</td>
+								<td>
+									<textarea rows="5" name="certResponseSL" id="certResponseSL" class="form-control">
+										<%= certResponseSL %></textarea>
+								<% } else { %>
+									No Sailing Certification available
+								<% } %>
+								</td>
+							</tr>
+							<tr>
+								<td>First Aid Certification</td>
+								<td>
+									<% if( certFAC ) { %>
+										<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
+								</td>
+								<td>
+									<select class="form-control" name="certStatusFAC">
+										<option value="pending" <%= certStatusFAC && certStatusFAC == "pending" ? 'selected' : '' %>>Pending</option>
+										<option value="accepted" <%= certStatusFAC && certStatusFAC == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="denied" <%= certStatusFAC && certStatusFAC == "denied" ? 'selected' : '' %>>Deny</option>
+									</select>
+								</td>
+								<td>
+									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+								</td>
+								<td>
+									<textarea rows="5" name="certResponseFAC" id="certResponseFAC" class="form-control"> <%= certResponseFAC %></textarea>
+								<% } else { %>
+									No First Aid Certification available
+								<% } %>
+								</td>
+							</tr>
 
-						</tr>
-						<tr>
-							<td>Charterboat Captain</td>
-							<td>
-								<% if( certCCL ) { %>
-									<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</em></a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusCCL">
-									<option value="pending" <%= certStatusCCL && certStatusCCL == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted" <%= certStatusCCL && certStatusCCL == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied" <%= certStatusCCL && certStatusCCL == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
-								<textarea rows="5" name="certResponseCCL" id="certResponseCCL" class="form-control"> <%= certResponseCCL %></textarea>
-							<% } else { %>
-								No charterboat captain available
-							<% } %>
-							</td>
-						</tr>
-						<tr>
-							<td>Master Captain's License</td>
-							<td>
-								<% if( certMCL ) { %>
-									<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusMCL">
-									<option value="pending" <%= certStatusMCL && certStatusMCL == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted" <%= certStatusMCL && certStatusMCL == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied" <%= certStatusMCL && certStatusMCL == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
-								<textarea rows="5" name="certResponseMCL" id="certResponseMCL" class="form-control"> <%= certResponseMCL %></textarea>
-							<% } else { %>
-								No Master Captain's License available
-							<% } %>
-							</td>
-						</tr>
-						<tr>
-							<td>Fishing License</td>
-							<td>
-								<% if( certFL ) { %>
-									<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusFL">
-									<option value="pending"  <%= certStatusFL && certStatusFL == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted"  <%= certStatusFL && certStatusFL == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied"  <%= certStatusFL && certStatusFL == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
-								<textarea rows="5" name="certResponseFL" id="certResponseFL" class="form-control"><%= certResponseFL %></textarea>
-							<% } else { %>
-								No Fishing License available
-							<% } %>
-							</td>
-						</tr>
-						<tr>
-							<td>Sailing Certification</td>
-							<td>
-								<% if( certSL ) { %>
-									<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusSL">
-									<option value="pending" <%= certStatusSL && certStatusSL == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted" <%= certStatusSL && certStatusSL == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied" <%= certStatusSL && certStatusSL == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
-								<textarea rows="5" name="certResponseSL" id="certResponseSL" class="form-control">
-									<%= certResponseSL %></textarea>
-							<% } else { %>
-								No Sailing Certification available
-							<% } %>
-							</td>
-						</tr>
-						<tr>
-							<td>First Aid Certification</td>
-							<td>
-								<% if( certFAC ) { %>
-									<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
-							</td>
-							<td>
-								<select class="form-control" name="certStatusFAC">
-									<option value="pending" <%= certStatusFAC && certStatusFAC == "pending" ? 'selected' : '' %>>Pending</option>
-									<option value="accepted" <%= certStatusFAC && certStatusFAC == "accepted" ? 'selected' : '' %>>Accept</option>
-									<option value="denied" <%= certStatusFAC && certStatusFAC == "denied" ? 'selected' : '' %>>Deny</option>
-								</select>
-							</td>
-							<td>
-								<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
-							</td>
-							<td>
-								<textarea rows="5" name="certResponseFAC" id="certResponseFAC" class="form-control"> <%= certResponseFAC %></textarea>
-							<% } else { %>
-								No First Aid Certification available
-							<% } %>
-							</td>
-						</tr>
-
-					</tbody>
-				</table>
+						</tbody>
+					</table>
 				</div>
 
 				<div class="panel-footer text-center">
 					<button type="submit" class="btn btn-primary">Save</button>
-					<button type="submit" class="btn btn-primary">Send notification</button>
+					<button type="button" class="btn btn-warning notify-host">Notify User</button>
 				</div>
 			</div>
 		</div>

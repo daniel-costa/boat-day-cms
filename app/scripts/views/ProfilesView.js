@@ -48,7 +48,7 @@ define([
 			var cbSuccess = function(profiles) {
 
 				_.each(profiles, function(profile) {
-					console.log(profile.get('user'));
+
 					var data = {
 						id: profile.id,
 						name: profile.get('displayName'),

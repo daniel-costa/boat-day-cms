@@ -5,112 +5,106 @@
 		<h1>Dashboard</h1>
 		
 		<div class="row">
-			<div class="col-sm-4">
-				<h5>Boats with complete status</h5>
+			<div class="col-sm-6">
 				<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>
-								Name
-							</th>
-							<th>
-								Host
-							</th>
-							<th>
-								Host Status
-							</th>
-							<th>
-								Validate boat
-							</th>
+							<th colspan="5">Hosts Pending</th>
 						</tr>
-					</thead>
-					<tbody id="boatsComplete"> </tbody>
-				</table>
-			</div>
-			<div class="col-sm-4">
-			  <h5>Boats with editing status</h5>
-			  <ul class="list-group" id="boats-status-editing"></ul>
-			</div>
-			<div class="col-sm-4">
-			  <h5>Table with statistics</h5>  
-			  <table class="table table-bordered">
-				  <tr>
-					<td>Total amount of boats</td>
-					<td id="boatsNumber"></td>
-				  </tr>
-				  <tr>
-					<td>Total amount of boats in editing status</td>
-					<td id="boatsEditingStatus"></td>
-				  </tr>
-				  <tr>
-					<td>Total amount of boats in complete status</td>
-					<td id="boatsCompleteStatus"></td>
-				  </tr>
-				  <tr>
-					<td>Total amount of boat days</td>
-					<td id="boatdaysNumber"></td>
-				  </tr>
-				  <tr>
-					<td>Total amount of boat days in the past</td>
-					<td id="boatdaysPast"></td>
-				  </tr>
-				  <tr>
-					<td>Total amount of boat days in the future</td>
-					<td id="boatdaysFuture"></td>
-				  </tr>
-				  <tr>
-					<td>Total Hosts</td>
-					<td id="hostsNumber"></td>
-				  </tr>
-			  </table>		
-			</div>
-			<div class="col-sm-4">
-				<h5>Number of upcoming boatdays with categories</h5>
-				<table class="table table-bordered">
-					<tr>
-						<td>Fishing</td>
-						<td id="fishingNumber"></td>
-					</tr>
-					<tr>
-						<td>Watersport</td>
-						<td id="sportNumber"></td>
-					</tr>
-					<tr>
-						<td>Leisure</td>
-						<td id="leisureNumber"></td>
-					</tr>
-					<tr>
-						<td>Sailing</td>
-						<td id="sailingNumber"></td>
-					</tr>
-				</table>
-			</div>
-			<div class="col-sm-4">
-				<h5>Hosts with complete status</h5>
-				<table class="table table-condensed table-bordered table-striped">
-					<thead>
 						<tr>
-							<th>
-								Firstname
-							</th>
-							<th>
-								Lastname
-							</th>
-							<th>
-								SSN
-							</th>
-							<th>
-								Date of Birth
-							</th>
-							<th>
-								Validate
-							</th>
-							<th>
-								Profile
-							</th>
+							<th colspan="2">Name</th>
+							<th>SSN</th>
+							<th>Date of Birth</th>
+							<th> </th>
 						</tr>
 					</thead>
 					<tbody id="hostsComplete"> </tbody>
+				</table>
+			</div>
+			<div class="col-sm-6">
+				<table class="table table-condensed table-bordered table-striped">
+					<thead>
+						<tr>
+							<th colspan="4">Boats Pending</th>
+						</tr>
+						<tr>
+							<th>Host</th>
+							<th>Boat</th>
+							<th> </th>
+						</tr>
+					</thead>
+					<tbody id="boatsComplete"></tbody>
+				</table>
+			</div>
+		</div>
+		<!-- <div class="row">
+			<div class="col-sm-3">
+				<table class="table table-bordered">
+					<tr>
+						<th colspan="2">Boats</th>
+					</tr>
+					<tr>
+						<td>Pending</td>
+						<td id="boatsCompleteStatus"></td>
+					</tr>
+					<tr>
+						<td>Approved</td>
+						<td id="boatsEditingStatus"></td>
+					</tr>
+					<tr>
+						<td>Denied</td>
+						<td id="boatsEditingStatus"></td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td id="boatsNumber"></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm-3">
+				<table class="table table-bordered">
+					<tr>
+						<th colspan="2">BoatDays</th>
+					</tr>
+					<tr>
+						<td>Past</td>
+						<td id="boatdaysPast"></td>
+					</tr>
+					<tr>
+						<td>Upcoming next 7 days</td>
+						<td id="boatdaysFuture"></td>
+					</tr>
+					<tr>
+						<td>Upcoming total</td>
+						<td id="boatdaysFuture"></td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td id="boatdaysNumber"></td>
+					</tr>
+			  </table>		
+			</div> -->
+			<div class="col-sm-3">
+				<table class="table table-bordered">
+					<tr>
+						<th colspan="2">Upcoming BoatDays</th>
+					</tr>
+					<tr>
+						<td>Fishing</td>
+						<td class="fishingNumber"></td>
+					</tr>
+					<tr>
+						<td>Watersport</td>
+						<td class="sportNumber"></td>
+					</tr>
+					<tr>
+						<td>Leisure</td>
+						<td class="leisureNumber"></td>
+					</tr>
+					<tr>
+						<td>Sailing</td>
+						<td class="sailingNumber"></td>
+					</tr>
 				</table>
 			</div>
 	  	</div>

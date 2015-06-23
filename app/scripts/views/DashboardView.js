@@ -51,25 +51,6 @@ define([
 						hostStatus: boat.get('host').get('status')
 					}
 
-					self.$el.find('#boatsComplete').append( tpl(data) );
-
-					var relation = boat.relation('boatPictures');
-					relation.query().find({
-
-						success: function(boatPictures) {
-
-							var output = '';
-
-							for(var i = 0; i < boatPictures.length; i++) {
-
-								var object = boatPictures[i];
-								output += '<tr><td>'+ object.get("order")+'</td></tr>'
-							}
-
-							$('proofOfInsurance').html(output);
-						}
-					});
-
 				});
 
 			};

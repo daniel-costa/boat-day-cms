@@ -1,6 +1,7 @@
 define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html'
+
 ], function(BaseView, ProfileTemplate){
 	var ProfileView = BaseView.extend({
 
@@ -15,7 +16,7 @@ define([
 
 		deleteProfilePicture: function() {
 
-			alert("hi");
+			alert("still to do to remove profile picture");
 		}, 
 
 		update: function(event) {
@@ -27,7 +28,8 @@ define([
 				displayName: this._in('displayName').val(), 
 				about: this._in('about').val(), 
 				status: this._in('status').val(), 
-				url: profile.get('profilePicture') ? profile.get('profilePicture').url() : ''
+				//url: profile.get('profilePicture') ? profile.get('profilePicture') : ''
+				//profilePicture: profile.get('profilePicture') ? profile.get('profilePicture') : ''
 			};
 			
 			var profileUpdateSuccess = function( profile ) {
@@ -38,7 +40,7 @@ define([
 
 			this.model.save(data).then(profileUpdateSuccess);
 
-		},
+		}
 
 	});
 	return ProfileView;

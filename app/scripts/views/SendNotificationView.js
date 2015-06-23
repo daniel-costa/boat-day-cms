@@ -51,6 +51,9 @@ define([
 				action: "bd-message", 
 				message: this._in('message').val(), 
 				fromTeam: true,
+				from: Parse.User.current().get('profile'), 
+				//sendEmail: Boolean(this._in('sendEmail').val().selected)
+				sendEmail: Boolean(this.$el.find('[name="sendEmail"]'.selected))
 				// boat: this.model
 				// boatday: this.model
 			}; 

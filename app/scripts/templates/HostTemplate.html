@@ -84,7 +84,7 @@ a<div class="top-navigation"></div>
 									<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
 								</div>
 								<div class="col-sm-4 col-sm-offset-1 uploadedTime">
-									<%= bgUploadedDate.iso %>
+									<%= typeof bgCheckDate !== typeof undefined ? bgCheckDate.iso : '' %>
 								</div>
 							<% } %>
 

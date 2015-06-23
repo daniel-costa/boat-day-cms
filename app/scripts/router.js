@@ -138,20 +138,6 @@ define([
 
 			new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostQuerySuccess);
 
-			// var self = this;
-			// var cb = function() {
-
-			// 	var hostQuerySuccess = function( host ) {
-
-			// 		self.render(new HostView({ model: host }));
-
-			// 	};
-
-			// 	new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostQuerySuccess);
-			// };
-
-			// this.handleAdminAndSignUp(cb);
-
 		},
 
 		showHostValidationView: function( hostid ) {
@@ -163,32 +149,19 @@ define([
 
 			};
 
-			var query = new Parse.Query(Parse.Object.extend('Host'))
-			query.include('profile');
-			query.include('user');
+			var query = new Parse.Query(Parse.Object.extend('Host'));
 			query.get(hostid).then(hostValidationQuerySuccess);
 		}, 
 
 		showBoatDayView: function( boatdayid ) {
 
 			var self = this;
-			var boatdayQuerySuccess = function( boatday ) {
 
+			var boatdayQuerySuccess = function( boatday ) {
 				self.render(new BoatDayView({ model: boatday }));
 			};
 
 			new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
-			// var cb = function() {
-
-			// 	var boatdayQuerySuccess = function( boatday ) {
-
-			// 		self.render(new BoatDayView({ model: boatday }));
-			// 	};
-
-			// 	new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
-			// };
-
-			// this.handleAdminAndSignUp(cb);
 
 		},
 
@@ -201,18 +174,6 @@ define([
 				self.render(new BoatView({ model: boat }));
 			};
 			new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
-			// var cb = function() {
-
-			// 	var boatQuerySuccess = function( boat ) {
-
-			// 		self.render(new BoatView({ model: boat }));
-			// 	};
-
-			// 	new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatQuerySuccess);
-
-			// };
-
-			// this.handleAdminAndSignUp(cb);
 
 		},
 
@@ -221,22 +182,15 @@ define([
 			var self = this;
 
 			var boatValidationQuerySuccess = function( boat ) {
-
 				self.render(new BoatValidationView({ model: boat }));
 			};
+
 			new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatValidationQuerySuccess);
 		}, 
 
 		showDashboardView: function() {
+
 			this.render(new DashboardView());
-			// var self = this;
-			// var cb = function() {
-				
-			// 	self.render(new DashboardView());
-
-			// };
-
-			// this.handleAdminAndSignUp(cb);
 
 		},
 

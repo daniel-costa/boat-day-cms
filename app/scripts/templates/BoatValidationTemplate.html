@@ -10,46 +10,64 @@
 				<div class="panel-body">
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label for="hostId" class="col-sm-2 control-label">Host id</label>
-							<div class="col-sm-8">
-								<%= objectId %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
-							<div class="col-sm-8">
-								<%= new Date(createdAt).toLocaleDateString() %> at
-								<%= new Date(createdAt).toLocaleTimeString() %> 
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Name</label>
-							<div class="col-sm-8">
+							<label for="name" class="col-sm-3 control-label">Name</label>
+							<div class="col-sm-6">
 								<%= name %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="buildYear" class="col-sm-2 control-label">Build Year</label>
-							<div class="col-sm-8">
+							<label for="buildYear" class="col-sm-3 control-label">Build Year</label>
+							<div class="col-sm-6">
 								<%= buildYear %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="type" class="col-sm-2 control-label">Boat Type</label>
-							<div class="col-sm-8">
+							<label for="type" class="col-sm-3 control-label">Type</label>
+							<div class="col-sm-6">
 								<%= type %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="hullID" class="col-sm-2 control-label">Boat hullID</label>
-							<div class="col-sm-8">
+							<label for="hullID" class="col-sm-3 control-label">Hull ID</label>
+							<div class="col-sm-6">
 								<%= hullID %>
 							</div>
 						</div>	
 						<div class="form-group">
-							<label for="length" class="col-sm-2 control-label">Boat length</label>
-							<div class="col-sm-8">
-								<%= length %>
+							<label for="length" class="col-sm-3 control-label">length</label>
+							<div class="col-sm-6">
+								<%= length %> feet
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="status" class="col-sm-3 control-label">Status</label>
+							<div class="col-sm-6">
+								<select class="input-small form-control" id="status" name="status">
+									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Pending</option>
+									<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
+									<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="validationText" class="col-sm-3 control-label">Decision</label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= validationText %></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="validationTextInternal" class="col-sm-3 control-label">Internal</label>
+							<div class="col-sm-6">
+								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= validationTextInternal %></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="validationTextInternal" class="col-sm-3 control-label">Other actions</label>
+							<div class="col-sm-6">
+								<a href="#/host/<%= host.objectId %>" class="btn btn-default">Host</a>
+								<button type="button" class="btn btn-warning notify-host">Notify User</button>
 							</div>
 						</div>
 					</div>
@@ -86,8 +104,7 @@
 				</div>
 
 				<div class="panel-footer text-center">
-					<button type="submit" class="btn btn-primary">Save</button>
-					<button type="submit" class="btn btn-primary">Send notification</button>
+					<button type="submit" class="btn btn-default">Save</button>
 				</div>
 			</div>
 		</div>

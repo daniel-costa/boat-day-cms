@@ -18,11 +18,17 @@ define([
 			
 			
 		},
+
+		initialize: function() {
+			console.log(this.model);
+		},
+		
 		render: function() {
 
 			BaseView.prototype.render.call(this);
 			this.boatPicturesRow();
 			this.boatInuranceRow();
+
 			return this;
 		},
 

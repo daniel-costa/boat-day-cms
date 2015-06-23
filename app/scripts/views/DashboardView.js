@@ -23,6 +23,34 @@ define([
 
 		},
 
+		renderHosts: function() {
+
+			var self = this;
+
+			var query = new Parse.Query(Parse.Object.extend("Host"));
+			query.equalTo("status", "complete");
+			query.include('profile');
+			query.find().then(function(hosts) {
+
+				self.$el.find('#hostsComplete').html("");
+				var tpl = _.template(DashboardHostRowTemplate);
+
+				_.each(hosts, function(host) {
+
+					var data = { 
+						host: host,
+						user: host.get('user'),
+						profile: host.get('profile'), 
+						profileId: host.get('profile').id
+					};
+					
+					self.$el.find('#hostsComplete').append( tpl(data) );
+
+				});
+
+			});
+		},
+
 		renderBoats: function() {
 
 			var self = this;
@@ -32,9 +60,8 @@ define([
 			query.include("host");
 			query.find().then(function(boats) {
 
-				var tpl = _.template(DashboardBoatRowTemplate);
-
 				self.$el.find('#boatsComplete').html("");
+				var tpl = _.template(DashboardBoatRowTemplate);
 
 				_.each(boats, function(boat) {
 
@@ -46,7 +73,6 @@ define([
 					
 					self.$el.find('#boatsComplete').append( tpl(data) );
 
-					self.$el.find('#boatsComplete').html(tpl(data));
 				});
 
 			});
@@ -82,34 +108,6 @@ define([
 
 			});
 
-		},
-
-		renderHosts: function() {
-
-			var self = this;
-
-			var query = new Parse.Query(Parse.Object.extend("Host"));
-			query.equalTo("status", "complete");
-			query.include('profile');
-			query.find().then(function(hosts) {
-
-				_.each(hosts, function(host) {
-
-					var tpl = _.template(DashboardHostRowTemplate);
-					self.$el.find('#hostsComplete').html("");
-
-					var data = { 
-						host: host,
-						user: host.get('user'),
-						profile: host.get('profile'), 
-						profileId: host.get('profile').id
-					};
-
-					self.$el.find('#hostsComplete').append( tpl(data) );
-
-				});
-
-			});
 		}
 
 

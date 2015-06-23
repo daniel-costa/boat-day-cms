@@ -10,9 +10,10 @@ define([
 	'views/BoatsView', 
 	'views/BoatView', 
 	'views/SendNotificationView', 
-	'views/HostValidationView'
+	'views/HostValidationView',
+	'views/BoatValidationView', 
 ], function(HomeView, DashboardView, BoatDaysView, BoatDayView, 
-	HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView, HostValidationView) {
+	HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView, HostValidationView, BoatValidationView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -27,6 +28,7 @@ define([
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
+			'boat-validation/:boatid': 'showBoatValidationView',
 			'home': 'showHomeView',
 			'sign-out': 'signOut',
 			'send-notification': 'showSendNotificationView', 
@@ -196,6 +198,17 @@ define([
 			// this.handleAdminAndSignUp(cb);
 
 		},
+
+		showBoatValidationView: function( boatid ) {
+
+			var self = this;
+
+			var boatValidationQuerySuccess = function( boat ) {
+
+				self.render(new BoatValidationView({ model: boat }));
+			};
+			new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(boatValidationQuerySuccess);
+		}, 
 
 		showDashboardView: function() {
 			this.render(new DashboardView());

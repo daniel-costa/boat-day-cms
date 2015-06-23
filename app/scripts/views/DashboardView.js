@@ -2,7 +2,8 @@ define([
 'views/BaseView',
 'text!templates/DashboardTemplate.html', 
 'text!templates/DashboardHostRowTemplate.html',
-], function(BaseView, DashboardTemplate, DashboardHostRowTemplate){
+'text!templates/DashboardBoatRowTemplate.html',
+], function(BaseView, DashboardTemplate, DashboardHostRowTemplate, DashboardBoatRowTemplate){
 	var DashboardView = BaseView.extend({
 
 		className: "view-dashboard",
@@ -30,39 +31,50 @@ define([
 
 		renderBoatsCompleteStatus: function() {
 
-			var boats = Parse.Object.extend("Boat");
-			var query = new Parse.Query(boats);
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("Boat"));
 			query.equalTo("status", "complete");
+			query.include("host");
+			var tpl = _.template(DashboardBoatRowTemplate);
 
-			query.find({
 
-				success: function(results) {
+			this.$el.find('#boatsComplete').html("");
 
-					//Number of boats with complete status
-					var boatsCompleteStatus = results.length;
-					$('#boatsCompleteStatus').html(boatsCompleteStatus);
+			var cbSuccess = function(boats) {
 
-					var output = '';
+				_.each(boats, function(boat) {
 
-					for (var i = 0; i < results.length; i++) { 
-
-					  	var object = results[i];
-
-						output += '<div class="list-group"><a href="#/boat/'+ object.id +'" class="list-group-item active">' + object.get('name') + '</a></div>'
-
+					var data = { 
+						id: boat.id,
+						name: boat.get('name'), 
+						host: boat.get('host').get('firstname') +" "+ boat.get('host').get('lastname'),
+						hostStatus: boat.get('host').get('status')
 					}
 
-				   $('#boats-status-complete').html(output);
+					self.$el.find('#boatsComplete').append( tpl(data) );
 
-				}, 
+					var relation = boat.relation('boatPictures');
+					relation.query().find({
 
-				error: function(error) {
+						success: function(boatPictures) {
 
-					alert("Error: " + error.code + " " + error.message);
+							var output = '';
 
-				}
+							for(var i = 0; i < boatPictures.length; i++) {
 
-			});
+								var object = boatPictures[i];
+								output += '<tr><td>'+ object.get("order")+'</td></tr>'
+							}
+
+							$('proofOfInsurance').html(output);
+						}
+					});
+
+				});
+
+			};
+
+			query.find().then(cbSuccess);
 
 		}, 
 

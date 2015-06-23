@@ -249,7 +249,7 @@
 								<div class = "row">
 									<% if( certCCL ) { %>
 									<div class="col-sm-4">
-										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</em></a>
+										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</a>
 									</div>
 									<div class="col-sm-2">
 										<select class="form-control" name="certStatusCCL">
@@ -315,10 +315,8 @@
 											<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
 										</div>
 										<div class="col-sm-4">
-										<textarea rows="5" name="certResponseFL" id="certResponseFL" class="form-control">
-											<%= certResponseFL %>
-										</textarea>
-									</div>
+											<textarea rows="5" name="certResponseFL" id="certResponseFL" class="form-control"><%= certResponseFL %></textarea>
+										</div>
 									<% } else { %>
 										No Fishing License available
 									<% } %>

@@ -9,8 +9,10 @@ define([
 	'views/ProfileView',
 	'views/BoatsView', 
 	'views/BoatView', 
-	'views/SendNotificationView'
-], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView) {
+	'views/SendNotificationView', 
+	'views/HostValidationView'
+], function(HomeView, DashboardView, BoatDaysView, BoatDayView, 
+	HostsView, HostView, ProfilesView, ProfileView, BoatsView, BoatView, SendNotificationView, HostValidationView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -20,11 +22,11 @@ define([
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',
 			'host/:hostid': 'showHostView', 
+			'host-validation/:hostid': 'showHostValidationView', 
 			'profiles': 'showProfilesView',
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
-
 			'home': 'showHomeView',
 			'sign-out': 'signOut',
 			'send-notification': 'showSendNotificationView', 
@@ -135,6 +137,18 @@ define([
 			// this.handleAdminAndSignUp(cb);
 
 		},
+
+		showHostValidationView: function( hostid ) {
+
+			var self = this;
+			var hostValidationQuerySuccess = function( host ) {
+
+				self.render(new HostValidationView({ model: host }));
+
+			};
+
+			new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostValidationQuerySuccess);
+		}, 
 
 		showBoatDayView: function( boatdayid ) {
 

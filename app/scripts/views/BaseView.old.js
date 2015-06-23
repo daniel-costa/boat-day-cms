@@ -1,7 +1,8 @@
 define([
 'parse',
-'text!templates/NavigationTopTemplate.html'
-], function(Parse, NavigationTopTemplate){
+'text!templates/NavigationTopTemplate.html', 
+'text!templates/ModalTemplate.html',
+], function(Parse, NavigationTopTemplate, ModalTemplate){
 	var BaseView = Parse.View.extend({
 
 		className: "view-base",
@@ -15,6 +16,8 @@ define([
 		topNav: _.template(NavigationTopTemplate),
 
 		__ANIMATION_ENDS__: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+
+		modalTpl:  _.template(ModalTemplate),
 
 		render: function() {
 			console.log("### Render by BaseView (" + this.className + ") ###");
@@ -193,6 +196,55 @@ define([
 
 			this.$el.find('input[name="'+$(event.currentTarget).attr('for')+'"]').click();
 			
+		},
+
+		modal: function(opts) {
+
+			var self = this;
+
+			if( $('.modal-dialog').length == 1 )
+				return;
+
+			var params = {
+				title:            typeof opts.title            !== 'undefined' ? opts.title : '',
+				body:             typeof opts.body             !== 'undefined' ? opts.body : '',
+				closeButton:      typeof opts.closeButton      !== 'undefined' ? opts.closeButton : false,
+				cancelButton:     typeof opts.cancelButton     !== 'undefined' ? opts.cancelButton : true,
+				cancelButtonText: typeof opts.cancelButtonText !== 'undefined' ? opts.cancelButtonText : 'Cancel',
+				noButton:         typeof opts.noButton         !== 'undefined' ? opts.noButton : true,
+				noButtonText:     typeof opts.noButtonText     !== 'undefined' ? opts.noButtonText : 'No',
+				yesButton:        typeof opts.yesButton        !== 'undefined' ? opts.yesButton : true,
+				yesButtonText:    typeof opts.yesButtonText    !== 'undefined' ? opts.yesButtonText : 'Yes'
+			};
+
+			var _modal = $(self.modalTpl(params));
+			var _exec = null;
+
+			if(opts.noCb) {
+				_modal.find('.btn-no').click(function () {
+					_exec = opts.noCb;
+					_modal.modal('hide');
+				});	
+			}
+
+			if(opts.yesCb) {
+				_modal.find('.btn-yes').click(function () {
+					_exec = opts.yesCb;
+					_modal.modal('hide');
+				});
+			}
+			
+			_modal.on('hidden.bs.modal', function() {
+				if( _exec ) 
+					_exec();
+
+				_modal.remove();
+			});
+
+			$('body').append(_modal);
+
+			_modal.modal();
+
 		},
 
 		uploadFile: function(event, cb, opts) {

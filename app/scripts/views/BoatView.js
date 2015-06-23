@@ -109,10 +109,16 @@ define([
 
 			event.preventDefault();
 			var id = $(event.currentTarget).attr('file-id');
-			this.model.relation('boatPictures').remove(this.boatPictures[id]);
-			this.model.save();
-			delete this.boatPictures[id];
-			$(event.currentTarget).closest('.boat-picture').remove();
+			// this.model.relation('boatPictures').remove(this.boatPictures[id]);
+			// this.model.save();
+			// delete this.boatPictures[id];
+			// $(event.currentTarget).closest('.boat-picture').remove();
+			this.modal({
+				title: 'Delete boat picture',
+				body: 'Are you sure want to delete boat picture?',
+				noButton: false,
+				yesButtonText: 'Yes'
+			});
 
 		},
 

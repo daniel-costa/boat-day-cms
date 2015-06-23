@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
-'text!templates/DashboardTemplate.html'
-], function(BaseView, DashboardTemplate){
+'text!templates/DashboardTemplate.html', 
+'text!templates/DashboardHostRowTemplate.html',
+], function(BaseView, DashboardTemplate, DashboardHostRowTemplate){
 	var DashboardView = BaseView.extend({
 
 		className: "view-dashboard",
@@ -22,6 +23,7 @@ define([
 			this.renderBoatDaysSport();
 			this.renderBoatDaysSailing();
 			this.renderHostsNumber();
+			this.renderHostTable();
 			return this;
 
 		},
@@ -254,6 +256,39 @@ define([
 				}
 
 			});
+		}, 
+
+		renderHostTable: function() {
+
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend("Host"));
+			query.equalTo("status", "complete");
+			var tpl = _.template(DashboardHostRowTemplate);
+
+
+			this.$el.find('#hostsComplete').html("");
+
+			var cbSuccess = function(hosts) {
+
+				_.each(hosts, function(host) {
+
+					var data = { 
+						id: host.id,
+						firstname: host.get('firstname'),
+						lastname: host.get('lastname'),
+						ssn: host.get('SSN'), 
+						dateOfBirth: host.get('birthdate').toUTCString().substring(0, 16), 
+						user: host.get('user'),
+						profile: host.get('profile')
+					}
+
+					self.$el.find('#hostsComplete').append( tpl(data) );
+
+				});
+
+			};
+
+			query.find().then(cbSuccess);
 		}
 
 

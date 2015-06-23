@@ -9,8 +9,8 @@ define([
 		template: _.template(HostValidationTemplate),
 
 		events : {
-			
-			'submit form': 'save'
+			'submit form': 'save',
+			'click .btn-send-cert-noti': 'sendCertNotification'
 		},
 
 		render: function() {
@@ -20,9 +20,12 @@ define([
 			return this;
 		},
 
+
 		save: function( event ) {
 
 			event.preventDefault();
+
+			var self = this;
 
 			var data = {
 
@@ -45,11 +48,46 @@ define([
 
 			var hostValdationSuccess = function( profile ) {
 
-				Parse.history.navigate('dashboard', true);
+				self.render();
 
 			};
 
 			this.model.save(data).then(hostValdationSuccess);
+		},
+
+		sendHostNotification: function() {
+
+			var from = Parse.User.current().get('profile');
+			var to = this.model.get('profile');
+			var status = this.model.get('status');
+
+			if( status == 'approved' ) {
+				// host-approved
+				alert('send approved')
+			} else if( status == 'denied' ) {
+				// host-denied
+				alert('send denied')
+			} else {
+				alert('Host must be approved or denied to receive a notification');
+			}
+		},
+
+		sendCertNotification: function(event) {
+			var e = $(event.currentTarget);
+			var name = e.attr('data-cert-name');
+			var cert = e.attr('data-cert');
+			var from = Parse.User.current().get('profile');
+			var to = this.model.get('profile');
+			var status = this.model.get('certStatus'+cert);
+
+			if( status == 'approved' ) {
+				// certification-approved
+			} else if( status == 'denied' ) {
+				// certification-denied
+				alert('send denied')
+			} else {
+				alert('Host must be approved or denied to receive a notification');
+			}
 		}
 
 	});

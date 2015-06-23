@@ -93,7 +93,10 @@
 								<td>Charterboat Captain</td>
 								<td>
 									<% if( certCCL ) { %>
-										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</em></a>
+										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</a>
+									<% } else { %>
+										no file
+									<% } %>
 								</td>
 								<td>
 									<select class="form-control" name="certStatusCCL">
@@ -103,20 +106,21 @@
 									</select>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+									<input type="text" name="certResponseCCL" id="certResponseCCL" class="form-control" value="<%= certResponseCCL %>" />
 								</td>
 								<td>
-									<textarea rows="5" name="certResponseCCL" id="certResponseCCL" class="form-control"> <%= certResponseCCL %></textarea>
-								<% } else { %>
-									No charterboat captain available
-								<% } %>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="Charterboat Captain">Notify User</button>
 								</td>
+								
 							</tr>
 							<tr>
 								<td>Master Captain's License</td>
 								<td>
 									<% if( certMCL ) { %>
 										<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
+									<% } else { %>
+										no file
+									<% } %>
 								</td>
 								<td>
 									<select class="form-control" name="certStatusMCL">
@@ -126,20 +130,21 @@
 									</select>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+									<input type="text" name="certResponseMCL" id="certResponseMCL" class="form-control" value="<%= certResponseMCL %>" />
 								</td>
 								<td>
-									<textarea rows="5" name="certResponseMCL" id="certResponseMCL" class="form-control"> <%= certResponseMCL %></textarea>
-								<% } else { %>
-									No Master Captain's License available
-								<% } %>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="Master Captain's License">Notify User</button>
 								</td>
+								
 							</tr>
 							<tr>
 								<td>Fishing License</td>
 								<td>
-									<% if( certFL ) { %>
-										<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
+									<% if( certMCL ) { %>
+										<a href="<%= certMCL.url %>" target="_blank">Fishing License</a>
+									<% } else { %>
+										no file
+									<% } %>
 								</td>
 								<td>
 									<select class="form-control" name="certStatusFL">
@@ -149,20 +154,21 @@
 									</select>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+									<input type="text" name="certResponseFL" id="certResponseFL" class="form-control" value="<%= certResponseFL %>" />
 								</td>
 								<td>
-									<textarea rows="5" name="certResponseFL" id="certResponseFL" class="form-control"><%= certResponseFL %></textarea>
-								<% } else { %>
-									No Fishing License available
-								<% } %>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="Fishing License">Notify User</button>
 								</td>
+								
 							</tr>
 							<tr>
 								<td>Sailing Certification</td>
 								<td>
 									<% if( certSL ) { %>
 										<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
+									<% } else { %>
+										no file
+									<% } %>
 								</td>
 								<td>
 									<select class="form-control" name="certStatusSL">
@@ -172,21 +178,21 @@
 									</select>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+									<input type="text" name="certResponseSL" id="certResponseSL" class="form-control" value="<%= certResponseSL %>" />
 								</td>
 								<td>
-									<textarea rows="5" name="certResponseSL" id="certResponseSL" class="form-control">
-										<%= certResponseSL %></textarea>
-								<% } else { %>
-									No Sailing Certification available
-								<% } %>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="Sailing Certification">Notify User</button>
 								</td>
+								
 							</tr>
 							<tr>
 								<td>First Aid Certification</td>
 								<td>
 									<% if( certFAC ) { %>
 										<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
+									<% } else { %>
+										no file
+									<% } %>
 								</td>
 								<td>
 									<select class="form-control" name="certStatusFAC">
@@ -196,13 +202,10 @@
 									</select>
 								</td>
 								<td>
-									<button type="button" class="btn btn-primary btn-sendNotification" for="sendNotification">Send Notification</button>
+									<input type="text" name="certResponseFAC" id="certResponseFAC" class="form-control" value="<%= certResponseFAC %>" />
 								</td>
 								<td>
-									<textarea rows="5" name="certResponseFAC" id="certResponseFAC" class="form-control"> <%= certResponseFAC %></textarea>
-								<% } else { %>
-									No First Aid Certification available
-								<% } %>
+									<button type="button" class="btn btn-warning btn-sendNotification" data-cert="First Aid Certification">Notify User</button>
 								</td>
 							</tr>
 

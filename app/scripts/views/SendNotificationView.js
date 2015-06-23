@@ -11,7 +11,6 @@ define([
 		collectionProfiles: {},
 
 		events : {
-
 			"submit form" : "send"
 		},
 
@@ -34,6 +33,7 @@ define([
 			};
 
 			var queryProfiles = new Parse.Query(Parse.Object.extend("Profile"));
+			queryProfiles.equalTo('status', 'complete');
 			queryProfiles.ascending('displayName');
 			queryProfiles.find().then(profilesFetchSuccess);
 
@@ -45,6 +45,8 @@ define([
 			event.preventDefault();
 
 			var self = this;
+			
+			console.log();
 
 			var data = {
 				to: self.collectionProfiles[this._in('profile').val()],
@@ -53,7 +55,7 @@ define([
 				fromTeam: true,
 				from: Parse.User.current().get('profile'), 
 				//sendEmail: Boolean(this._in('sendEmail').val().selected)
-				sendEmail: Boolean(this.$el.find('[name="sendEmail"]'.selected))
+				sendEmail: Boolean(this.$el.find('[name="sendEmail"]').val())
 				// boat: this.model
 				// boatday: this.model
 			}; 

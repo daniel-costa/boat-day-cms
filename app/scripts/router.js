@@ -15,8 +15,7 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'home': 'showHomeView',
-			'sign-out': 'signOut',
+			
 			'boatdays': 'showBoatDaysView',
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',
@@ -25,21 +24,20 @@ define([
 			'profile/:profileid': 'showProfileView', 
 			'boats': 'showBoatsView',
 			'boat/:boatid': 'showBoatView',
-			'notification': 'showNotificationView', 
+
+			'home': 'showHomeView',
+			'sign-out': 'signOut',
+			'send-notification': 'showSendNotificationView', 
 			'*actions': 'showDashboardView'
 		},
 
 		showHomeView: function() {
-
 			this.render(new HomeView());
-
 		},
 
 		signOut: function() {
-
 			Parse.User.logOut();
 			this.showHomeView();
-
 		},
 
 		showBoatDaysView: function() {
@@ -61,17 +59,7 @@ define([
 		}, 
 
 		showProfilesView: function() {
-			
-			// var self = this;
-			// var cb = function() {
-				
-			// 	self.render(new ProfilesView());
-
-			// };
-
-			// self.handleAdminAndSignUp(cb);
 			this.render(new ProfilesView());
-
 		},
 
 		showBoatsView: function() {
@@ -87,18 +75,11 @@ define([
 			this.render(new BoatsView());
 		},
 
-		// showNotificationView: function() {
+		showSendNotificationView: function() {
 
-		// 	this.render(new SendNotificationView());
-		// }, 
-
-		showNotificationView: function() {
-
-			//var notification = new NotificationModel({ host: Parse.User.current().get('host') });
 			var NotificationModel = Parse.Object.extend('Notification');
 			this.render(new SendNotificationView({ model: new NotificationModel() }));
 
-			//new Parse.Query(Parse.Object.extend('Notification')).then(notificationQuerySuccess);
 		}, 
 
 		showProfileView: function( profileid ) {

@@ -48,12 +48,14 @@ define([
 			var cbSuccess = function(profiles) {
 
 				_.each(profiles, function(profile) {
-
+					console.log(profile.get('user'));
 					var data = {
 						id: profile.id,
 						name: profile.get('displayName'),
 						url: profile.get('profilePicture') ? profile.get('profilePicture').url() : '',
-						status: profile.get('status')
+						status: profile.get('status'),
+						host: profile.get('host'),
+						user: profile.get('user'),
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

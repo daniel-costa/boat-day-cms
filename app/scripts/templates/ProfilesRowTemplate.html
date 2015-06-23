@@ -1,7 +1,15 @@
 <tr>
 	<td><%= id %></td>
-	<td><%= name %></td>
-	<td><img src="<%= url %>" style="max-width:100px;" class="img-circle" /></td>
+	<td>
+		<div class="profile-picture" style="background-image:url(<%= url %>)"></div>
+	</td>
+	<td>
+		<%= name %>
+	</td>
 	<td><%= status %></td>
-	<td><a href="#/profile/<%= id %>">edit</td>
+	<td>
+		<a class="btn btn-default" href="#/host/<%= host.id %>">Host</a>
+		<a class="btn btn-default" href="#/profile/<%= user.id %>">User</a>
+		<a class="btn btn-default" href="#/profile/<%= id %>">Edit</a>
+	</td>
 </tr>

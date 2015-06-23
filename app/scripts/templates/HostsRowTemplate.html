@@ -1,11 +1,13 @@
 <tr>
 	<td><%= id %></td>
-	<td><%= ssn %></td>
-	<td><%= birthdate %></td>
 	<td><%= firstname %></td>
 	<td><%= lastname %></td>
 	<td><%= phone %></td>
 	<td><%= status %></td>
 	<td><%= type %></td>
-	<td><a href="#/host/<%= id %>">edit</td>
+	<td>
+		<a class="btn btn-default" href="#/user/<%= user.id %>">User</a>
+		<a class="btn btn-default" href="#/profile/<%= profile.id %>">Profile</a>
+		<a class="btn btn-default" href="#/host/<%= id %>">Edit</a>
+	</td>
 </tr>

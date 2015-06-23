@@ -26,18 +26,18 @@ define([
 			event.preventDefault();
 
 			var logInSuccess = function(user) {
-
 				var query = (new Parse.Query(Parse.Role));
 				query.equalTo("name", "admin-cms");
 				query.equalTo("users", Parse.User.current());
 				query.first().then(function(adminRole) {
-
+					
+					Parse.history.navigate('dashboard', true);
+					
 					if ( adminRole ) {
+						// Parse.history.navigate('dashboard', true);
+					} else {
 
-						console.log("user is an admin");
-						Parse.history.navigate('dashboard', true);
-
-					} 
+					}
 
 				});
 
@@ -45,9 +45,10 @@ define([
 
 			var logInError = function(error) {
 				//alert(error.message);
-				//self._error(error.message);
+				this._error(error);
 				alert("Enter your correct credentials");
 			};
+			
 
 			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(logInSuccess, logInError);
 		}

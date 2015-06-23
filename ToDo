@@ -19,6 +19,13 @@
 - [Done]boatday page: add link to boat, host, to the captain's profile
 
 - Send email when sending a notification, add function in parse cloud to send an email & notifiation at same time.
+- Turn the roles on again
+- home: display error when not an admin
+- sign-out: redirect to home after signing out
+- Use dateParseToDisplayDate from BaseView to display dates in list
+- add date of upload for bgScreening (automatically fill in when uploading a bg screening)
+- What is the editing mode for host ????
+- Editng mode for profile ????
 
 
 - !!!!!!!! It's fucking not workin !!! You removed the date picker from bower.json without taking it from your code. AMATEUR AMATEUR WORK.

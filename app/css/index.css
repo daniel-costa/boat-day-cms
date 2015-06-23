@@ -1,5 +1,6 @@
 body { 
 	background: #eff3f4;
+	padding-top: 60px;
 }
 
 img.app-loader {
@@ -25,4 +26,17 @@ body.theme-dashboard .dashboard-table td:first-child .obj-thumb {
 body.theme-dashboard .dashboard-table td:first-child.profile .obj-thumb {
   width: 60px;
   border-radius: 60px;
+}
+
+.profile-picture {
+	width: 60px;
+	height: 60px;
+	background: center center no-repeat;
+	background-size: cover;
+	display: inline-block;
+	border-radius: 60px;
+}
+
+td {
+	vertical-align: middle !important;
 }

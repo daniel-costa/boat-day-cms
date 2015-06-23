@@ -79,8 +79,6 @@ define([
 
 				_.each(boats, function(boat) {
 
-					var host = boat.get('host');
-
 					var data = {
 						id: boat.id,
 						build: boat.get('buildYear'), 
@@ -89,7 +87,7 @@ define([
 						name: boat.get('name'), 
 						status: boat.get('status'), 
 						type: boat.get('type'), 
-						hostId: host.id
+						host: boat.get('host')
 
 					}
 

@@ -33,10 +33,6 @@ define([
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
-			if( this._in("searchSSN").val() != "" ) {
-				query.contains("SSN", this._in("searchSSN").val());
-			}
-
 			if( this._in("searchFirstName").val() != "" ) {
 				query.contains("firstname", this._in("searchFirstName").val());
 			}
@@ -65,13 +61,13 @@ define([
 
 					var data = {
 						id: host.id, 
-						ssn: host.get('SSN'), 
-						birthdate: host.get('birthdate').toUTCString().substring(0, 16), 
 						firstname: host.get('firstname'),
 						lastname: host.get('lastname'),
 						phone: host.get('phone'), 
 						status: host.get('status'), 
-						type: host.get('type')
+						type: host.get('type'),
+						user: host.get('user'),
+						profile: host.get('profile')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

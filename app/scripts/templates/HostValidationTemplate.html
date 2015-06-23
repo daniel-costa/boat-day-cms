@@ -9,28 +9,44 @@
 
 				<div class="panel-body">
 					<div class="col-sm-12">
-						
 						<div class="form-group">
 							<label for="firstname" class="col-sm-3 control-label">Host</label>
 							<div class="col-sm-6">
-								<%= firstname %> <%= lastname %>, <%= new Date(birthdate.iso).toLocaleDateString() %>, <%= SSN %>
+								<%= firstname %> <%= lastname %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+							<label for="firstname" class="col-sm-3 control-label">Birthdate</label>
 							<div class="col-sm-6">
-								<%= new Date(createdAt).toLocaleDateString() %> at
-								<%= new Date(createdAt).toLocaleTimeString() %> 
+								<%= new Date(birthdate.iso).toLocaleDateString() %>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="bgScreen" class="col-sm-3 control-label">BG screen</label>
+							<label for="firstname" class="col-sm-3 control-label">Social Security Number</label>
+							<div class="col-sm-6">
+								<%= SSN %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="bgScreen" class="col-sm-3 control-label">Background Check</label>
 							<div class="col-sm-6">
 								<% if( bgCheck ) { %>
 										<a href="<%= bgCheck.url %>" target="_blank">Background Screening file</a>
 								<%  } else {%>
 										No background screening yet
 								<%  } %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="status" class="col-sm-3 control-label">Status</label>
+							<div class="col-sm-6">
+								<select class="input-small form-control" id="status" name="status">
+									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Pending</option>
+									<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
+									<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+								</select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -43,6 +59,13 @@
 							<label for="validationTextInternal" class="col-sm-3 control-label">Internal</label>
 							<div class="col-sm-6">
 								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= validationTextInternal %></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="validationTextInternal" class="col-sm-3 control-label">Other actions</label>
+							<div class="col-sm-6">
+								<a href="#/profile/<%= profile.objectId %>" class="btn btn-default">Profile</a>
+								<button type="button" class="btn btn-warning notify-host">Notify User</button>
 							</div>
 						</div>
 
@@ -77,7 +100,7 @@
 								<td>
 									<select class="form-control" name="certStatusBSC">
 										<option value="pending" <%= certStatusBSC && certStatusBSC == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted" <%= certStatusBSC && certStatusBSC == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved" <%= certStatusBSC && certStatusBSC == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied" <%= certStatusBSC && certStatusBSC == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -101,7 +124,7 @@
 								<td>
 									<select class="form-control" name="certStatusCCL">
 										<option value="pending" <%= certStatusCCL && certStatusCCL == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted" <%= certStatusCCL && certStatusCCL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved" <%= certStatusCCL && certStatusCCL == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied" <%= certStatusCCL && certStatusCCL == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -125,7 +148,7 @@
 								<td>
 									<select class="form-control" name="certStatusMCL">
 										<option value="pending" <%= certStatusMCL && certStatusMCL == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted" <%= certStatusMCL && certStatusMCL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved" <%= certStatusMCL && certStatusMCL == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied" <%= certStatusMCL && certStatusMCL == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -149,7 +172,7 @@
 								<td>
 									<select class="form-control" name="certStatusFL">
 										<option value="pending"  <%= certStatusFL && certStatusFL == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted"  <%= certStatusFL && certStatusFL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved"  <%= certStatusFL && certStatusFL == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied"  <%= certStatusFL && certStatusFL == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -173,7 +196,7 @@
 								<td>
 									<select class="form-control" name="certStatusSL">
 										<option value="pending" <%= certStatusSL && certStatusSL == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted" <%= certStatusSL && certStatusSL == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved" <%= certStatusSL && certStatusSL == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied" <%= certStatusSL && certStatusSL == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -197,7 +220,7 @@
 								<td>
 									<select class="form-control" name="certStatusFAC">
 										<option value="pending" <%= certStatusFAC && certStatusFAC == "pending" ? 'selected' : '' %>>Pending</option>
-										<option value="accepted" <%= certStatusFAC && certStatusFAC == "accepted" ? 'selected' : '' %>>Accept</option>
+										<option value="approved" <%= certStatusFAC && certStatusFAC == "approved" ? 'selected' : '' %>>Approved</option>
 										<option value="denied" <%= certStatusFAC && certStatusFAC == "denied" ? 'selected' : '' %>>Deny</option>
 									</select>
 								</td>
@@ -214,8 +237,7 @@
 				</div>
 
 				<div class="panel-footer text-center">
-					<button type="submit" class="btn btn-primary">Save</button>
-					<button type="button" class="btn btn-warning notify-host">Notify User</button>
+					<button type="submit" class="btn btn-default">Save</button>
 				</div>
 			</div>
 		</div>

@@ -3,8 +3,8 @@
 	<div class="container"> 
 		<div class="">
 			<div class="panel panel-primary">
-				<div class="panel-heading area-business">
-					<h3 class="panel-title text-center">Validate boat</h3>
+				<div class="panel-heading">
+					<h3 class="panel-title text-center">Boat, <%= objectId %></h3>
 				</div>
 
 				<div class="panel-body">
@@ -18,7 +18,8 @@
 						<div class="form-group">
 							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
 							<div class="col-sm-8">
-								<%= createdAt %>
+								<%= new Date(createdAt).toLocaleDateString() %> at
+								<%= new Date(createdAt).toLocaleTimeString() %> 
 							</div>
 						</div>
 						<div class="form-group">
@@ -53,39 +54,31 @@
 						</div>
 					</div>
 				</div>
-				<div class="panel-heading area-business">
+				<div class="panel-heading">
 					<h3 class="panel-title text-center">Boat Pictures</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>
-								Boat picture
-							</th>
-							<th>
-								Created At
-							</th>
-							<th>Update</th>
-							<th>Delete</th>
+							<th>Picture</th>
+							<th>Order</th>
+							<th>Creation</th>
+							<th> </th>
 						</tr>
 					</thead>
 					<tbody id="boatPictures"></tbody>
 				</table>
 				</div>
-				<div class="panel-heading area-business">
+				<div class="panel-heading">
 					<h3 class="panel-title text-center">Proof of insurance</h3>
 				</div>
 				<div class="panel-body">
 					<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>
-								File name
-							</th>
-							<th>
-								Created At
-							</th>
+							<th>Proof of insurance</th>
+							<th>Creation</th>
 						</tr>
 					</thead>
 					<tbody id="proofOfInsurance"></tbody>

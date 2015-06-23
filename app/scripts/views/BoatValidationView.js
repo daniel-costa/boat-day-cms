@@ -1,9 +1,9 @@
 define([
 'views/BaseView',
 'text!templates/BoatValidationTemplate.html',
-'text!templates/BoatPicturesRowTemplate.html', 
-'text!templates/BoatInsuranceRowTemplate.html'
-], function(BaseView, BoatValidationTemplate, BoatPicturesRowTemplate, BoatInsuranceRowTemplate){
+'text!templates/BoatValidationPictureRowTemplate.html', 
+'text!templates/BoatValidationInsuranceRowTemplate.html'
+], function(BaseView, BoatValidationTemplate, BoatValidationPictureRowTemplate, BoatValidationInsuranceRowTemplate){
 	var BoatValidationView = BaseView.extend({
 
 		className: "view-boat-validate",
@@ -32,6 +32,7 @@ define([
 			self.boatPictures = {};
 
 			var query = self.model.relation('boatPictures').query();
+			query.ascending('order');
 			query.find().then(function(matches) {
 				_.each(matches, self.appendBoatPicture, self);
 			});
@@ -39,10 +40,8 @@ define([
 
 		appendBoatPicture: function(FileHolder) {
 
-			this.$el.find('#boatPictures').append(_.template(BoatPicturesRowTemplate)({ 
-				id: FileHolder.id,
-				url: FileHolder.get('file').url(), 
-				createdAt: FileHolder.createdAt
+			this.$el.find('#boatPictures').append(_.template(BoatValidationPictureRowTemplate)({ 
+				file: FileHolder
 			}));
 
 			this.boatPictures[FileHolder.id] = FileHolder;
@@ -62,10 +61,8 @@ define([
 
 		appendInsurance: function(FileHolder) {
 
-			this.$el.find('#proofOfInsurance').append(_.template(BoatInsuranceRowTemplate)({ 
-				id: FileHolder.id,
-				file: FileHolder.get('file'), 
-				createdAt: FileHolder.createdAt
+			this.$el.find('#proofOfInsurance').append(_.template(BoatValidationInsuranceRowTemplate)({ 
+				file: FileHolder,
 			}));
 
 			this.proofOfInsurance[FileHolder.id] = FileHolder;

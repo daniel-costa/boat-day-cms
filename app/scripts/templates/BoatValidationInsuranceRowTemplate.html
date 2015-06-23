@@ -1,0 +1,9 @@
+<tr>
+	<td>
+		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
+	</td>
+	<td>
+		<%= new Date(file.createdAt).toLocaleDateString() %> at
+		<%= new Date(file.createdAt).toLocaleTimeString() %> 
+	</td>
+</tr>

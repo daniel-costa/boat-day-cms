@@ -28,6 +28,11 @@ body.theme-dashboard .dashboard-table td:first-child.profile .obj-thumb {
   border-radius: 60px;
 }
 
+.profile-picture.rectangle {
+	width: 200px;
+	height: 150px;
+	border-radius: 0px;
+}
 .profile-picture {
 	width: 60px;
 	height: 60px;

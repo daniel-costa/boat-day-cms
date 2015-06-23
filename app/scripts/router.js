@@ -163,7 +163,10 @@ define([
 
 			};
 
-			new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(hostValidationQuerySuccess);
+			var query = new Parse.Query(Parse.Object.extend('Host'))
+			query.include('profile');
+			query.include('user');
+			query.get(hostid).then(hostValidationQuerySuccess);
 		}, 
 
 		showBoatDayView: function( boatdayid ) {

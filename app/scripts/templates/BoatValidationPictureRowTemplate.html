@@ -1,0 +1,16 @@
+<tr data-id="<%= file.id %>">
+	<td>
+		<div class="profile-picture rectangle" style="background-image:url(<%= file.get('file').url() %>)"></div>
+	</td>
+	<td>
+		<input type="text" class="form-control" name="order" value="<%= file.get('order') %>" />
+	</td>
+	<td>
+		<%= new Date(file.createdAt).toLocaleDateString() %> at
+		<%= new Date(file.createdAt).toLocaleTimeString() %> 
+	</td>
+	<td class="text-center">
+		<a href="#" class="btn btn-default picture-update">Update</a>
+		<a href="#" class="btn btn-danger picture-delete">Delete</a>
+	</td>
+</tr>

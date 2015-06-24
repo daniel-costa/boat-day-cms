@@ -12,8 +12,7 @@ define([
 			'submit form': 'save',
 			'click .btn-send-cert-noti': 'sendCertNotification',
 			'click .btn-send-host-noti': 'sendHostNotification',
-			"change .upload": "uploadBgScreen", 
-			"click .btn-upload": "clickUpload"
+			"change .upload": "uploadBgScreen"
 		},
 
 		render: function() {
@@ -128,6 +127,8 @@ define([
 
 		uploadBgScreen: function(event) {
 
+			var self = this;
+			
 			var cb = function(file) {
 				
 				var parent = $(event.currentTarget).closest('div');
@@ -139,6 +140,7 @@ define([
 					
 					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Background Check').addClass('preview');
 					parent.append($('<p>').append(link));	
+					self.model.set('bgCheckDate', new Date());
 
 				}
 

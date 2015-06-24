@@ -28,15 +28,22 @@
 								<%= SSN %>
 							</div>
 						</div>
+						
 						<div class="form-group">
-							<label for="bgScreen" class="col-sm-3 control-label">Background Check</label>
+							<label for="bgCheck" class="col-sm-3 control-label">Bg Check</label>
 							<div class="col-sm-6">
-								<% if( bgCheck ) { %>
-										<a href="<%= bgCheck.url %>" target="_blank">Background Screening file</a>
-								<%  } else {%>
-										No background screening yet
-								<%  } %>
+								<input value="" type="file" class="upload" id="bgCheck" name="bgCheck" delegate-error-to-button>
+								<button type="button" class="btn btn-default btn-block btn-lg btn-upload" for="bgCheck">Bg Check</button>
 							</div>
+							<% if( bgCheck ) { %>
+								<div class="col-sm-6 col-sm-offset-3">
+									<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
+								</div>
+								<div class="col-sm-4 col-sm-offset-1 uploadedTime">
+									<%= typeof bgCheckDate !== typeof undefined ? bgCheckDate.iso : '' %>
+								</div>
+							<% } %>
+
 						</div>
 						<div class="form-group">
 							<label for="status" class="col-sm-3 control-label">Status</label>

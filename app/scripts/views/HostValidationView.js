@@ -11,7 +11,9 @@ define([
 		events : {
 			'submit form': 'save',
 			'click .btn-send-cert-noti': 'sendCertNotification',
-			'click .btn-send-host-noti': 'sendHostNotification', 
+			'click .btn-send-host-noti': 'sendHostNotification',
+			"change .upload": "uploadBgScreen", 
+			"click .btn-upload": "clickUpload"
 		},
 
 		render: function() {
@@ -43,7 +45,8 @@ define([
 				certStatusSL: this._in('certStatusSL').val(), 
 				certResponseSL: this._in('certResponseSL').val(), 
 				certStatusFAC: this._in('certStatusFAC').val(), 
-				certResponseFAC: this._in('certResponseFAC').val()
+				certResponseFAC: this._in('certResponseFAC').val(), 
+				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null
 			};
 
 			this.model.save(data).then(function( profile ) {
@@ -116,10 +119,29 @@ define([
 				} else {
 					alert('Certification must be approved or denied to receive a notification');
 				}
-
 			}	
+		}, 
 
-		}
+		uploadBgScreen: function(event) {
+
+			var cb = function(file) {
+				
+				var parent = $(event.currentTarget).closest('div');
+				var preview = parent.find('.preview');
+
+				if( preview.length == 1 ) {
+					preview.attr('href', file.url());
+				} else {
+					
+					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');
+					parent.append($('<p>').append(link));	
+
+				}
+
+			}
+
+			this.uploadFile(event, cb);
+		},
 
 	});
 	return HostValidationView;

@@ -15,20 +15,20 @@ define([
 		proofOfInsurance: {},
 
 		events : {
-
-			'submit form': 'save'
-			
+			"submit form": "save",
+			"click .delete-insurance": "deleteProofOfInsurance",
+			"click .delete-picture": "deleteBoatPicture",
+			"click .update-picture": "updateBoatPicture",
+			"change .upload": "uploadNewFile",
 		},
 
-		initialize: function() {
-			console.log(this.model);
-		},
 		
 		render: function() {
 
 			BaseView.prototype.render.call(this);
-			this.boatPicturesRow();
-			this.boatInuranceRow();
+
+			this.displayBoatPictures();
+			this.displayProofsOfInurance();
 
 			return this;
 		},
@@ -39,25 +39,22 @@ define([
 
 			var self = this;
 
-			var data = {
-
+			this.model.save({
 				status : this._in('status').val(), 
 				validationText : this._in('validationText').val(), 
 				validationTextInternal : this._in('validationTextInternal').val()
-			};
-
-			var boatValdationSuccess = function( boat ) {
-
+			}).then(function( boat ) {
 				self.render();
-			} 
+			});
 
-			this.model.save(data).then(boatValdationSuccess);
 		},
 
-		boatPicturesRow: function() {
+		displayBoatPictures: function() {
 
 			var self = this;
+
 			self.boatPictures = {};
+			this.$el.find('#boatPictures').html('');
 
 			var query = self.model.relation('boatPictures').query();
 			query.ascending('order');
@@ -75,10 +72,48 @@ define([
 			this.boatPictures[FileHolder.id] = FileHolder;
 		}, 
 
-		boatInuranceRow: function() {
+		deleteBoatPicture: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var id = e.closest('tr').attr('data-id');
+			var order = self.boatPictures[id].get('order');
+
+			if( confirm("Do you really want to delete picture #"+order+"?") ) {
+				this.model.relation('boatPictures').remove(self.boatPictures[id]);
+				this.model.save().then(function() {
+					delete this.boatPictures[id];
+					self.displayBoatPictures();
+				});
+			}
+
+		},
+
+		updateBoatPicture: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
+
+			self.boatPictures[parent.attr('data-id')].save({ 
+				order: parseInt(parent.find('[name="order"]').val())
+			}).then(function() {
+				self.displayBoatPictures();
+			}, function(e) {
+				console.log(e);
+			});
+
+		},
+
+		displayProofsOfInurance: function() {
 
 			var self = this;
 			self.proofOfInsurance = {};
+			this.$el.find('#proofOfInsurance').html('');
 
 			var query = self.model.relation('proofOfInsurance').query();
 			query.ascending("createdAt");
@@ -94,7 +129,58 @@ define([
 			}));
 
 			this.proofOfInsurance[FileHolder.id] = FileHolder;
-		}
+		},
+
+		deleteProofOfInsurance: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var id = e.closest('tr').attr('data-id');
+
+			if( confirm("Do you really want to delete "+id+"?") ) {
+				this.model.relation('proofOfInsurance').remove(self.proofOfInsurance[id]);
+				this.model.save().then(function() {
+					delete this.proofOfInsurance[id];
+					self.displayProofsOfInurance();
+				});
+			}
+
+		},
+
+		uploadNewFile: function (event) {
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var opts = {};
+			var cb = null;
+			var FileHolderModel = Parse.Object.extend('FileHolder');
+
+			if( e.attr('name') == 'boat-picture' ) {
+				cb = function(file) {
+					new FileHolderModel({ file: file }).save().then(function(fh) {
+						self.model.relation('boatPictures').add(fh);
+						self.model.save().then(function() {
+							self.displayBoatPictures();
+						});
+					});
+				};
+				opts.pdf = false;
+			} else {
+				cb = function(file) {
+					new FileHolderModel({ file: file }).save().then(function(fh) {
+						self.model.relation('proofOfInsurance').add(fh);
+						self.model.save().then(function() {
+							self.displayProofsOfInurance();
+						});
+					});
+				};
+			}
+
+			this.uploadFile(event, cb, opts);
+
+		},
 	});
 	return BoatValidationView;
 });

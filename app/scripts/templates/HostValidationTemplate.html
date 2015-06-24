@@ -60,13 +60,13 @@
 						<div class="form-group">
 							<label for="validationText" class="col-sm-3 control-label">Decision</label>
 							<div class="col-sm-6">
-								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= validationText %></textarea>
+								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= typeof validationText !== typeof undefined ? validationText : '' %></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="validationTextInternal" class="col-sm-3 control-label">Internal</label>
 							<div class="col-sm-6">
-								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= validationTextInternal %></textarea>
+								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= typeof validationTextInternal !== typeof undefined ? validationTextInternal : '' %></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -99,7 +99,7 @@
 							<tr>
 								<td>Boater Safety Course</td>
 								<td>
-									<% if( certBSC ) { %>
+									<% if( typeof certBSC !== typeof undefined && certBSC) { %>
 										<a href="<%= certBSC.url %>" target="_blank">certification file</a>
 									<% } else { %>
 										no file
@@ -123,7 +123,7 @@
 							<tr>
 								<td>Charterboat Captain</td>
 								<td>
-									<% if( certCCL ) { %>
+									<% if( typeof certCCL !== typeof undefined && certCCL) { %>
 										<a href="<%= certCCL.url %>" target="_blank">Charterboat Captain</a>
 									<% } else { %>
 										no file
@@ -147,7 +147,7 @@
 							<tr>
 								<td>Master Captain's License</td>
 								<td>
-									<% if( certMCL ) { %>
+									<% if( typeof certMCL !== typeof undefined && certMCL ) { %>
 										<a href="<%= certMCL.url %>" target="_blank">Master Captain's License</a>
 									<% } else { %>
 										no file
@@ -171,7 +171,7 @@
 							<tr>
 								<td>Fishing License</td>
 								<td>
-									<% if( certMCL ) { %>
+									<% if( typeof certFL !== typeof undefined && certFL ) { %>
 										<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
 									<% } else { %>
 										no file
@@ -195,7 +195,7 @@
 							<tr>
 								<td>Sailing Certification</td>
 								<td>
-									<% if( certSL ) { %>
+									<% if( typeof certSL !== typeof undefined && certSL ) { %>
 										<a href="<%= certSL.url %>" target="_blank">Sailing Certification</a>
 									<% } else { %>
 										no file
@@ -219,7 +219,7 @@
 							<tr>
 								<td>First Aid Certification</td>
 								<td>
-									<% if( certFAC ) { %>
+									<% if( typeof certFAC !== typeof undefined && certFAC) { %>
 										<a href="<%= certFAC.url %>" target="_blank">First Aid Certification</a>
 									<% } else { %>
 										no file

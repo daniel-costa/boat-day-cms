@@ -198,7 +198,8 @@ define([
 						to: this.model.get('profile'),
 						action: "boat-approved",
 						boat: this.model,
-						fromTeam: true
+						fromTeam: true,
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');	
 					});
@@ -208,7 +209,8 @@ define([
 						to: this.model.get('profile'),
 						action: "boat-denied",
 						boat: this.model,
-						fromTeam: true
+						fromTeam: true,
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');
 					});

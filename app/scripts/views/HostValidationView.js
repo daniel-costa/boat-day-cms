@@ -67,7 +67,8 @@ define([
 						from: Parse.User.current().get('profile'),
 						to: this.model.get('profile'),
 						action: "host-approved",
-						fromTeam: true
+						fromTeam: true,
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');	
 					});
@@ -76,7 +77,8 @@ define([
 						from: Parse.User.current().get('profile'),
 						to: this.model.get('profile'),
 						action: "host-denied",
-						fromTeam: true
+						fromTeam: true,
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');
 					});
@@ -102,7 +104,8 @@ define([
 						to: this.model.get('profile'),
 						action: "certification-approved",
 						fromTeam: true,
-						message: e.attr('data-cert-name')
+						message: e.attr('data-cert-name'),
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');
 					});
@@ -112,7 +115,8 @@ define([
 						to: this.model.get('profile'),
 						action: "certification-denied",
 						fromTeam: true,
-						message: e.attr('data-cert-name')
+						message: e.attr('data-cert-name'),
+						sendEmail: true,
 					}).save().then(function() {
 						alert('Notification Sent');
 					});

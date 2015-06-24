@@ -54,13 +54,13 @@
 						<div class="form-group">
 							<label for="validationText" class="col-sm-3 control-label">Decision</label>
 							<div class="col-sm-6">
-								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= validationText %></textarea>
+								<textarea class="form-control" id="validationText" name="validationText" rows="3"><%= typeof validationText !== typeof undefined ? validationText : '' %></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="validationTextInternal" class="col-sm-3 control-label">Internal</label>
 							<div class="col-sm-6">
-								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= validationTextInternal %></textarea>
+								<textarea class="form-control" id="validationTextInternal" name="validationTextInternal" rows="5"><%= typeof validationTextInternal !== typeof undefined ? validationTextInternal : '' %></textarea>
 							</div>
 						</div>
 						<div class="form-group">

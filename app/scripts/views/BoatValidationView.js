@@ -20,6 +20,7 @@ define([
 			"click .delete-picture": "deleteBoatPicture",
 			"click .update-picture": "updateBoatPicture",
 			"change .upload": "uploadNewFile",
+			"click .notify-host": "sendHostNotification"
 		},
 
 		
@@ -125,6 +126,7 @@ define([
 		appendInsurance: function(FileHolder) {
 
 			this.$el.find('#proofOfInsurance').append(_.template(BoatValidationInsuranceRowTemplate)({ 
+				id : FileHolder.id,
 				file: FileHolder,
 			}));
 
@@ -181,6 +183,38 @@ define([
 			this.uploadFile(event, cb, opts);
 
 		},
+
+		sendHostNotification: function() {
+
+			event.preventDefault();
+
+			var NotificationModel = Parse.Object.extend("Notification");
+			var status = this.model.get('status');
+
+			if( confirm("Are you sure you want to send a notification ?") ) {
+				if( status == 'approved' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "boat-approved",
+						fromTeam: true
+					}).save().then(function() {
+						alert('Notification Sent');	
+					});
+				} else if( status == 'denied' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "boat-denied",
+						fromTeam: true
+					}).save().then(function() {
+						alert('Notification Sent');
+					});
+				} else {
+					alert('Boat must be approved or denied to receive a notification');
+				}
+			}
+		}
 	});
 	return BoatValidationView;
 });

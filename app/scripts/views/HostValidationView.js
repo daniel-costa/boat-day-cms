@@ -11,7 +11,7 @@ define([
 		events : {
 			'submit form': 'save',
 			'click .btn-send-cert-noti': 'sendCertNotification',
-			'click .btn-send-host-noti': 'sendHostNotification'
+			'click .btn-send-host-noti': 'sendHostNotification', 
 		},
 
 		render: function() {

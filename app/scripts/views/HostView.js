@@ -13,7 +13,8 @@ define([
 			"submit form" : "update", 
 			"change .upload": "uploadBgScreen", 
 			"click .btn-upload": "clickUpload", 
-			"click .btn-sendNotification": "validateCertification"
+			'click .btn-send-cert-noti': 'sendCertNotification',
+			'click .btn-send-host-noti': 'sendHostNotification'
 		},
 
 		initialize: function() {
@@ -54,10 +55,36 @@ define([
 			this.uploadFile(event, cb);
 		},
 
-		validateCertification: function(event) {
+		sendHostNotification: function() {
 
-			alert("Have to be done");
+			event.preventDefault();
 
+			var NotificationModel = Parse.Object.extend("Notification");
+			var status = this.model.get('status');
+
+			if( confirm("Are you sure you want to send a notification to '" + this.model.get('firstname') + ' ' + this.model.get('lastname') +"'?") ) {
+				if( status == 'approved' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "host-approved",
+						fromTeam: true
+					}).save().then(function() {
+						alert('Notification Sent');	
+					});
+				} else if( status == 'denied' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "host-denied",
+						fromTeam: true
+					}).save().then(function() {
+						alert('Notification Sent');
+					});
+				} else {
+					alert('Host must be approved or denied to receive a notification');
+				}
+			}
 		}, 
 
 		update: function(event) {
@@ -102,13 +129,52 @@ define([
 			
 			var hostUpdateSuccess = function( profile ) {
 
-				Parse.history.navigate('hosts', true);
+				//Parse.history.navigate('hosts', true);
+				self.render();
 
 			};
 			
 			this.model.save(data).then(hostUpdateSuccess);
 
 		},
+
+		sendCertNotification: function(event) {
+
+			event.preventDefault();
+
+			var e = $(event.currentTarget);
+			var NotificationModel = Parse.Object.extend("Notification");
+			var status = this.model.get('certStatus'+e.attr('data-cert'));
+
+			if( confirm("Are you sure you want to send a notification '" + e.attr('data-cert-name') + "' to '" + this.model.get('firstname') + ' ' + this.model.get('lastname') +"'?") ) {
+
+				if( status == 'approved' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "certification-approved",
+						fromTeam: true,
+						message: e.attr('data-cert-name')
+					}).save().then(function() {
+						alert('Notification Sent');
+					});
+				} else if( status == 'denied' ) {
+					new NotificationModel({
+						from: Parse.User.current().get('profile'),
+						to: this.model.get('profile'),
+						action: "certification-denied",
+						fromTeam: true,
+						message: e.attr('data-cert-name')
+					}).save().then(function() {
+						alert('Notification Sent');
+					});
+				} else {
+					alert('Certification must be approved or denied to receive a notification');
+				}
+
+			}	
+
+		}
 
 	});
 	return HostView;

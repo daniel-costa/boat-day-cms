@@ -1,218 +1,220 @@
 <div class="top-navigation"></div>
 <form class="form-horizontal"> 
 	<div class="container"> 
-		<div class="">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title text-center">Update BoatDay</h3>
-				</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Update BoatDay</h3>
+			</div>
 
-				<div class="panel-body">
-					<div class="col-sm-12">
-						<div class="form-group">
-							<label for="boatdayId" class="col-sm-2 control-label">BoatDay id</label>
-							<div class="col-sm-8">
-								<%= objectId%>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
-							<div class="col-sm-8">
-								<%= createdAt %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="updatedAt" class="col-sm-2 control-label">Updated at</label>
-							<div class="col-sm-8">
-								<%= updatedAt%>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="availableSeats" class="col-sm-2 control-label">Available seats</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="availableSeats" name="availableSeats" value="<%= availableSeats %>"> 
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="date" class="col-sm-2 control-label">Date</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control date" placeholder="mm/dd/yyyy" value="<%= date.iso %>" name="date" />
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="departureTime" class="col-sm-2 control-label">Departure time</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="departureTime" name="departureTime" value="<%= departureTime %>">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="description" class="col-sm-2 control-label">Description</label>
-							<div class="col-sm-8">
-								<textarea rows="5" name="description" id="description" class="form-control">
-									<%= description %></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="duration" class="col-sm-2 control-label">Duration</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="duration" name="duration" value="<%= duration %>">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="col-sm-2 control-label">Name</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="name" name="name" value="<%= name %>">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="price" class="col-sm-2 control-label">Price</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="price" name="price" value="<%= price %>">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="status" class="col-sm-2 control-label">Status</label>
-							<div class="col-sm-8">
-								<select class="input-small form-control" id="status" name="status">
-									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
-									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
-									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
-								</select>
-							</div>
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="boatdayId" class="col-sm-3 control-label">BoatDay id</label>
+						<div class="col-sm-6">
+							<%= objectId%>
 						</div>
 					</div>
-				</div>
-				<div class="panel-heading">
-					<h3 class="panel-title text-center">Details</h3>
-				</div>
-				<div class="panel-body">
 					<div class="form-group">
-						<label for="activity" class="col-sm-2 control-label">Activity</label>
-						<div class="col-sm-8">
-							<select class="input-small form-control" id="activity" name="activity">
-								<option value="leisure" <%= category && category == 'leisure' ? 'selected' : '' %>>Leisure</option> 
-								<option value="fishing" <%= category && category == 'fishing' ? 'selected' : '' %>>Fishing</option>
-								<option value="sailing" <%= category && category == 'sailing' ? 'selected' : '' %>>Sailing</option>
-								<option value="sports" <%= category && category == 'sports' ? 'selected' : '' %>>Water Sports</option>
+						<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+						<div class="col-sm-6">
+							<%= createdAt %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="updatedAt" class="col-sm-3 control-label">Updated at</label>
+						<div class="col-sm-6">
+							<%= updatedAt%>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="availableSeats" class="col-sm-3 control-label">Available seats</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="availableSeats" name="availableSeats" value="<%= availableSeats %>"> 
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="date" class="col-sm-3 control-label">Date</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control date" placeholder="mm/dd/yyyy" value="<%= date.iso %>" name="date" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="departureTime" class="col-sm-3 control-label">Departure time</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="departureTime" name="departureTime" value="<%= departureTime %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-3 control-label">Description</label>
+						<div class="col-sm-6">
+							<textarea rows="5" name="description" id="description" class="form-control"><%= description %></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="duration" class="col-sm-3 control-label">Duration</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="duration" name="duration" value="<%= duration %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="name" name="name" value="<%= name %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="price" class="col-sm-3 control-label">Price</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="price" name="price" value="<%= price %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="status" class="col-sm-3 control-label">Status</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" id="status" name="status">
+								<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+								<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+								<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group checkboxes">
-						<div class="col-sm-12 activityContainer leisure">
-							<label class="col-sm-2 control-label"><strong>Category</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresLeisureCruising" <%= features.leisure.cruising ? 'checked': '' %>> Crusing</label>
-								<label><input type="checkbox" name="featuresLeisurePartying" <%= features.leisure.partying ? 'checked': '' %>> Partying</label>
-								<label><input type="checkbox" name="featuresLeisureSightseeing" <%= features.leisure.sightseeing ? 'checked': '' %>> Sightseeing</label>
-								<label><input type="checkbox" name="featuresLeisureOther" <%= features.leisure.other ? 'checked': '' %>> Other</label> 
-							</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Details</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="activity" class="col-sm-3 control-label">Activity</label>
+					<div class="col-sm-6">
+						<select class="input-small form-control" id="activity" name="activity">
+							<option value="leisure" <%= category && category == 'leisure' ? 'selected' : '' %>>Leisure</option> 
+							<option value="fishing" <%= category && category == 'fishing' ? 'selected' : '' %>>Fishing</option>
+							<option value="sailing" <%= category && category == 'sailing' ? 'selected' : '' %>>Sailing</option>
+							<option value="sports" <%= category && category == 'sports' ? 'selected' : '' %>>Water Sports</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group checkboxes">
+					<div class="col-sm-12 activityContainer leisure">
+						<label class="col-sm-3 control-label"><strong>Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresLeisureCruising" <%= features.leisure.cruising ? 'checked': '' %>> Crusing
+							<input type="checkbox" name="featuresLeisurePartying" <%= features.leisure.partying ? 'checked': '' %>> Partying
+							<input type="checkbox" name="featuresLeisureSightseeing" <%= features.leisure.sightseeing ? 'checked': '' %>> Sightseeing
+							<input type="checkbox" name="featuresLeisureOther" <%= features.leisure.other ? 'checked': '' %>> Other
 						</div>
-						<div class="col-sm-12 activityContainer fishing">
-							<label class="col-sm-2 control-label"><strong>Category</strong></label>
-							<div class="col-sm-8">
-								<label data-toggle="tooltip" data-placement="bottom" title="limit 12 miles out"><input type="checkbox" name="featuresFishingOffshore" <%= features.fishing.offshore ? 'checked': '' %>> Offshore Fishing</label>
-								<label><input type="checkbox" name="featuresFishingFlats" <%= features.fishing.flats ? 'checked': '' %>> Flats Fishing</label>
-								<label><input type="checkbox" name="featuresFishingLake" <%= features.fishing.lake ? 'checked': '' %>> Lake Fishing</label>
-								<label data-toggle="tooltip" data-placement="bottom" title="just for fun"><input type="checkbox" name="featuresFishingRecreational" <%= features.fishing.recreational ? 'checked': '' %>> Recreational Fishing</label>
-								<label><input type="checkbox" name="featuresFishingOther" <%= features.fishing.other ? 'checked': '' %>> Other</label>
-							</div>	
+					</div>
+					<div class="col-sm-12 activityContainer fishing">
+						<label class="col-sm-3 control-label"><strong>Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresFishingOffshore" <%= features.fishing.offshore ? 'checked': '' %>> Offshore Fishing
+							<input type="checkbox" name="featuresFishingFlats" <%= features.fishing.flats ? 'checked': '' %>> Flats Fishing
+							<input type="checkbox" name="featuresFishingLake" <%= features.fishing.lake ? 'checked': '' %>> Lake Fishing
+							<input type="checkbox" name="featuresFishingRecreational" <%= features.fishing.recreational ? 'checked': '' %>> Recreational Fishing
+							<input type="checkbox" name="featuresFishingOther" <%= features.fishing.other ? 'checked': '' %>> Other
+						</div>	
+					</div>
+					<div class="col-sm-12 activityContainer fishing">
+						<label class="col-sm-3 control-label"><strong>Equipment</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresFishingEquipment" <%= features.fishing.equipment ? 'checked': '' %>> Equipment Provided
 						</div>
-						<div class="col-sm-12 activityContainer fishing">
-							<label class="col-sm-2 control-label"><strong>Equipment</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresFishingEquipment" <%= features.fishing.equipment ? 'checked': '' %>> Equipment Provided</label>
-							</div>
-							<div class="col-sm-8 equipment-list" <%= features.sports.equipment ? '': 'style="display:none"' %>>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsBait" <%= features.fishing.equipmentItems.bait ? 'checked': '' %>> Bait</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsLines" <%= features.fishing.equipmentItems.lines ? 'checked': '' %>> Fishing Line</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsHooks" <%= features.fishing.equipmentItems.hooks ? 'checked': '' %>> Hooks</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsLures" <%= features.fishing.equipmentItems.lures ? 'checked': '' %>> Lures</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsNets" <%= features.fishing.equipmentItems.nets ? 'checked': '' %>> Nets</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsRods" <%= features.fishing.equipmentItems.rods ? 'checked': '' %>> Rods</label>
-								<label><input type="checkbox" name="featuresFishingEquipmentItemsSinkers" <%= features.fishing.equipmentItems.sinkers ? 'checked': '' %>> Sinkers</label>
-							</div>
+						<div class="col-sm-6 equipment-list" <%= features.sports.equipment ? '': 'style="display:none"' %>>
+							<input type="checkbox" name="featuresFishingEquipmentItemsBait" <%= features.fishing.equipmentItems.bait ? 'checked': '' %>> Bait
+							<input type="checkbox" name="featuresFishingEquipmentItemsLines" <%= features.fishing.equipmentItems.lines ? 'checked': '' %>> Fishing Line
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsHooks" <%= features.fishing.equipmentItems.hooks ? 'checked': '' %>> Hooks
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsLures" <%= features.fishing.equipmentItems.lures ? 'checked': '' %>> Lures
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsNets" <%= features.fishing.equipmentItems.nets ? 'checked': '' %>> Nets
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsRods" <%= features.fishing.equipmentItems.rods ? 'checked': '' %>> Rods
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsSinkers" <%= features.fishing.equipmentItems.sinkers ? 'checked': '' %>> Sinkers
 						</div>
-						<div class="col-sm-12 activityContainer sports">
-							<label class="col-sm-2 control-label"><strong>Category</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresSportsSnorkeling" <%= features.sports.snorkeling ? 'checked': '' %>> Snorkeling</label>
-								<label><input type="checkbox" name="featuresSportStubing" <%= features.sports.tubing ? 'checked': '' %>> Tubing</label>
-								<label><input type="checkbox" name="featuresSportsWakeBoarding" <%= features.sports.wakeBoarding ? 'checked': '' %>> Wake Boarding</label>
-								<label><input type="checkbox" name="featuresSportsWaterSkiing" <%= features.sports.waterSkiing ? 'checked': '' %>> Water Skiing </label>
-							</div>
+					</div>
+					<div class="col-sm-12 activityContainer sports">
+						<label class="col-sm-3 control-label"><strong>Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresSportsSnorkeling" <%= features.sports.snorkeling ? 'checked': '' %>> Snorkeling
+							<input type="checkbox" name="featuresSportStubing" <%= features.sports.tubing ? 'checked': '' %>> Tubing
+							<input type="checkbox" name="featuresSportsWakeBoarding" <%= features.sports.wakeBoarding ? 'checked': '' %>> Wake Boarding
+							<input type="checkbox" name="featuresSportsWaterSkiing" <%= features.sports.waterSkiing ? 'checked': '' %>> Water Skiing 
 						</div>
-						<div class="col-sm-12 activityContainer sports">
-							<label class="col-sm-2 control-label"><strong>Equipment</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresSportsEquipment" <%= features.sports.equipment ? 'checked': '' %>> Equipment Provided</label>
-							</div>
-							<div class="col-sm-8 equipment-list" <%= features.sports.equipment ? '': 'style="display:none"' %>>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsFins" <%= features.sports.equipmentItems.fins ? 'checked': '' %>> Fins</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsHelmets" <%= features.sports.equipmentItems.helmets ? 'checked': '' %>> Helmets</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsMasks" <%= features.sports.equipmentItems.masks ? 'checked': '' %>> Masks</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsSnorkels" <%= features.sports.equipmentItems.snorkels ? 'checked': '' %>> Snorkels</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsTowLine" <%= features.sports.equipmentItems.towLine ? 'checked': '' %>> Tow Line</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsTubes" <%= features.sports.equipmentItems.tubes ? 'checked': '' %>> Tubes</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsWakeboard" <%= features.sports.equipmentItems.wakeboard ? 'checked': '' %>> Wakeboard</label>
-								<label><input type="checkbox" name="featuresSportsEquipmentItemsWaterSkis" <%= features.sports.equipmentItems.waterSkis ? 'checked': '' %>> Water Skis
-								</label>
-							</div>
+					</div>
+					<div class="col-sm-12 activityContainer sports">
+						<label class="col-sm-3 control-label"><strong>Equipment</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresSportsEquipment" <%= features.sports.equipment ? 'checked': '' %>> Equipment Provided
 						</div>
-						<div class="col-sm-12">
-							<label class="col-sm-2 control-label"><strong>Family Settings</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresGlobalChildren" <%= features.global.children ? 'checked': '' %>> Children allowed </label>
-								<label><input type="checkbox" name="featuresGlobalSmoking" <%= features.global.smoking ? 'checked': '' %>> Smoking Permitted</label>
-								<label><input type="checkbox" name="featuresGlobalDrinking" <%= features.global.drinking ? 'checked': '' %>> Drinking Permitted </label>
-								<label><input type="checkbox" name="featuresGlobalPets" <%= features.global.pets ? 'checked': '' %>> Pets Permitted </label>
-							</div>
+						<div class="col-sm-6 equipment-list" <%= features.sports.equipment ? '': 'style="display:none"' %>>
+							<input type="checkbox" name="featuresSportsEquipmentItemsFins" <%= features.sports.equipmentItems.fins ? 'checked': '' %>> Fins
+							<input type="checkbox" name="featuresSportsEquipmentItemsHelmets" <%= features.sports.equipmentItems.helmets ? 'checked': '' %>> Helmets
+							<input type="checkbox" name="featuresSportsEquipmentItemsMasks" <%= features.sports.equipmentItems.masks ? 'checked': '' %>> Masks
+							<input type="checkbox" name="featuresSportsEquipmentItemsSnorkels" <%= features.sports.equipmentItems.snorkels ? 'checked': '' %>> Snorkels
+							<input type="checkbox" name="featuresSportsEquipmentItemsTowLine" <%= features.sports.equipmentItems.towLine ? 'checked': '' %>> Tow Line
+							<input type="checkbox" name="featuresSportsEquipmentItemsTubes" <%= features.sports.equipmentItems.tubes ? 'checked': '' %>> Tubes
+							<input type="checkbox" name="featuresSportsEquipmentItemsWakeboard" <%= features.sports.equipmentItems.wakeboard ? 'checked': '' %>> Wakeboard
+							<input type="checkbox" name="featuresSportsEquipmentItemsWaterSkis" <%= features.sports.equipmentItems.waterSkis ? 'checked': '' %>> Water Skis
+							
 						</div>
-						<div class="col-sm-12">
-							<label class="col-sm-2 control-label"><strong>Extras</strong></label>
-							<div class="col-sm-8">
-								<label><input type="checkbox" name="featuresExtrasFood" <%= features.extras.food ? 'checked': '' %>> Food</label>
-								<label><input type="checkbox" name="featuresExtrasDrink" <%= features.extras.drink ? 'checked': '' %>> Drink</label>
-								<label><input type="checkbox" name="featuresExtrasMusic" <%= features.extras.music ? 'checked': '' %>> Music</label>
-								<label><input type="checkbox" name="featuresExtrasTowels" <%= features.extras.towels ? 'checked': '' %>> Towels</label>
-								<label><input type="checkbox" name="featuresExtrasSunscreen" <%= features.extras.sunscreen ? 'checked': '' %>> Sunscreen</label>
-								<label><input type="checkbox" name="featuresExtrasInflatables" <%= features.extras.inflatables ? 'checked': '' %>> Inflatables </label>
-							</div>
+					</div>
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Family Settings</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresGlobalChildren" <%= features.global.children ? 'checked': '' %>> Children allowed 
+							<input type="checkbox" name="featuresGlobalSmoking" <%= features.global.smoking ? 'checked': '' %>> Smoking Permitted
+							<input type="checkbox" name="featuresGlobalDrinking" <%= features.global.drinking ? 'checked': '' %>> Drinking Permitted 
+							<input type="checkbox" name="featuresGlobalPets" <%= features.global.pets ? 'checked': '' %>> Pets Permitted 
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Extras</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresExtrasFood" <%= features.extras.food ? 'checked': '' %>> Food
+							<input type="checkbox" name="featuresExtrasDrink" <%= features.extras.drink ? 'checked': '' %>> Drink
+							<input type="checkbox" name="featuresExtrasMusic" <%= features.extras.music ? 'checked': '' %>> Music
+							<input type="checkbox" name="featuresExtrasTowels" <%= features.extras.towels ? 'checked': '' %>> Towels
+							<input type="checkbox" name="featuresExtrasSunscreen" <%= features.extras.sunscreen ? 'checked': '' %>> Sunscreen
+							<input type="checkbox" name="featuresExtrasInflatables" <%= features.extras.inflatables ? 'checked': '' %>> Inflatables 
 						</div>
 					</div>
 				</div>
-				<div class="panel-heading">
-					<h3 class="panel-title text-center">
-						Booking Policy (how you accept Guest requests)
-					</h3>
-				</div>
-				<div class="panel-body">
-					<div class="form-group" style="margin-bottom:0px">
-						<div class="col-sm-24 policy-booking">
-							<label><input type="radio" name="bookingPolicy" value="manually" checked> <strong>Manual Book: </strong>I want to review each Guest request and choose the best fit for my BoatDay.</label>
-							<label><input type="radio" name="bookingPolicy" value="automatically"> <strong>Instant Book: </strong>Automatically accept all Guest requests.</label>
-							<label><input type="radio" name="bookingPolicy" value="halfway"> <strong>Trusted Book: </strong>Automatically accepts requests from Guests who have attended one of my BoatDays and received a positive review. I want to review all other requests.</label>
-						</div>
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">
+					Booking Policy (how you accept Guest requests)
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group" style="margin-bottom:0px">
+					<div class="col-sm-12 policy-booking">
+						<input type="radio" name="bookingPolicy" value="manually" checked> <strong>Manual Book: </strong>I want to review each Guest request and choose the best fit for my BoatDay.<br>
+						<input type="radio" name="bookingPolicy" value="automatically"> <strong>Instant Book: </strong>Automatically accept all Guest requests.<br>
+						<input type="radio" name="bookingPolicy" value="halfway"> <strong>Trusted Book: </strong>Automatically accepts requests from Guests who have attended one of my BoatDays and received a positive review. I want to review all other requests.
 					</div>
 				</div>
-				<div class="panel-heading">
-					<h3 class="panel-title text-center">
-						Cancellation Policy (how you treat Guest cancellations)
-					</h3>
-				</div>
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">
+					Cancellation Policy (how you treat Guest cancellations)
+				</h3>
+			</div>
 
-				<div class="panel-body">
-					<div class="form-group" style="margin-bottom:0px">
-						<div class="col-sm-24 policy-cancellation">
-							<label><input type="radio" name="cancellationPolicy" value="flexible" checked> <strong>Flexible:</strong> Full refund up to 1 day prior to departure time, except fees.</label>
-							<label><input type="radio" name="cancellationPolicy" value="moderate"> <strong>Moderate: </strong>Full refund up to 3 days prior to departure time, except fees.</label>
-							<label><input type="radio" name="cancellationPolicy" value="strict"> <strong>Strict: </strong>50% refund up to five days prior to departure time, except fees.</label>
-						</div>
+			<div class="panel-body">
+				<div class="form-group" style="margin-bottom:0px">
+					<div class="col-sm-12 policy-cancellation">
+						<input type="radio" name="cancellationPolicy" value="flexible" checked> <strong>Flexible:</strong> Full refund up to 1 day prior to departure time, except fees.<br>
+						<input type="radio" name="cancellationPolicy" value="moderate"> <strong>Moderate: </strong>Full refund up to 3 days prior to departure time, except fees.<br>
+						<input type="radio" name="cancellationPolicy" value="strict"> <strong>Strict: </strong>50% refund up to five days prior to departure time, except fees.
 					</div>
-				</div>	
-
-				<div class="panel-footer text-center">
-						<button type="submit" class="btn btn-primary">Update</button>
 				</div>
+			</div>	
+
+			<div class="panel-footer text-center">
+					<button type="submit" class="btn btn-default">Update</button>
 			</div>
 		</div>
 	</div>

@@ -2,68 +2,66 @@
 
 <form class="form-horizontal"> 
 	<div class="container"> 
-		<div class="">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title text-center">Update BoatDay profile...</h3>
-				</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Update BoatDay profile...</h3>
+			</div>
 
-				<div class="panel-body">
-					<div class="col-sm-12">
-						<div class="form-group">
-							<label for="profileId" class="col-sm-2 control-label">Profile id</label>
-							<div class="col-sm-8">
-								<%= objectId %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="createdAt" class="col-sm-2 control-label">Created at</label>
-							<div class="col-sm-8">
-								<%= createdAt %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="updatedAt" class="col-sm-2 control-label">Updated at</label>
-							<div class="col-sm-8">
-								<%= updatedAt %>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="about" class="col-sm-2 control-label">About</label>
-							<div class="col-sm-8">
-								<textarea rows="5" name="about" id="about" class="form-control"><%= about %></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="displayName" class="col-sm-2 control-label">Profile name</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="displayName" name="displayName" value= "<%= displayName %>" > 
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="profilePic" class="col-sm-2 control-label">Profile picture</label>
-							<div class="col-sm-8">
-								<img class="obj-thumb delete-picture img-circle" src="<%= profilePicture.url ? profilePicture.url : '' %>" style="max-width:200px;"/>
-
-							</div>
-							
-						</div>
-						<div class="form-group">
-							<label for="status" class="col-sm-2 control-label">Status</label>
-							<div class="col-sm-8">
-								<select class="input-small form-control" id="status" name="status">
-									<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
-									<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
-									<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
-								</select>
-							</div>
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="profileId" class="col-sm-3 control-label">Profile id</label>
+						<div class="col-sm-6">
+							<%= objectId %>
 						</div>
 					</div>
-				</div> 
+					<div class="form-group">
+						<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+						<div class="col-sm-6">
+							<%= createdAt %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="updatedAt" class="col-sm-3 control-label">Updated at</label>
+						<div class="col-sm-6">
+							<%= updatedAt %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="about" class="col-sm-3 control-label">About</label>
+						<div class="col-sm-6">
+							<textarea rows="5" name="about" id="about" class="form-control"><%= about %></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="displayName" class="col-sm-3 control-label">Profile name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="displayName" name="displayName" value= "<%= displayName %>" > 
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="status" class="col-sm-3 control-label">Status</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" id="status" name="status">
+								<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+								<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+								<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="profilePic" class="col-sm-3 control-label">Profile picture</label>
+						<div class="col-sm-6">
+							<img class="profile-picture rectangle" src="<%= profilePicture.url ? profilePicture.url : '' %>" style="max-width:200px;"/>
 
-				<div class="panel-footer text-center">
-						<button type="submit" class="btn btn-primary">Update</button>
+						</div>
+						
+					</div>
 				</div>
+			</div> 
+
+			<div class="panel-footer text-center">
+					<button type="submit" class="btn btn-default">Update</button>
 			</div>
 		</div>
 	</div>

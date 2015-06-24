@@ -1,6 +1,14 @@
-<div class="row file">
-	<div class="cell col-sm-18">
-		Proof of insurance
-		<a href="<%= file.url() %>" target="_blank">(preview)</a>
-	</div>
-</div>
+
+<tr data-id="<%= file.id %>">
+	<td><%= id %></td>
+	<td>
+		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
+	</td>
+	<td>
+		<%= new Date(file.createdAt).toLocaleDateString() %> at
+		<%= new Date(file.createdAt).toLocaleTimeString() %> 
+	</td>
+	<td class="text-center">
+		<button type="button" class="btn btn-danger delete-insurance">Delete</button>
+	</td>
+</tr>

@@ -20,7 +20,7 @@ define([
 			"click .delete-picture": "deleteBoatPicture",
 			"click .update-picture": "updateBoatPicture",
 			"change .upload": "uploadNewFile",
-			"click .notify-host": "sendHostNotification"
+			"click .notify-host": "sendBoatNotification"
 		},
 
 		
@@ -184,7 +184,7 @@ define([
 
 		},
 
-		sendHostNotification: function() {
+		sendBoatNotification: function() {
 
 			event.preventDefault();
 
@@ -197,6 +197,7 @@ define([
 						from: Parse.User.current().get('profile'),
 						to: this.model.get('profile'),
 						action: "boat-approved",
+						boat: this.model,
 						fromTeam: true
 					}).save().then(function() {
 						alert('Notification Sent');	
@@ -206,6 +207,7 @@ define([
 						from: Parse.User.current().get('profile'),
 						to: this.model.get('profile'),
 						action: "boat-denied",
+						boat: this.model,
 						fromTeam: true
 					}).save().then(function() {
 						alert('Notification Sent');

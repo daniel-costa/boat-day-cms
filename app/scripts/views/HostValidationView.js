@@ -137,7 +137,7 @@ define([
 					preview.attr('href', file.url());
 				} else {
 					
-					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');
+					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Background Check').addClass('preview');
 					parent.append($('<p>').append(link));	
 
 				}

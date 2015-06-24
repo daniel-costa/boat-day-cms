@@ -30,20 +30,14 @@
 						</div>
 						
 						<div class="form-group">
-							<label for="bgCheck" class="col-sm-3 control-label">Bg Check</label>
-							<div class="col-sm-6">
+							<label for="bgCheck" class="col-sm-3 control-label">Background Check</label>
+							<div class="col-sm-9">
 								<input value="" type="file" class="upload" id="bgCheck" name="bgCheck" delegate-error-to-button>
-								<button type="button" class="btn btn-default btn-block btn-lg btn-upload" for="bgCheck">Bg Check</button>
-							</div>
-							<% if( bgCheck ) { %>
-								<div class="col-sm-6 col-sm-offset-3">
-									<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
-								</div>
-								<div class="col-sm-4 col-sm-offset-1 uploadedTime">
+								<% if( typeof bgCheck !== typeof undefined && bgCheck ) { %>
+									<a href="<%= bgCheck.url %>" target="_blank">Background check</a>
 									<%= typeof bgCheckDate !== typeof undefined ? bgCheckDate.iso : '' %>
-								</div>
-							<% } %>
-
+								<% } %>
+							</div>
 						</div>
 						<div class="form-group">
 							<label for="status" class="col-sm-3 control-label">Status</label>

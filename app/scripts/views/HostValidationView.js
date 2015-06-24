@@ -10,7 +10,8 @@ define([
 
 		events : {
 			'submit form': 'save',
-			'click .btn-send-cert-noti': 'sendCertNotification'
+			'click .btn-send-cert-noti': 'sendCertNotification',
+			'click .btn-send-host-noti': 'sendHostNotification'
 		},
 
 		render: function() {
@@ -28,7 +29,6 @@ define([
 			var self = this;
 
 			var data = {
-
 				status: this._in('status').val(), 
 				validationText: this._in('validationText').val(), 
 				validationTextInternal: this._in('validationTextInternal').val(), 
@@ -46,27 +46,35 @@ define([
 				certResponseFAC: this._in('certResponseFAC').val()
 			};
 
-			var hostValdationSuccess = function( host ) {
-
+			this.model.save(data).then(function( profile ) {
 				self.render();
-
-			};
-
-			this.model.save(data).then(hostValdationSuccess);
+			});
 		},
 
 		sendHostNotification: function() {
 
-			var from = Parse.User.current().get('profile');
-			var to = this.model.get('profile');
+			var NotificationModel = Parse.Object.extend("Notification");
+
 			var status = this.model.get('status');
 
 			if( status == 'approved' ) {
-				// host-approved
-				alert('send approved')
+				new NotificationModel({
+					from: Parse.User.current().get('profile'),
+					to: this.model.get('profile'),
+					action: "host-approved",
+					fromTeam: true
+				}).save().then(function() {
+					alert('Notification Sent');	
+				});
 			} else if( status == 'denied' ) {
-				// host-denied
-				alert('send denied')
+				new NotificationModel({
+					from: Parse.User.current().get('profile'),
+					to: this.model.get('profile'),
+					action: "host-denied",
+					fromTeam: true
+				}).save().then(function() {
+					alert('Notification Sent');
+				});
 			} else {
 				alert('Host must be approved or denied to receive a notification');
 			}

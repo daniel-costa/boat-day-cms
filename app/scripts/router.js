@@ -18,7 +18,6 @@ define([
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			
 			'boatdays': 'showBoatDaysView',
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',

@@ -65,7 +65,7 @@
 						<div class="form-group">
 							<label for="validationTextInternal" class="col-sm-3 control-label">Other actions</label>
 							<div class="col-sm-6">
-								<a href="#/profile/<%= profile.objectId %>" class="btn btn-default">Profile</a>
+								<a href="#/profile/<%= profile.objectId %>" class="btn btn-default">See Profile</a>
 								<button type="button" class="btn btn-warning btn-send-host-noti">Notify User</button>
 							</div>
 						</div>
@@ -109,7 +109,7 @@
 									<input type="text" name="certResponseBSC" id="certResponseBSC" class="form-control" value="<%= certResponseBSC %>" />
 								</td>
 								<td>
-									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="Boater Safety Course">Notify User</button>
+									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="BSC" data-cert-name="Boater Safety Course">Notify User</button>
 								</td>
 							</tr>
 
@@ -133,7 +133,7 @@
 									<input type="text" name="certResponseCCL" id="certResponseCCL" class="form-control" value="<%= certResponseCCL %>" />
 								</td>
 								<td>
-									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="Charterboat Captain">Notify User</button>
+									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="CCL" data-cert-name="Charterboat Captain">Notify User</button>
 								</td>
 								
 							</tr>
@@ -157,7 +157,7 @@
 									<input type="text" name="certResponseMCL" id="certResponseMCL" class="form-control" value="<%= certResponseMCL %>" />
 								</td>
 								<td>
-									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="Master Captain's License">Notify User</button>
+									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="MCL" data-cert-name="Master Captain's License">Notify User</button>
 								</td>
 								
 							</tr>
@@ -165,7 +165,7 @@
 								<td>Fishing License</td>
 								<td>
 									<% if( certMCL ) { %>
-										<a href="<%= certMCL.url %>" target="_blank">Fishing License</a>
+										<a href="<%= certFL.url %>" target="_blank">Fishing License</a>
 									<% } else { %>
 										no file
 									<% } %>
@@ -181,7 +181,7 @@
 									<input type="text" name="certResponseFL" id="certResponseFL" class="form-control" value="<%= certResponseFL %>" />
 								</td>
 								<td>
-									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="Fishing License">Notify User</button>
+									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="FL" data-cert-name="Fishing License">Notify User</button>
 								</td>
 								
 							</tr>
@@ -205,7 +205,7 @@
 									<input type="text" name="certResponseSL" id="certResponseSL" class="form-control" value="<%= certResponseSL %>" />
 								</td>
 								<td>
-									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="Sailing Certification">Notify User</button>
+									<button type="button" class="btn btn-warning btn-send-cert-noti" data-cert="SL" data-cert-name="Sailing Certification">Notify User</button>
 								</td>
 								
 							</tr>

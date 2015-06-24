@@ -15,7 +15,8 @@ define([
 		proofOfInsurance: {},
 
 		events : {
-			
+
+			'submit form': 'save'
 			
 		},
 
@@ -30,6 +31,27 @@ define([
 			this.boatInuranceRow();
 
 			return this;
+		},
+
+		save: function( event ) {
+
+			event.preventDefault();
+
+			var self = this;
+
+			var data = {
+
+				status : this._in('status').val(), 
+				validationText : this._in('validationText').val(), 
+				validationTextInternal : this._in('validationTextInternal').val()
+			};
+
+			var boatValdationSuccess = function( boat ) {
+
+				self.render();
+			} 
+
+			this.model.save(data).then(boatValdationSuccess);
 		},
 
 		boatPicturesRow: function() {

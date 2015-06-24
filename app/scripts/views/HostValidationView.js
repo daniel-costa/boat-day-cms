@@ -46,7 +46,7 @@ define([
 				certResponseFAC: this._in('certResponseFAC').val()
 			};
 
-			var hostValdationSuccess = function( profile ) {
+			var hostValdationSuccess = function( host ) {
 
 				self.render();
 

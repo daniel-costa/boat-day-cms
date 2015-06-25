@@ -45,8 +45,8 @@
 								<div for="bgCheckQ1" class="col-sm-2 col-sm-offset-3 control-label">23 Years Old:</div>
 								<div class="col-sm-2">
 									<select class="form-control" id="bgCheckQ1" name="bgCheckQ1">
-										<option value="true" <%= bgCheckQ1 && bgCheckQ1 == "true" ? 'selected' : '' %>>Yes</option> 
-										<option value="false" <%= bgCheckQ1 && bgCheckQ1 == "false" ? 'selected' : '' %>>No</option>
+										<option value="true" <%= bgCheckQ1 ? 'selected' : '' %>>Yes</option> 
+										<option value="false" <%= !bgCheckQ1 ? 'selected' : '' %>>No</option>
 									</select><br>
 								</div>
 							</div>

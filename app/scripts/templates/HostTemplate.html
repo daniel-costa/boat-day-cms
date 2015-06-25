@@ -68,25 +68,18 @@
 					<div class="form-group">
 						<label for="birthDate" class="col-sm-3 control-label">Date of birth</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="birthDate" name="birthDate" value="<%= birthdate.iso %>">
-							
+							<input type="text" class="form-control" id="birthDate" name="birthDate" value="<%= new Date(birthdate.iso).toLocaleDateString() %>">	
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="bgCheck" class="col-sm-3 control-label">Bg Check</label>
+						<label for="bgCheck" class="col-sm-3 control-label">Background Check</label>
 						<div class="col-sm-6">
 							<input value="" type="file" class="upload" id="bgCheck" name="bgCheck" delegate-error-to-button>
-							<button type="button" class="btn btn-default btn-block btn-lg btn-upload" for="bgCheck">Bg Check</button>
-						</div>
-						<% if( bgCheck ) { %>
-							<div class="col-sm-6 col-sm-offset-3">
-								<a href="<%= bgCheck.url %>" target="_blank">BgScreening</a>
-							</div>
-							<div class="col-sm-4 col-sm-offset-1 uploadedTime">
+							<% if( typeof bgCheck !== typeof undefined && bgCheck ) { %>
+									<a href="<%= bgCheck.url %>" target="_blank">Background check</a>
 								<%= typeof bgCheckDate !== typeof undefined ? bgCheckDate.iso : '' %>
-							</div>
-						<% } %>
-
+							<% } %>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="phone" class="col-sm-3 control-label">Phone</label>
@@ -178,6 +171,7 @@
 							</select>
 						</div>
 					</div>
+					
 					<div class="form-group">
 						<label for="accountHolder" class="col-sm-3 control-label">Account holder</label>
 						<div class="col-sm-6">
@@ -194,6 +188,18 @@
 						<label for="accountNum" class="col-sm-3 control-label">Account number</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="accountNum" name="accountNum" value="<%= accountNumber %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="businessName" class="col-sm-3 control-label">Business name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="businessName" name="businessName" value="<%= businessName %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="businessEin" class="col-sm-3 control-label">Employer Identification Number</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="businessEin" name="businessEin" value="<%= businessEin %>">
 						</div>
 					</div>
 

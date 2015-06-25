@@ -73,8 +73,28 @@
 						<div class="col-sm-6">
 							<select class="input-small form-control" id="status" name="status">
 								<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
-								<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
 								<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+								<option value="cancel" <%= status && status == "cancel" ? 'selected' : '' %>>Cancel</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="bookingPolicy" class="col-sm-3 control-label">Booking policy</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="bookingPolicy">
+								<option value="manually" <%= bookingPolicy && bookingPolicy == "manually" ? 'selected' : '' %>>Manual Book</option> 
+								<option value="automatically" <%= bookingPolicy && bookingPolicy == "automatically" ? 'selected' : '' %>>Instant Book</option>
+								<option value="halfway" <%= bookingPolicy && bookingPolicy == "halfway" ? 'selected' : '' %>>Trusted Book</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="cancellationPolicy" class="col-sm-3 control-label">Cancellation policy</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="cancellationPolicy">
+								<option value="flexible" <%= cancellationPolicy && cancellationPolicy == "flexible" ? 'selected' : '' %>>Flexible</option> 
+								<option value="moderate" <%= cancellationPolicy && cancellationPolicy == "moderate" ? 'selected' : '' %>>Moderate</option>
+								<option value="strict" <%= cancellationPolicy && cancellationPolicy == "strict" ? 'selected' : '' %>>Strict</option>
 							</select>
 						</div>
 					</div>
@@ -183,35 +203,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel-heading">
-				<h3 class="panel-title text-center">
-					Booking Policy (how you accept Guest requests)
-				</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group" style="margin-bottom:0px">
-					<div class="col-sm-12 policy-booking">
-						<input type="radio" name="bookingPolicy" value="manually" checked> <strong>Manual Book: </strong>I want to review each Guest request and choose the best fit for my BoatDay.<br>
-						<input type="radio" name="bookingPolicy" value="automatically"> <strong>Instant Book: </strong>Automatically accept all Guest requests.<br>
-						<input type="radio" name="bookingPolicy" value="halfway"> <strong>Trusted Book: </strong>Automatically accepts requests from Guests who have attended one of my BoatDays and received a positive review. I want to review all other requests.
-					</div>
-				</div>
-			</div>
-			<div class="panel-heading">
-				<h3 class="panel-title text-center">
-					Cancellation Policy (how you treat Guest cancellations)
-				</h3>
-			</div>
-
-			<div class="panel-body">
-				<div class="form-group" style="margin-bottom:0px">
-					<div class="col-sm-12 policy-cancellation">
-						<input type="radio" name="cancellationPolicy" value="flexible" checked> <strong>Flexible:</strong> Full refund up to 1 day prior to departure time, except fees.<br>
-						<input type="radio" name="cancellationPolicy" value="moderate"> <strong>Moderate: </strong>Full refund up to 3 days prior to departure time, except fees.<br>
-						<input type="radio" name="cancellationPolicy" value="strict"> <strong>Strict: </strong>50% refund up to five days prior to departure time, except fees.
-					</div>
-				</div>
-			</div>	
 
 			<div class="panel-footer text-center">
 					<button type="submit" class="btn btn-default">Update</button>

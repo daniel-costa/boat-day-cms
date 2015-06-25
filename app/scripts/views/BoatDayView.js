@@ -35,8 +35,8 @@ define([
 			var data = {
 
 				availableSeats: parseInt(this._in('availableSeats').val()),
-				bookingPolicy: this.$el.find('[name="bookingPolicy"]:checked').val(), 
-				cancellationPolicy: this.$el.find('[name="cancellationPolicy"]:checked').val(), 
+				bookingPolicy: this._in('bookingPolicy').val(),
+				cancellationPolicy: this._in('cancellationPolicy').val(), 
 				category: this._in('category').val(), 
 				date: this._in('date').datepicker('getDate'),
 				departureTime: parseInt(this._in('departureTime').val()), 

@@ -11,10 +11,9 @@ define([
 		events : {
 
 			"submit form" : "update", 
-			"change .upload": "uploadBgScreen", 
-			"click .btn-upload": "clickUpload", 
 			'click .btn-send-cert-noti': 'sendCertNotification',
-			'click .btn-send-host-noti': 'sendHostNotification'
+			'click .btn-send-host-noti': 'sendHostNotification',
+			"change .upload": "uploadBgScreen" 
 		},
 
 		initialize: function() {
@@ -34,6 +33,8 @@ define([
 
 		uploadBgScreen: function(event) {
 
+			var self = this;
+			
 			var cb = function(file) {
 				
 				var parent = $(event.currentTarget).closest('div');
@@ -43,11 +44,10 @@ define([
 					preview.attr('href', file.url());
 				} else {
 					
-					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Bg Check').addClass('preview');
+					var link = $('<a>').attr({ 'href': file.url(), target: '_blank' }).text('Background Check').addClass('preview');
 					parent.append($('<p>').append(link));	
+					self.model.set('bgCheckDate', new Date());
 
-					var uploadTime = new Date();
-					parent.append($('<p>').append(uploadTime));
 				}
 
 			}

@@ -2,15 +2,13 @@
 	<td><%= id %></td>
 	<td><%= category %></td>
 	<td><%= name %></td>
-	<!-- <td><%= availableSeats %></td> -->
 	<td><%= date %> at <%= departureTime %></td>
 	<td>$<%= price %></td>
 	<td><%= status %></td>
 	<td>
-		<a href='#/host/<%= hostId %>'class='btn btn-default'>Host</a>
-		<a href='#/boat/<%= boatId %>'class='btn btn-default'>Boat</a>
-		<a href='#/profile/<%= captainId %>'class='btn btn-default'>Captain</a>
+		<a href='#/host/<%= hostId %>'class='btn btn-default'><%= hostName %></a>
+		<a href='#/boat/<%= boatId %>'class='btn btn-default'><%= boatName %></a>
+		<a href='#/profile/<%= captainId %>'class='btn btn-default'><%= captainName %></a>
 		<a class="btn btn-default" href="#/boatday/<%= id %>">Edit</a>
-		<!-- <a class="btn btn-default" href="#">Cancel</a> -->
 	</td>
 </tr>

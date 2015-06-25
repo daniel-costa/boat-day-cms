@@ -123,7 +123,8 @@ define([
 				certResponseFL: this._in('certResponseFL').val(), 
 				certResponseSL: this._in('certResponseSL').val(), 
 				certResponseFAC: this._in('certResponseFAC').val(), 
-				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null
+				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
+				coupon: this._in('coupon').val()
 			
 			};
 			

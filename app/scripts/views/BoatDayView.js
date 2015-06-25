@@ -46,6 +46,7 @@ define([
 				price: parseInt(this._in('price').val()), 
 				status: this._in('status').val(), 
 				category: this._in('activity').val(),
+				locationText: this._in('locationText').val(),
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

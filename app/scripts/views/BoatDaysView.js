@@ -27,6 +27,9 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
+			query.include('host');
+			query.include('boat');
+			query.include('captain');
 
 			var tpl = _.template(BoatDaysRowTemplate);
 
@@ -59,7 +62,6 @@ define([
 					var host = boatday.get('host');
 					var boat = boatday.get('boat');
 					var captain = boatday.get('captain');
-				
 					var data = {
 						id: boatday.id, 
 						availableSeats: boatday.get('availableSeats'), 
@@ -70,8 +72,11 @@ define([
 						price: boatday.get('price'), 
 						status: boatday.get('status'), 
 						hostId: host.id ? host.id : null, 
+						hostName: host.get('firstname'),
 						boatId: boat.id ? boat.id: null,
-						captainId: captain ? captain.id: null
+						boatName: boat.get('name'),
+						captainId: captain ? captain.id: null, 
+						captainName: captain.get('displayName')
 
 					}
 

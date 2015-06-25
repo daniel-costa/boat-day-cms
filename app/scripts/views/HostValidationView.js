@@ -45,7 +45,16 @@ define([
 				certResponseSL: this._in('certResponseSL').val(), 
 				certStatusFAC: this._in('certStatusFAC').val(), 
 				certResponseFAC: this._in('certResponseFAC').val(), 
-				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null
+				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null, 
+				bgCheckQ1: this._in('bgCheckQ1').val(),
+				bgCheckQ2: this._in('bgCheckQ2').val(),
+				bgCheckQ3: this._in('bgCheckQ3').val(),
+				bgCheckQ4: this._in('bgCheckQ4').val(),
+				bgCheckQ5: this._in('bgCheckQ5').val(),
+				bgCheckQ6: this._in('bgCheckQ6').val(),
+				bgCheckQ7: this._in('bgCheckQ7').val(),
+				bgCheckQ8: this._in('bgCheckQ8').val(),
+				bgCheckQ9: this._in('bgCheckQ9').val()
 			};
 
 			this.model.save(data).then(function( profile ) {

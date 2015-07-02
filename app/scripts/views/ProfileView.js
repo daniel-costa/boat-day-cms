@@ -9,14 +9,24 @@ define([
 		
 		template: _.template(ProfileTemplate),
 
+		profilePicture: null,
+
 		events : {
 			"submit form" : "update",
-			"click .delete-picture": 'deleteProfilePicture'
+			"change .upload": "uploadPicture", 
+			"click .delete-picture": "deleteProfilePicture"
 		},
 
-		deleteProfilePicture: function() {
+		initialize: function(){
 
-			alert("still to do to remove profile picture");
+			//this.tempBinaries.profilePicture = this.model.get('profilePicture');
+
+		},
+
+		render: function() {
+			BaseView.prototype.render.call(this);
+			//this.displayProfilePicture(this.model.get('profilePicture').url());
+			return this;
 		}, 
 
 		update: function(event) {
@@ -28,8 +38,7 @@ define([
 				displayName: this._in('displayName').val(), 
 				about: this._in('about').val(), 
 				status: this._in('status').val(), 
-				//url: profile.get('profilePicture') ? profile.get('profilePicture') : ''
-				//profilePicture: profile.get('profilePicture') ? profile.get('profilePicture') : ''
+				//url: profile.get('profilePicture') ? profile.get('profilePicture').url() : ''
 			};
 			
 			var profileUpdateSuccess = function( profile ) {
@@ -40,6 +49,15 @@ define([
 
 			this.model.save(data).then(profileUpdateSuccess);
 
+		},
+
+		uploadPicture: function ( event ) {
+			alert("Still to do");
+		},
+
+		deleteProfilePicture: function( event ) {
+
+			alert("TO Do");
 		}
 
 	});

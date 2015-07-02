@@ -10,10 +10,12 @@ define([
 	'views/BoatsView', 
 	'views/BoatView', 
 	'views/SendNotificationView', 
-	'views/HostValidationView',
+	'views/HostValidationView', 
 	'views/BoatValidationView', 
+	'views/HelpCenterView', 
+	'views/ReportView'
 ], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, ProfilesView, ProfileView, BoatsView, 
-	BoatView, SendNotificationView, HostValidationView, BoatValidationView) {
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -31,6 +33,8 @@ define([
 			'home': 'showHomeView',
 			'sign-out': 'signOut',
 			'send-notification': 'showSendNotificationView', 
+			'help-center': 'showHelpCenterView',
+			'report': 'showReportView', 
 			'*actions': 'showDashboardView'
 		},
 
@@ -65,6 +69,14 @@ define([
 			this.render(new ProfilesView());
 		},
 
+		showHelpCenterView: function() {
+			this.render(new HelpCenterView());
+		}, 
+
+		showReportView: function() {
+			this.render(new ReportView());
+		},
+		
 		showBoatsView: function() {
 
 			// var self = this;

@@ -50,6 +50,8 @@ define([
 				length: parseInt(this._in('length').val()),
 				capacity: parseInt(this._in('capacity').val()),
 				type: this._in('type').val(),
+				validationText: this._in('validationText').val(), 
+				validationTextInternal: this._in('validationTextInternal').val(),
 				features: {
 					airConditioning: Boolean(this._in('featureAirConditioning').is(':checked')),
 					autopilot: Boolean(this._in('featureAutopilot').is(':checked')),

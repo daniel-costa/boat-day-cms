@@ -1,7 +1,8 @@
 define([
+'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
 'text!templates/BoatDayTemplate.html'
-], function(BaseView, BoatDayTemplate){
+], function(gmaps, BaseView, BoatDayTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",
@@ -9,8 +10,12 @@ define([
 		template: _.template(BoatDayTemplate),
 
 		events : {
-			"submit form" : "update", 
+			"submit form" : "update"
 		},
+
+		_map: null,
+
+		_marker: null,
 
 		render: function() {
 			BaseView.prototype.render.call(this);
@@ -24,9 +29,111 @@ define([
 				this.$el.find('.date').datepicker('setDate', this.model.get('date'));
 
 			}
+
+			this.setupGoogleMap();
+
 			return this;
 
 		}, 
+
+		setupGoogleMap: function() {
+
+			var self = this;
+
+			var displayMap = function(latlng) {
+
+				var opts = {
+					zoom: 10,
+					center: latlng
+				};
+
+				if( !self._map ) {
+					
+					var ctn = self.$el.find('.map').get(0);
+					self._map = new google.maps.Map(ctn, opts);
+
+					google.maps.event.addListener(self._map, 'click', function(event) {
+
+						self.moveMarker(event.latLng)
+
+					});
+
+				}
+
+				if( self.model.get('location') ) {
+
+					self.moveMarker(new google.maps.LatLng(self.model.get('location').latitude, self.model.get('location').longitude));
+
+				}
+
+			};
+
+			var handlePosition = function(position) {
+
+    			displayMap(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
+
+			};
+
+			var handleNoPosition = function(error) {
+
+				displayMap(new google.maps.LatLng(25.761919, -80.190225));
+
+			};
+
+			if (navigator.geolocation) {
+
+				// Edit DC: 
+				// The navigator takes too much time and blocks everything. We prefere to desactivate it.
+
+				// navigator.geolocation.getCurrentPosition(handlePosition, handleNoPosition);
+				handleNoPosition();
+
+			} else {
+
+				handleNoPosition();
+
+			}
+
+		},
+
+		moveMarker: function(latlng) {
+
+			var self = this;
+
+			var gotAddress = function (results, status) {
+
+				if (status === google.maps.GeocoderStatus.OK) {
+
+					if (results[0]) {
+						var addr = results[0].formatted_address;
+						self._in('locationText').val(addr.slice(0, addr.lastIndexOf(",")));
+					
+					}
+
+				}
+
+			};
+
+			self._map.panTo(latlng);
+
+			new google.maps.Geocoder().geocode({ 'latLng': latlng }, gotAddress);
+
+			if( !self._marker ) {
+					
+				self._marker = new google.maps.Marker({
+					map: self._map,
+					draggable: true,
+					animation: google.maps.Animation.DROP,
+					position: latlng
+				});
+
+			} else {
+
+				self._marker.setPosition(latlng);
+
+			}
+
+		},
 
 		update: function(event) {
 			
@@ -46,6 +153,7 @@ define([
 				price: parseInt(this._in('price').val()), 
 				status: this._in('status').val(), 
 				category: this._in('activity').val(),
+				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
 				features: {
 					leisure: {

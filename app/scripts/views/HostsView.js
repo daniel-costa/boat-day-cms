@@ -27,7 +27,10 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Host"));
+			query.include("user");
 			var tpl = _.template(HostsRowTemplate);
+
+
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -52,13 +55,17 @@ define([
 			if( this._in("searchType").val() != "" ) {
 				query.contains("type", this._in("searchType").val());
 			}
+			// TODO
+			// if( this._in("searchType").val() != "" ) {
+			// 	query.contains("user.get('email')", this._in("searchEmail").val()); 
+			// }
 
 			this.$el.find('tbody').html("");
 
 			var cbSuccess = function(hosts) {
 
 				_.each(hosts, function(host) {
-
+					
 					var data = {
 						id: host.id, 
 						firstname: host.get('firstname'),
@@ -67,7 +74,8 @@ define([
 						status: host.get('status'), 
 						type: host.get('type'),
 						user: host.get('user'),
-						profile: host.get('profile')
+						profile: host.get('profile'), 
+						email: host.get('user').get('email')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

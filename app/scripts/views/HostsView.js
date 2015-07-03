@@ -28,6 +28,7 @@ define([
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Host"));
 			query.include("user");
+			query.notEqualTo("status", "creation");
 			var tpl = _.template(HostsRowTemplate);
 
 
@@ -65,7 +66,7 @@ define([
 			var cbSuccess = function(hosts) {
 
 				_.each(hosts, function(host) {
-					
+	
 					var data = {
 						id: host.id, 
 						firstname: host.get('firstname'),
@@ -75,7 +76,7 @@ define([
 						type: host.get('type'),
 						user: host.get('user'),
 						profile: host.get('profile'), 
-						email: host.get('user').get('email')
+						//userEmail: host.get('user').get('email')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

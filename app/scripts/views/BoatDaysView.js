@@ -12,8 +12,8 @@ define([
 		events : {
 
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn", 
-			"click .btn-cancel" : "cancelBoatDay"
+			"keyup .searchFilter": "watchForReturn"
+			//"click .btn-cancel" : "cancelBoatDay"
 		},
 
 		render: function() {
@@ -31,6 +31,8 @@ define([
 			query.include('host');
 			query.include('boat');
 			query.include('captain');
+			query.descending('date');
+			query.descending('departureTime');
 
 			var tpl = _.template(BoatDaysRowTemplate);
 
@@ -77,7 +79,7 @@ define([
 						boatId: boat.id ? boat.id: null,
 						boatName: boat.get('name'),
 						captainId: captain ? captain.id: null, 
-						captainName: captain.get('displayName')
+						captainName: captain ? captain.get('displayName') : null
 
 					}
 
@@ -90,20 +92,20 @@ define([
 			query.find().then(cbSuccess);
 		}, 
 
-		cancelBoatDay: function( event ) {
+		// cancelBoatDay: function( event ) {
 
-			event.preventDefault();
-			var BoatDayModel = Parse.Object.extend("BoatDay");
+		// 	event.preventDefault();
+		// 	var BoatDayModel = Parse.Object.extend("BoatDay");
 
-			if( confirm("Are you sure you want cancel this Boatday ?") ) {
+		// 	if( confirm("Are you sure you want cancel this Boatday ?") ) {
 
-				BoatDayModel({ status: 'cancel' }).save().then(function() {
-					alert('Boatday Cancelled');
-				});
+		// 		BoatDayModel({ status: 'cancel' }).save().then(function() {
+		// 			alert('Boatday Cancelled');
+		// 		});
 
-			} 
+		// 	} 
 
-		},
+		// },
 
 
 	});

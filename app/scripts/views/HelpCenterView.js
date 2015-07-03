@@ -27,7 +27,8 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
-			var user = query.include('user');
+			query.include('user.profile');
+
 
 			var tpl = _.template(HelpCenterRowTemplate);
 
@@ -48,14 +49,14 @@ define([
 			this.$el.find('tbody').html("");
 
 			var cbSuccess = function(helpCenter) {
-				console.log(user.include('profile'));
-				query.include('profile');
+
 				_.each(helpCenter, function(result) {
-					//console.log(result[1].get('displayName'));
+					console.log(result.get('user').get('profile').get('status'));
+
 					var data = {
 						id: result.id, 
 						category: result.get('category'),
-						//displayName: result.get('user').get('profile').get('displayName')
+						displayName: result.get('user').get('profile').get('displayName')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

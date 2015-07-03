@@ -1,7 +1,8 @@
 define([
 'views/BaseView',
+'text!templates/HostPastBoatDaysRowTemplate.html',
 'text!templates/HostTemplate.html'
-], function(BaseView, HostTemplate){
+], function(BaseView, HostPastBoatDaysRowTemplate, HostTemplate){
 	var HostView = BaseView.extend({
 
 		className: "view-host-update",
@@ -28,8 +29,35 @@ define([
 
 			BaseView.prototype.render.call(this);
 
+			this.renderPastBoatDays();
+
 			return this;
 		},
+
+		renderPastBoatDays: function() {
+
+			var self = this;
+			this.$el.find('#pastBoatDays').html("");
+			var query = self.model.relation('boatdays').query();
+			query.lessThan("date", new Date());
+			var tpl = _.template(HostPastBoatDaysRowTemplate);
+
+			query.find().then(function(matches) {
+				_.each(matches, function(pastBoatDay){
+					console.log(pastBoatDay.id);
+
+					var datas = {
+
+						id: pastBoatDay.id, 
+						name: pastBoatDay.get('name'), 
+						category: pastBoatDay.get('category'),
+						date: pastBoatDay.get('date').toUTCString().substring(0, 16)
+					}
+					self.$el.find('#pastBoatDays').append( tpl(datas) );
+				});
+			});
+
+		}, 
 
 		uploadBgScreen: function(event) {
 

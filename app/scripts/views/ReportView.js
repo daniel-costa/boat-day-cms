@@ -51,7 +51,7 @@ define([
 
 				_.each(reports, function(report) {
 
-					// var senderProfile = report.get('fromProfile') ? report.get('fromProfile') : null;
+					// query.include('fromProfile');
 					// console.log(senderProfile);
 					var data = {
 						id: report.id, 

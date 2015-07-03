@@ -3,11 +3,24 @@
 	<td>
 		<div class="profile-picture" style="background-image:url(<%= url %>)"></div>
 	</td>
-	<td>
-		<%= name %>
-	</td>
+	<td><%= name %></td>
 	<td><%= status %></td>
 	<td>
+		<% if( typeof rating !== typeof undefined && rating ) { %>
+			<%= rating %>
+		<% } %>
+	</td>
+	<td>
+		<% if( typeof type !== typeof undefined && type ) { %>
+			<%= type %>
+		<% } %>
+	</td>
+	<td>
+		<% if( typeof email !== typeof undefined && email ) { %>
+			<%= email %>
+		<% } %>
+	</td>
+	<td> 
 		<% if(host) { %><a class="btn btn-default" href="#/host/<%= host.id %>">Host</a><% } %>
 		<% if(user) { %><a class="btn btn-default" href="#/profile/<%= user.id %>">User</a><% } %>
 		<a class="btn btn-default" href="#/profile/<%= id %>">Edit</a>

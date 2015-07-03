@@ -29,6 +29,7 @@ define([
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Profile"));
+			query.include("user");
 			var tpl = _.template(ProfilesRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
@@ -49,6 +50,8 @@ define([
 
 				_.each(profiles, function(profile) {
 
+					console.log(profile.get('user'));
+
 					var data = {
 						id: profile.id,
 						name: profile.get('displayName'),
@@ -56,6 +59,9 @@ define([
 						status: profile.get('status'),
 						host: profile.get('host'),
 						user: profile.get('user'),
+						rating: profile.get('rating'), 
+						type: profile.get('user').get('type'), 
+						email: profile.get('user').get('email')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

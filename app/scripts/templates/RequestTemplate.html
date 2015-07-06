@@ -1,0 +1,28 @@
+<tr>
+	<td><%= id %></td>
+	<td>
+		<select class="input-small form-control" id="status" name="status">
+			<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+			<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+			<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+			<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
+			<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+		</select>
+	</td>
+	<td>
+		<input type="text" class="form-control" name="rating" value="<%= rating %>" />
+	</td>
+	<td>
+		<input type="text" class="form-control" name="seats" value="<%= seats %>" />
+	</td>
+	<td>
+		<input type="text" class="form-control" name="contribution" value="<%= contribution %>" />
+	</td>
+	<td>
+		<button type="button" class="btn btn-default update-seatRequests">Update</button>
+		<a href="#/boatday/<%= boatday.id %>" class="btn btn-default">BoatDay</a>
+	</td>
+</tr>
+ 
+
+ 

@@ -66,7 +66,7 @@ define([
 			var cbSuccess = function(hosts) {
 
 				_.each(hosts, function(host) {
-	
+					
 					var data = {
 						id: host.id, 
 						firstname: host.get('firstname'),
@@ -74,9 +74,9 @@ define([
 						phone: host.get('phone'), 
 						status: host.get('status'), 
 						type: host.get('type'),
-						user: host.get('user'),
-						profile: host.get('profile'), 
-						//userEmail: host.get('user').get('email')
+						user: typeof host.get('user') !== 'undefined' ? host.get('user') : '',
+						profile: host.get('profile')
+						//userEmail: typeof host.get('user').get('email') !== 'undefined' ? host.get('user').get('email') : ''
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

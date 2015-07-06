@@ -1,16 +1,21 @@
 define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
-'text!templates/BoatDayTemplate.html'
-], function(gmaps, BaseView, BoatDayTemplate){
+'text!templates/BoatDayTemplate.html', 
+'text!templates/SeatRequestsTemplate.html'
+], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",
 		
 		template: _.template(BoatDayTemplate),
 
+		seatRequests: {},
+
 		events : {
-			"submit form" : "update"
+			'submit form' : 'update',
+			"click .update-seatRequests": "updateSeatRequest"
+
 		},
 
 		_map: null,
@@ -18,7 +23,10 @@ define([
 		_marker: null,
 
 		render: function() {
+
 			BaseView.prototype.render.call(this);
+
+			this.renderSeatRequests();
 
 			this.$el.find('.date').datepicker({
 				startDate: '0d',
@@ -35,6 +43,32 @@ define([
 			return this;
 
 		}, 
+
+		updateSeatRequest: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			
+			// var data = {
+
+			// 	status: this._in('status').val(),
+			// 	contribution: this._in('contribution').val(),
+			// 	seats: this._in('seats').val(),
+			// 	rating: this._in('rating').val()
+			// };
+
+			// var seatRequestUpdateSuccess = function( boatday ) {
+
+			// 	self.render();
+
+			// };
+
+			// var query = self.model.relation('seatRequests').get(self.seatRequests[id]).query();
+			// query.save(data).then(seatRequestUpdateSuccess);
+			alert("Still TODO")
+			
+		},
 
 		setupGoogleMap: function() {
 
@@ -133,6 +167,32 @@ define([
 
 			}
 
+		},
+
+		renderSeatRequests: function() {
+
+			var self = this;
+
+			this.$el.find('#seatRequests').html("");
+			var tpl = _.template(SeatRequestsTemplate);
+
+			var query = self.model.relation('seatRequests').query();
+			query.find().then(function(matches) {
+				_.each(matches, function(seatRequests){
+					
+					var data = {
+
+						id: seatRequests.id, 
+						rating: seatRequests.get('rating'),
+						seats: seatRequests.get('seats'),
+						status: seatRequests.get('status'), 
+						contribution: seatRequests.get('contribution'), 
+						profile: seatRequests.get('profile'), 
+						user: seatRequests.get('user')
+					}
+					self.$el.find('#seatRequests').append( tpl(data) );
+				});
+			});
 		},
 
 		update: function(event) {

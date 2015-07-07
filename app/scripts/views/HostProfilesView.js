@@ -1,13 +1,13 @@
 define([
 'views/BaseView',
-'text!templates/ProfilesTemplate.html',
-'text!templates/ProfilesRowTemplate.html'
-], function(BaseView, ProfilesTemplate, ProfilesRowTemplate){
+'text!templates/HostProfilesTemplate.html',
+'text!templates/HostProfilesRowTemplate.html'
+], function(BaseView, HostProfilesTemplate, HostProfilesRowTemplate){
 	var ProfilesView = BaseView.extend({
 
-		className: "view-profiles",
+		className: "view-host-profiles",
 		
-		template: _.template(ProfilesTemplate),
+		template: _.template(HostProfilesTemplate),
 
 		events : {
 			"focus .searchFilter": "tagFieldValue",
@@ -30,7 +30,7 @@ define([
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Profile"));
 			query.include("user");
-			var tpl = _.template(ProfilesRowTemplate);
+			var tpl = _.template(HostProfilesRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());

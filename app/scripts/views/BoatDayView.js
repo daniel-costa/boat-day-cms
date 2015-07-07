@@ -64,7 +64,7 @@ define([
 
 			// };
 
-			// var query = self.model.relation('seatRequests').get(self.seatRequests[id]).query();
+			// var query = self.model.relation('seatRequests').get(self.seatRequests.id).query();
 			// query.save(data).then(seatRequestUpdateSuccess);
 			alert("Still TODO")
 			
@@ -180,6 +180,7 @@ define([
 			query.find().then(function(matches) {
 				_.each(matches, function(seatRequests){
 					
+					console.log(seatRequests.get('profile'));
 					var data = {
 
 						id: seatRequests.id, 
@@ -188,7 +189,7 @@ define([
 						status: seatRequests.get('status'), 
 						contribution: seatRequests.get('contribution'), 
 						profile: seatRequests.get('profile'), 
-						user: seatRequests.get('user')
+						//displayName: seatRequests.get('profile').get('displayName')
 					}
 					self.$el.find('#seatRequests').append( tpl(data) );
 				});

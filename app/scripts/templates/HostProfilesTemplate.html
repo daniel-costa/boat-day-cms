@@ -1,7 +1,7 @@
 <div class="top-navigation"></div>
 
 <div class="container-fluid">
-	<h1>Users list</h1>
+	<h1>Host profiles list</h1>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
@@ -9,21 +9,9 @@
 					ID
 					<input type="text" class="searchFilter form-control" name="searchobjectId">
 				</th>
-				<th>
-					Username
-					<input type="text" class="searchFilter form-control" name="searchUsername">
-				</th>
-				<th>
-					Email
-					<input type="text" class="searchFilter form-control" name="searchEmail">
-				</th>
-				<th>
-					TOS
-					<input type="text" class="searchFilter form-control" name="searchTos">
-				</th>
-				<th>
-					Type
-					<input type="text" class="searchFilter form-control" name="searchType">
+				<th colspan="2">
+					Display name
+					<input type="text" class="searchFilter form-control" name="searchName">
 				</th>
 				<th>
 					Status
@@ -34,6 +22,9 @@
 						<option value="complete">Complete</option>
 					</select>
 				</th>
+				<th>Rating</th>
+				<th>Type</th>
+				<th>Email</th>
 				<th> </th>
 			</tr>
 		</thead>

@@ -51,7 +51,6 @@ define([
 			var cbSuccess = function(helpCenter) {
 
 				_.each(helpCenter, function(result) {
-					console.log(result.get('user').get('profile').get('status'));
 
 					var data = {
 						id: result.id, 

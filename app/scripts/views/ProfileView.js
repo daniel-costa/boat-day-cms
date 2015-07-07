@@ -1,8 +1,9 @@
 define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html', 
-'text!templates/RequestTemplate.html'
-], function(BaseView, ProfileTemplate, RequestTemplate){
+'text!templates/RequestTemplate.html',
+'text!templates/ReviewsTemplate.html'
+], function(BaseView, ProfileTemplate, RequestTemplate, ReviewsTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: "view-profile",
@@ -15,21 +16,15 @@ define([
 
 		events : {
 			"submit form" : "update",
-			"change .upload": "uploadPicture", 
-			"click .delete-picture": "deleteProfilePicture", 
+			"click .delete-picture": "deletePicture",
+			"click .upload": "uploadPicture",
 			"click .update-seatRequests": "updateSeatRequest"
-		},
-
-		initialize: function(){
-
-			//this.tempBinaries.profilePicture = this.model.get('profilePicture');
-
 		},
 
 		render: function() {
 			BaseView.prototype.render.call(this);
-			//this.displayProfilePicture(this.model.get('profilePicture').url());
 			this.renderSeatRequests();
+			this.renderReviews();
 			return this;
 		},
 
@@ -40,12 +35,11 @@ define([
 			this.$el.find('#seatRequests').html("");
 			var tpl = _.template(RequestTemplate);
 
-			var query = self.model.relation('requests').query();
+			var query = self.model .relation('requests').query();
 			query.find().then(function(matches) {
 				_.each(matches, function(seatRequests){
 					
 					var data = {
-
 						id: seatRequests.id, 
 						rating: seatRequests.get('rating'),
 						seats: seatRequests.get('seats'),
@@ -54,6 +48,29 @@ define([
 						boatday: seatRequests.get('boatday')
 					}
 					self.$el.find('#seatRequests').append( tpl(data) );
+				});
+			});
+		}, 
+
+		renderReviews: function() {
+
+			var self = this;
+
+			this.$el.find('#reviews').html("");
+			var tpl = _.template(ReviewsTemplate);
+
+			var query = self.model .relation('reviews').query();
+			query.find().then(function(matches) {
+				_.each(matches, function(reviews){
+					console.log(reviews.get('fromProfile').id);
+					var data = {
+						id: reviews.id, 
+						fromProfile: reviews.get('fromProfile').id,
+						toProfile: reviews.get('toProfile').id,
+						rateAvg: reviews.get('rateAvg'), 
+						review: reviews.get('review')
+					}
+					self.$el.find('#reviews').append( tpl(data) );
 				});
 			});
 		}, 
@@ -100,19 +117,19 @@ define([
 
 			// };
 
-			// var query = self.model.relation('seatRequests').get(self.seatRequests[id]).query();
+			// var query = self.model.relation('seatRequests').get(self.seatRequests.id).query();
 			// query.save(data).then(seatRequestUpdateSuccess);
 			alert("Still TODO")
 			
-		},
+		}, 
 
-		uploadPicture: function ( event ) {
-			alert("Still to do");
-		},
+		deletePicture: function() {
 
-		deleteProfilePicture: function( event ) {
+			alert("TODO")
+		}, 
 
-			alert("TO Do");
+		uploadPicture: function() {
+			alert("TODO")
 		}
 
 	});

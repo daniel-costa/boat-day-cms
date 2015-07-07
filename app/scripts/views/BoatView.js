@@ -281,6 +281,12 @@ define([
 				}
 			}
 		}
+		//Search query to filter Guest profile
+		// var innerQuery = new Parse.Query(Parse.Object.extend('_User'));
+		// innerQuery.equaltTo('type', 'guest');
+
+		// var query = new Parse.Query(Parse.Object.extend('profile'));
+		// query.matchesQuery("user", innerQuery);
 	
 	});
 	return BoatView;

@@ -1,12 +1,14 @@
-
-<div class="col-sm-4">
-	<%= email %>
-</div>
-
-<div class="col-sm-6 text-right">
-	<select class="col-sm-15 form-control" name="status">
-		<option value="pending" <%= status && status == "pending" ? 'selected' : '' %>>Pending</option>
-		<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
-		<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
-	</select>
-</div>
+<tr data-id="<%= id %>">
+	<td><%= id %></td>
+	<td>
+		<select class="input-small form-control" name="status">
+			<option value="pending" <%= captain.get('status') && captain.get('status') == "pending" ? 'selected' : '' %>>Pending</option>
+			<option value="approved" <%= captain.get('status') && captain.get('status') == "approved" ? 'selected' : '' %>>Approved</option>
+			<option value="denied" <%= captain.get('status') && captain.get('status') == "denied" ? 'selected' : '' %>>Denied</option>
+		</select>
+	</td>
+	<td><%= captain.get('email')%></td>
+	<td><a href="#/host/<%= captain.get('fromHost').id %>" class="btn btn-default">Host</a></td>
+	<td><a href="#/profile/<%= captain.get('fromProfile').id %>" class="btn btn-default">Profile</a></td>
+	<td><button type="button" class="btn btn-default update-captain">Update</button></td>
+</tr>

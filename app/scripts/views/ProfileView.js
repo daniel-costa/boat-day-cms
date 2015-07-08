@@ -1,9 +1,9 @@
 define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html', 
-'text!templates/RequestTemplate.html',
+'text!templates/SeatRequestsTemplate.html',
 'text!templates/ReviewsTemplate.html'
-], function(BaseView, ProfileTemplate, RequestTemplate, ReviewsTemplate){
+], function(BaseView, ProfileTemplate, SeatRequestsTemplate, ReviewsTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: "view-profile",
@@ -18,7 +18,7 @@ define([
 			"submit form" : "update",
 			"click .delete-picture": "deletePicture",
 			"click .upload": "uploadPicture",
-			"click .update-seatRequests": "updateSeatRequest"
+			"click .update-requests": "updateSeatRequest"
 		},
 
 		render: function() {
@@ -30,25 +30,45 @@ define([
 
 		renderSeatRequests: function() {
 
+			var self = this; 
+			self.seatRequests = {};
+			this.$el.find('#seatRequests').html('');
+
+			var query = self.model.relation('requests').query();
+			query.ascending("createdAt");
+			query.find().then(function(matches){
+				_.each(matches, self.appendSeatRequests, self);
+			});
+		}, 
+
+		appendSeatRequests: function(SeatRequest) {
+
+			this.$el.find('#seatRequests').append(_.template(SeatRequestsTemplate)({
+				id: SeatRequest.id, 
+				seat: SeatRequest
+			}));
+			this.seatRequests[SeatRequest.id] = SeatRequest;
+		},
+
+		updateSeatRequest: function(event) {
+
+			event.preventDefault();
+
 			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
 
-			this.$el.find('#seatRequests').html("");
-			var tpl = _.template(RequestTemplate);
-
-			var query = self.model .relation('requests').query();
-			query.find().then(function(matches) {
-				_.each(matches, function(seatRequests){
-					
-					var data = {
-						id: seatRequests.id, 
-						rating: seatRequests.get('rating'),
-						seats: seatRequests.get('seats'),
-						status: seatRequests.get('status'), 
-						contribution: seatRequests.get('contribution'), 
-						boatday: seatRequests.get('boatday')
-					}
-					self.$el.find('#seatRequests').append( tpl(data) );
-				});
+			self.seatRequests[parent.attr('data-id')].save({ 
+				status: parent.find('[name="status"]').val(),
+				contribution: parseInt(parent.find('[name="contribution"]').val()),
+				ratingGuest: parseInt(parent.find('[name="ratingGuest"]').val()),
+				ratingHost: parseInt(parent.find('[name="ratingHost"]').val()), 
+				reviewGuest: parent.find('[name="reviewGuest"]').val(),
+				seats: parseInt(parent.find('[name="ratingHost"]').val())
+			}).then(function() {
+				self.renderSeatRequests();
+			}, function(e) {
+				console.log(e);
 			});
 		}, 
 
@@ -62,7 +82,7 @@ define([
 			var query = self.model .relation('reviews').query();
 			query.find().then(function(matches) {
 				_.each(matches, function(reviews){
-					console.log(reviews.get('fromProfile').id);
+	
 					var data = {
 						id: reviews.id, 
 						fromProfile: reviews.get('fromProfile').id,
@@ -96,32 +116,6 @@ define([
 			this.model.save(data).then(profileUpdateSuccess);
 
 		},
-
-		updateSeatRequest: function(event) {
-
-			event.preventDefault();
-
-			var self = this;
-			
-			// var data = {
-
-			// 	status: this._in('status').val(),
-			// 	contribution: this._in('contribution').val(),
-			// 	seats: this._in('seats').val(),
-			// 	rating: this._in('rating').val()
-			// };
-
-			// var seatRequestUpdateSuccess = function( boatday ) {
-
-			// 	self.render();
-
-			// };
-
-			// var query = self.model.relation('seatRequests').get(self.seatRequests.id).query();
-			// query.save(data).then(seatRequestUpdateSuccess);
-			alert("Still TODO")
-			
-		}, 
 
 		deletePicture: function() {
 

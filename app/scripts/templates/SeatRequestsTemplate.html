@@ -1,28 +1,22 @@
-<tr>
+<tr data-id="<%= id %>">
 	<td><%= id %></td>
 	<td>
-		<select class="input-small form-control" id="status" name="status">
-			<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
-			<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
-			<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
-			<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
-			<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+		<select class="input-small form-control" name="status">
+			<option value="creation" <%= seat.get('status') && seat.get('status') == "creation" ? 'selected' : '' %>>Creation</option> 
+			<option value="editing" <%= seat.get('status') && seat.get('status') == "editing" ? 'selected' : '' %>>Editing</option>
+			<option value="complete" <%= seat.get('status') && seat.get('status') == "complete" ? 'selected' : '' %>>Complete</option>
+			<option value="approved" <%= seat.get('status') && seat.get('status') == "approved" ? 'selected' : '' %>>Approved</option>
+			<option value="denied" <%= seat.get('status') && seat.get('status') == "denied" ? 'selected' : '' %>>Denied</option>
 		</select>
 	</td>
+	<td><input type="text" class="form-control" name="contribution" value="<%= seat.get('contribution') %>" /></td>
+	<td><input type="text" class="form-control" name="ratingGuest" value="<%= seat.get('ratingGuest') %>" /></td>
+	<td><input type="text" class="form-control" name="ratingHost" value="<%= seat.get('ratingHost') %>" /></td>
+	<td><input type="text" class="form-control" name="reviewGuest" value="<%= seat.get('reviewGuest') %>" /></td>
+	<td><input type="text" class="form-control" name="seats" value="<%= seat.get('seats') %>" /></td>
 	<td>
-		<input type="text" class="form-control" name="rating" value="<%= rating %>" />
-	</td>
-	<td>
-		<input type="text" class="form-control" name="seats" value="<%= seats %>" />
-	</td>
-	<td>
-		<input type="text" class="form-control" name="contribution" value="<%= contribution %>" />
-	</td>
-	<td>
-		<button type="button" class="btn btn-default update-seatRequests">Update</button>
-		<a href="#/profile/<%= profile.id %>" class="btn btn-default">Profile</a>
+		<button type="button" class="btn btn-default update-requests">Update</button>
+		<a href="#/boatday/<%= seat.get('boatday').id %>" class="btn btn-default">BoatDay</a>
+		<a href="#/profile/<%= seat.get('profile').id %>" class="btn btn-default">Profile</a> 
 	</td>
 </tr>
- 
-
- 

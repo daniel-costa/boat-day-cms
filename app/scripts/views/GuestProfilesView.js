@@ -1,13 +1,13 @@
 define([
 'views/BaseView',
-'text!templates/GuestsTemplate.html', 
-'text!templates/GuestsRowTemplate.html'
-], function(BaseView, GuestsTemplate, GuestsRowTemplate){
+'text!templates/GuestProfilesTemplate.html', 
+'text!templates/GuestProfilesRowTemplate.html'
+], function(BaseView, GuestProfilesTemplate, GuestProfilesRowTemplate){
 	var HostsView = BaseView.extend({
 
 		className: "view-guests-lists",
 		
-		template: _.template(GuestsTemplate),
+		template: _.template(GuestProfilesTemplate),
 
 		events : {
 			"blur .searchFilter": "renderRows",
@@ -25,10 +25,14 @@ define([
 		renderRows: function() {
 
 			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("User"));
-			query.include('profile');
-			query.equalTo('type', 'guest');
-			var tpl = _.template(GuestsRowTemplate);
+			
+			var innerQuery = new Parse.Query(Parse.Object.extend('User'));
+			innerQuery.equalTo('type', 'guest');
+
+			var query = new Parse.Query(Parse.Object.extend('Profile'));
+			query.matchesQuery("user", innerQuery);
+	
+			var tpl = _.template(GuestProfilesRowTemplate);
 
 			this.$el.find('tbody').html("");
 
@@ -51,12 +55,12 @@ define([
 			var cbSuccess = function(guests) {
 
 				_.each(guests, function(result) {
-	
+					
 					var data = {
-						id: result.get('profile').id, 
-						name: result.get('profile').get('displayName'),
-						rating: result.get('profile').get('rating'), 
-						status: result.get('profile').get('status'), 
+						id: result.id, 
+						name: result.get('displayName'),
+						rating: result.get('rating'), 
+						status: result.get('status'), 
 						profile: result.get('profile')
 					}
 

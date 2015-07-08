@@ -16,13 +16,16 @@ define([
 		
 		proofOfInsurance: {},
 
+		captains: {},
+
 		events : {
 			"submit form" : "update",
 			"change .upload": "uploadNewFile",
 			"click .update-picture": "updateBoatPicture",
 			"click .delete-picture": 'deleteBoatPicture', 
 			"click .delete-insurance": "deleteInsurance",
-			"click .notify-host": "sendBoatNotification"
+			"click .notify-host": "sendBoatNotification", 
+			"click .update-captain": "updateCaptain"
 		}, 
 
 		render: function() {
@@ -136,7 +139,7 @@ define([
 			var self = this;
 			var e = $(event.currentTarget);
 			var parent = e.closest('tr');
-
+			
 			self.boatPictures[parent.attr('data-id')].save({ 
 				order: parseInt(parent.find('[name="order"]').val())
 			}).then(function() {
@@ -147,32 +150,70 @@ define([
 
 		},
 
-		displayCaptains: function() {
+		// displayCaptains: function() {
 			
-			var self = this;
+		// 	var self = this;
 			
-			self.$el.find('.captains-list').html('');
+		// 	self.$el.find('.captains-list').html('');
 
-			var displayAll = function(matches) {
-				_.each(matches, self.appendCaptain, self);
-			};
+		// 	var displayAll = function(matches) {
+		// 		_.each(matches, self.appendCaptain, self);
+		// 	};
+
+		// 	var query = self.model.relation('captains').query();
+		// 	query.ascending("createdAt");
+		// 	query.find().then(displayAll);
+
+		// },
+
+		// appendCaptain: function(CaptainRequest) {
+
+		// 	this.$el.find('.captains-list').append(_.template(BoatCaptainTemplate)({ 
+		// 		id: CaptainRequest.id, 
+		// 		email: CaptainRequest.get('email'),
+		// 		status: CaptainRequest.get('status')
+		// 	}));
+
+		// }, 
+
+		displayCaptains: function() {
+
+			var self = this; 
+			self.captains = {};
+			this.$el.find('#captains').html('');
 
 			var query = self.model.relation('captains').query();
 			query.ascending("createdAt");
-			query.find().then(displayAll);
-
+			query.find().then(function(matches){
+				_.each(matches, self.appendCaptain, self);
+			});
 		},
 
 		appendCaptain: function(CaptainRequest) {
 
-			this.$el.find('.captains-list').append(_.template(BoatCaptainTemplate)({ 
+			this.$el.find('#captains').append(_.template(BoatCaptainTemplate)({
 				id: CaptainRequest.id, 
-				email: CaptainRequest.get('email'),
-				status: CaptainRequest.get('status')
+				captain: CaptainRequest
 			}));
+			this.captains[CaptainRequest.id] = CaptainRequest;
+		},
 
-		}, 
+		updateCaptain: function(event) {
 
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
+
+			self.captains[parent.attr('data-id')].save({ 
+				status: parent.find('[name="status"]').val()
+			}).then(function() {
+				self.displayCaptains();
+			}, function(e) {
+				console.log(e);
+			});
+		},
 
 		displayInsuranceFiles: function() {
 			
@@ -281,13 +322,10 @@ define([
 				}
 			}
 		}
-		//Search query to filter Guest profile
-		// var innerQuery = new Parse.Query(Parse.Object.extend('_User'));
-		// innerQuery.equaltTo('type', 'guest');
-
-		// var query = new Parse.Query(Parse.Object.extend('profile'));
-		// query.matchesQuery("user", innerQuery);
 	
 	});
 	return BoatView;
 });
+// 	</select>
+// </div> -->
+

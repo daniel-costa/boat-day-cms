@@ -16,8 +16,6 @@ define([
 
 		events : {
 			"submit form" : "update",
-			"click .delete-picture": "deletePicture",
-			"click .upload": "uploadPicture",
 			"click .update-requests": "updateSeatRequest"
 		},
 
@@ -115,15 +113,6 @@ define([
 
 			this.model.save(data).then(profileUpdateSuccess);
 
-		},
-
-		deletePicture: function() {
-
-			alert("TODO")
-		}, 
-
-		uploadPicture: function() {
-			alert("TODO")
 		}
 
 	});

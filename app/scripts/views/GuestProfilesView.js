@@ -54,14 +54,14 @@ define([
 
 			var cbSuccess = function(guests) {
 
-				_.each(guests, function(result) {
+				_.each(guests, function(guest) {
 					
 					var data = {
-						id: result.id, 
-						name: result.get('displayName'),
-						rating: result.get('rating'), 
-						status: result.get('status'), 
-						profile: result.get('profile')
+						id: guest.id, 
+						name: guest.get('displayName'),
+						rating: guest.get('rating'), 
+						status: guest.get('status'), 
+						profile: guest.get('profile')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

@@ -52,24 +52,7 @@
 					<div class="form-group">
 						<label for="profilePic" class="col-sm-3 control-label">Profile picture</label>
 						<div class="col-sm-6">
-							<table class="table table-condensed table-bordered table-striped">
-							
-								<tbody id="ProfilePicture">
-									<tr>
-										<td style="text-align:center;">
-											<img class="profile-picture rectangle" src="<%= profilePicture.url ? profilePicture.url : '' %>" />
-										</td>
-										<td style="text-align:center;">
-											<button type="button" class="btn btn-danger delete-picture">Delete</button>
-										</td>
-									</tr>
-								</tbody>
-								<tfoot>
-									<th colspan="4">
-										<input type="file" class="upload" name="profilePicture" delegate-error-to-button>
-									</th>
-								</tfoot>
-							</table>
+							<img class="profile-picture rectangle" src="<%= profilePicture.url ? profilePicture.url : '' %>" />
 						</div> 
 					</div>
 				</div>

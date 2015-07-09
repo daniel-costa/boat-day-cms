@@ -62,7 +62,7 @@ define([
 
 				_.each(hosts, function(host) {
 
-					var user = typeof host.get('user') !== 'undefined' ? host.get('user') : '';
+					// var user = typeof host.get('user') !== 'undefined' ? host.get('user') : '';
 					
 					var data = {
 						id: host.id, 
@@ -72,7 +72,7 @@ define([
 						status: host.get('status'), 
 						type: host.get('type'),
 						profile: host.get('profile'),
-						userEmail: user.get('email') 
+						//userEmail: user.get('email') 
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

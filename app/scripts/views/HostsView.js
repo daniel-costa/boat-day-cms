@@ -45,11 +45,13 @@ define([
 			}
 
 			if( this._in("searchPhone").val() != "" ) {
-				query.contains("phone", this._in("searchPhone").val());
+				query.notEqualTo("phone", this._in("searchPhone").val());
 			}
 
 			if( this._in("searchStatus").val() != "" ) {
 				query.contains("status", this._in("searchStatus").val());
+			} else {
+				query.notEqualTo("status", 'creation');
 			}
 
 			if( this._in("searchType").val() != "" ) {

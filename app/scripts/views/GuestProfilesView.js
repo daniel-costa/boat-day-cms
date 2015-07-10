@@ -31,7 +31,8 @@ define([
 
 			var query = new Parse.Query(Parse.Object.extend('Profile'));
 			query.matchesQuery("user", innerQuery);
-	
+			query.include('user');
+			
 			var tpl = _.template(GuestProfilesRowTemplate);
 
 			this.$el.find('tbody').html("");

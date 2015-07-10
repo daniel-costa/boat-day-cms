@@ -86,18 +86,22 @@ define([
 			var qLeisure = new Parse.Query(Parse.Object.extend("BoatDay"));
 			qLeisure.greaterThan("date", new Date());
 			qLeisure.equalTo("category", "leisure");
+			qLeisure.equalTo("status", "complete");
 
 			var qFishing = new Parse.Query(Parse.Object.extend("BoatDay"));
 			qFishing.greaterThan("date", new Date());
 			qFishing.equalTo("category", "fishing");
+			qFishing.equalTo("status", "complete");
 
 			var qSailing = new Parse.Query(Parse.Object.extend("BoatDay"));
 			qSailing.greaterThan("date", new Date());
 			qSailing.equalTo("category", "sailing");
+			qSailing.equalTo("status", "complete");
 
 			var qSports = new Parse.Query(Parse.Object.extend("BoatDay"));
 			qSports.greaterThan("date", new Date());
 			qSports.equalTo("category", "sports");
+			qSports.equalTo("status", "complete");
 
 			Parse.Promise.when(qLeisure.count(), qFishing.count(), qSailing.count(), qSports.count()).then(function(qLeisureTotal, qFishingTotal, qSailingTotal, qSportsTotal) {
 

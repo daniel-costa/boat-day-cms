@@ -25,7 +25,8 @@ define([
 			"click .delete-picture": 'deleteBoatPicture', 
 			"click .delete-insurance": "deleteInsurance",
 			"click .notify-host": "sendBoatNotification", 
-			"click .update-captain": "updateCaptain"
+			"click .update-captain": "updateCaptain", 
+			"click .update-insurance": "updateInsurance"
 		}, 
 
 		render: function() {
@@ -34,6 +35,7 @@ define([
 			this.displayBoatPictures();
 			this.displayCaptains();
 			this.displayInsuranceFiles();
+
 			return this;
 
 		},
@@ -150,32 +152,6 @@ define([
 
 		},
 
-		// displayCaptains: function() {
-			
-		// 	var self = this;
-			
-		// 	self.$el.find('.captains-list').html('');
-
-		// 	var displayAll = function(matches) {
-		// 		_.each(matches, self.appendCaptain, self);
-		// 	};
-
-		// 	var query = self.model.relation('captains').query();
-		// 	query.ascending("createdAt");
-		// 	query.find().then(displayAll);
-
-		// },
-
-		// appendCaptain: function(CaptainRequest) {
-
-		// 	this.$el.find('.captains-list').append(_.template(BoatCaptainTemplate)({ 
-		// 		id: CaptainRequest.id, 
-		// 		email: CaptainRequest.get('email'),
-		// 		status: CaptainRequest.get('status')
-		// 	}));
-
-		// }, 
-
 		displayCaptains: function() {
 
 			var self = this; 
@@ -257,6 +233,23 @@ define([
 
 		},
 
+		updateInsurance: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
+
+			self.proofOfInsurance[parent.attr('data-id')].save({ 
+				expiryDate: new Date(parent.find('[name="expiryDate"]').val())
+			}).then(function() {
+				self.displayInsuranceFiles();
+			}, function(e) {
+				console.log(e);
+			});
+		},
+
 		uploadNewFile: function (event) {
 
 			var self = this;
@@ -326,6 +319,3 @@ define([
 	});
 	return BoatView;
 });
-// 	</select>
-// </div> -->
-

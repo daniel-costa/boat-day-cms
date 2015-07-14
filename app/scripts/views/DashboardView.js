@@ -18,6 +18,7 @@ define([
 			this.renderBoats();
 			this.renderHosts();
 			this.renderBoatDaysStats();
+			this.renderStatistics();
 
 			return this;
 
@@ -112,7 +113,26 @@ define([
 
 			});
 
+		},
+
+		renderStatistics: function() {
+
+			var self = this;
+
+			var guestNumber = new Parse.Query(Parse.Object.extend("User"));
+			guestNumber.equalTo("type", "guest");
+
+			var seatRequestNumber = new Parse.Query(Parse.Object.extend("SeatRequest"));
+
+			Parse.Promise.when(guestNumber.count(), seatRequestNumber.count()).then(function(guestNumberTotal, seatRequestNumberTotal) {
+
+				self.$el.find('.guestsNumber').text(guestNumberTotal);
+				self.$el.find('.seatRequestNumber').text(seatRequestNumberTotal);
+
+			});
+
 		}
+
 
 
 	});

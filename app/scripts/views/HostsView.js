@@ -74,7 +74,7 @@ define([
 						status: host.get('status'), 
 						type: host.get('type'),
 						profile: host.get('profile'),
-						//userEmail: user.get('email') 
+						email: host.get('user').get('email') 
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

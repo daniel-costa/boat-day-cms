@@ -109,10 +109,12 @@ define([
 					var ctn = self.$el.find('.map').get(0);
 					self._map = new google.maps.Map(ctn, opts);
 
+					google.maps.event.addListener(self._map, "idle", function(){
+						google.maps.event.trigger(self._map, 'resize');
+					}); 
+
 					google.maps.event.addListener(self._map, 'click', function(event) {
-
 						self.moveMarker(event.latLng)
-
 					});
 
 				}
@@ -125,32 +127,7 @@ define([
 
 			};
 
-			var handlePosition = function(position) {
-
-    			displayMap(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
-
-			};
-
-			var handleNoPosition = function(error) {
-
-				displayMap(new google.maps.LatLng(25.761919, -80.190225));
-
-			};
-
-			if (navigator.geolocation) {
-
-				// Edit DC: 
-				// The navigator takes too much time and blocks everything. We prefere to desactivate it.
-
-				// navigator.geolocation.getCurrentPosition(handlePosition, handleNoPosition);
-				handleNoPosition();
-
-			} else {
-
-				handleNoPosition();
-
-			}
-
+			displayMap(new google.maps.LatLng(25.761919, -80.190225));
 		},
 
 		moveMarker: function(latlng) {
@@ -176,18 +153,14 @@ define([
 			new google.maps.Geocoder().geocode({ 'latLng': latlng }, gotAddress);
 
 			if( !self._marker ) {
-					
 				self._marker = new google.maps.Marker({
 					map: self._map,
 					draggable: true,
 					animation: google.maps.Animation.DROP,
 					position: latlng
 				});
-
 			} else {
-
 				self._marker.setPosition(latlng);
-
 			}
 
 		},
@@ -196,6 +169,8 @@ define([
 			
 			event.preventDefault();
 
+			var self = this;
+
 			var data = {
 
 				availableSeats: parseInt(this._in('availableSeats').val()),
@@ -203,15 +178,17 @@ define([
 				cancellationPolicy: this._in('cancellationPolicy').val(), 
 				category: this._in('category').val(), 
 				date: this._in('date').datepicker('getDate'),
-				departureTime: parseInt(this._in('departureTime').val()), 
+				departureTime: parseInt(this._in('departureTime').val()),
+				arrivalTime: parseInt(this._in('departureTime').val()) + parseInt(this._in('duration').val()),
 				description: this._in('description').val(), 
-				duration: parseInt(this._in('duration').val()), 
+				duration: parseInt(this._in('duration').val()),
 				name: this._in('name').val(), 
 				price: parseInt(this._in('price').val()), 
 				status: this._in('status').val(), 
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
+
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),
@@ -272,9 +249,7 @@ define([
 			};
 			
 			var boatdayUpdateSuccess = function( boatday ) {
-
 				Parse.history.navigate('boatdays', true);
-
 			};
 
 			this.model.save(data).then(boatdayUpdateSuccess);

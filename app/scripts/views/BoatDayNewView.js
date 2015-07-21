@@ -1,21 +1,24 @@
 define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
-'text!templates/BoatDayTemplate.html', 
-'text!templates/SeatRequestsTemplate.html'
-], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTemplate){
-	var BoatDayView = BaseView.extend({
+'text!templates/BoatDayNewTemplate.html', 
+], function(gmaps, BaseView, BoatDayNewTemplate){
+	var BoatDayNewView = BaseView.extend({
 
-		className: "view-boatday-update",
+		className: "view-boatday-create",
 		
-		template: _.template(BoatDayTemplate),
+		template: _.template(BoatDayNewTemplate),
 
-		seatRequests: {},
+		collectionHosts: {}, 
+
+		collectionBoats: {}, 
+
+		collectionCaptains: {}, 
 
 		events : {
-			'submit form' : 'update',
-			"click .update-requests": "updateSeatRequest"
-
+			'submit form' : 'save',
+			'change [name="host"]' : "hostSelected",
+			'change [name="boat"]' : "boatSelected"
 		},
 
 		_map: null,
@@ -25,18 +28,30 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
+			var self = this;
 
-			this.renderSeatRequests();
+			var hostsFetchSuccess = function(matches) {
+
+				var select = $('<select>').attr({ id: 'host', name: 'host', class: 'form-control' });
+
+				_.each(matches, function(host) {
+					var opt = $('<option>').attr('value', host.id).text(host.get('firstname') + " "+ host.get('lastname'));
+					select.append(opt);
+					self.collectionHosts[host.id] = host;
+				});
+				self.$el.find('.host').html(select);
+				select.change();
+			};
+
+			var queryHosts = new Parse.Query(Parse.Object.extend("Host"));
+			queryHosts.equalTo('status', 'approved');
+			queryHosts.ascending('firstname');
+			queryHosts.find().then(hostsFetchSuccess);
 
 			this.$el.find('.date').datepicker({
 				startDate: '0d',
 				autoclose: true
 			});
-
-			if( this.model.get('date') ) {
-				this.$el.find('.date').datepicker('setDate', this.model.get('date'));
-
-			}
 
 			this.setupGoogleMap();
 
@@ -44,51 +59,61 @@ define([
 
 		},
 
-		renderSeatRequests: function() {
-
-			var self = this; 
-			self.seatRequests = {};
-			this.$el.find('#seatRequests').html('');
-
-			var query = self.model.relation('seatRequests').query();
-			query.ascending("createdAt");
-			query.find().then(function(matches){
-				_.each(matches, self.appendSeatRequests, self);
-			});
-		}, 
-
-		appendSeatRequests: function(SeatRequest) {
-
-			this.$el.find('#seatRequests').append(_.template(SeatRequestsTemplate)({
-				id: SeatRequest.id, 
-				seat: SeatRequest
-			}));
-
-			this.seatRequests[SeatRequest.id] = SeatRequest;
-		},
-
-		updateSeatRequest: function(event) {
+		hostSelected: function(event) {
 
 			event.preventDefault();
-
 			var self = this;
-			var e = $(event.currentTarget);
-			var parent = e.closest('tr');
+			var host = self.collectionHosts[$(event.currentTarget).val()];
 
-			self.seatRequests[parent.attr('data-id')].save({ 
-				status: parent.find('[name="status"]').val(),
-				contribution: parseInt(parent.find('[name="contribution"]').val()),
-				ratingGuest: parseInt(parent.find('[name="ratingGuest"]').val()),
-				ratingHost: parseInt(parent.find('[name="ratingHost"]').val()), 
-				reviewGuest: parent.find('[name="reviewGuest"]').val(),
-				seats: parseInt(parent.find('[name="ratingHost"]').val())
+			var boatsFetchSuccess = function(matches) {
+
+				var select = $('<select>').attr({ id: 'boat', name: 'boat', class: 'form-control' });
+
+				_.each(matches, function(boat){
+					var opt = $('<option>').attr('value', boat.id).text(boat.get('name') + ', ' + boat.get('type'));
+					select.append(opt);
+					self.collectionBoats[boat.id] = boat;
+				});
+
+				self.$el.find('.boats').html(select);
+				select.change();
+			};
+
+			var queryBoats = host.relation('boats').query();
+			queryBoats.equalTo('status', 'approved');
+			queryBoats.find().then(boatsFetchSuccess);
+		}, 	
+
+		boatSelected: function(event) {
+
+			event.preventDefault();
+			var self = this;
+			var boat = self.collectionBoats[$(event.currentTarget).val()];
+
+			self.collectionCaptains = {};
+			var queryCaptains = boat.relation('captains').query();
+			queryCaptains.equalTo('status', 'approved');
+			queryCaptains.include('captainProfile');
+			queryCaptains.each(function(captainRequest) {
+
+				if(captainRequest.get('captainProfile')) {
+					self.collectionCaptains[captainRequest.get('captainProfile').id] = captainRequest.get('captainProfile')
+				}
+
 			}).then(function() {
-				self.renderSeatRequests();
-			}, function(e) {
-				console.log(e);
+
+				var select = $('<select>').attr({ id: 'captain', name: 'captain', class: 'form-control' });
+
+				_.each(self.collectionCaptains, function(captain) {
+					var opt = $('<option>').attr('value', captain.id).text(captain.get('displayName'));
+					select.append(opt);
+					self.collectionCaptains[captain.id] = captain;
+				});
+				
+				self.$el.find('.captains').html(select);
+				
 			});
-			
-		},
+		}, 
 
 		setupGoogleMap: function() {
 
@@ -113,12 +138,6 @@ define([
 					google.maps.event.addListener(self._map, 'click', function(event) {
 						self.moveMarker(event.latLng)
 					});
-
-				}
-
-				if( self.model.get('location') ) {
-
-					self.moveMarker(new google.maps.LatLng(self.model.get('location').latitude, self.model.get('location').longitude));
 
 				}
 
@@ -162,14 +181,17 @@ define([
 
 		},
 
-		update: function(event) {
+		save: function(event) {
 			
 			event.preventDefault();
 
 			var self = this;
 
 			var data = {
-
+				status: 'creation',
+				host: self.collectionHosts ? self.collectionHosts[this._in('host').val()] : null,
+				boat: self.collectionBoats ? self.collectionBoats[this._in('boat').val()] : null, 
+				captain: self.collectionCaptains ? self.collectionCaptains[this._in('captain').val()] : null,  
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
 				cancellationPolicy: this._in('cancellationPolicy').val(), 
@@ -245,14 +267,18 @@ define([
 
 			};
 			
-			var boatdayUpdateSuccess = function( boatday ) {
+			var boatdayCreateSuccess = function( boatday ) {
 				Parse.history.navigate('boatdays', true);
 			};
 
-			this.model.save(data).then(boatdayUpdateSuccess);
+			//this.model.save(data).then(boatdayCreateSuccess);
+			var BoatDay = Parse.Object.extend("BoatDay");
+			var boatDay = new BoatDay();
+			boatDay.save(data).then(boatdayCreateSuccess);
+
 
 		},
 
 	});
-	return BoatDayView;
+	return BoatDayNewView;
 });

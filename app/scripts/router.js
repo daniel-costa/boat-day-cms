@@ -14,14 +14,16 @@ define([
 	'views/BoatValidationView', 
 	'views/HelpCenterView', 
 	'views/ReportView', 
-	'views/GuestProfilesView'
+	'views/GuestProfilesView', 
+	'views/BoatDayNewView'
 ], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
-	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView) {
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
 			'boatdays': 'showBoatDaysView',
+			'boatDay/:new': 'showBoatDayNewView',
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',
 			'host/:hostid': 'showHostView', 
@@ -150,7 +152,7 @@ define([
 			var self = this;
 			var hostQuerySuccess = function( host ) {
 
-					self.render(new HostView({ model: host }));
+				self.render(new HostView({ model: host }));
 
 			};
 
@@ -182,6 +184,11 @@ define([
 			new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(boatdayQuerySuccess);
 
 		},
+
+		showBoatDayNewView: function() {
+
+			this.render(new BoatDayNewView());
+		}, 
 
 		showBoatView: function( boatid ) {
 

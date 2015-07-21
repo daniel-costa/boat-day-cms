@@ -101,8 +101,7 @@ define([
 				
 				displayName: this._in('displayName').val(), 
 				about: this._in('about').val(), 
-				status: this._in('status').val(), 
-				//url: profile.get('profilePicture') ? profile.get('profilePicture').url() : ''
+				status: this._in('status').val()
 			};
 			
 			var profileUpdateSuccess = function( profile ) {

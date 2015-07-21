@@ -1,0 +1,225 @@
+<div class="top-navigation"></div>
+<form class="form-horizontal"> 
+	<div class="container"> 
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Create a new BoatDay</h3>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="name" name="name">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="host" class="col-sm-3 control-label">Select Host</label>
+						<div class="col-sm-6 host">
+							<em>Loading...</em>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="boats" class="col-sm-3 control-label">Select Boat</label>
+						<div class="col-sm-6 boats">
+							<em>Loading...</em>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="captains" class="col-sm-3 control-label">Select Captain</label>
+						<div class="col-sm-6 captains">
+							<em>Loading...</em>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="availableSeats" class="col-sm-3 control-label">Available seats</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="availableSeats" name="availableSeats"> 
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="date" class="col-sm-3 control-label">Date</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control date" placeholder="mm/dd/yyyy" name="date" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="departureTime" class="col-sm-3 control-label">Departure time</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="departureTime" name="departureTime">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-3 control-label">Description</label>
+						<div class="col-sm-6">
+							<textarea rows="5" name="description" id="description" class="form-control"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="duration" class="col-sm-3 control-label">Duration</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="duration" name="duration">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="price" class="col-sm-3 control-label">Price</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="price" name="price">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">Departure location 
+							</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="locationText" name="locationText">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="bookingPolicy" class="col-sm-3 control-label">Booking policy</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="bookingPolicy">
+								<option value="manually">Manual Book</option> 
+								<option value="automatically">Instant Book</option>
+								<option value="halfway">Trusted Book</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="cancellationPolicy" class="col-sm-3 control-label">Cancellation policy</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="cancellationPolicy">
+								<option>Flexible</option> 
+								<option value="moderate">Moderate</option>
+								<option value="strict">Strict</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Details</h3>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label for="activity" class="col-sm-3 control-label">Activity</label>
+					<div class="col-sm-6">
+						<select class="input-small form-control" id="activity" name="activity">
+							<option value="leisure">Leisure</option> 
+							<option value="fishing">Fishing</option>
+							<option value="sailing">Sailing</option>
+							<option value="sports">Water Sports</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group checkboxes">
+					<div class="col-sm-12 activityContainer leisure">
+						<label class="col-sm-3 control-label"><strong>Leisure Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresLeisureCruising"> Crusing
+							<input type="checkbox" name="featuresLeisurePartying"> Partying
+							<input type="checkbox" name="featuresLeisureSightseeing"> Sightseeing
+							<input type="checkbox" name="featuresLeisureOther"> Other
+						</div>
+					</div>
+					<div class="col-sm-12 activityContainer fishing">
+						<label class="col-sm-3 control-label"><strong>Fishing Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresFishingOffshore"> Offshore Fishing
+							<input type="checkbox" name="featuresFishingFlats"> Flats Fishing
+							<input type="checkbox" name="featuresFishingLake"> Lake Fishing
+							<input type="checkbox" name="featuresFishingRecreational"> Recreational Fishing
+							<input type="checkbox" name="featuresFishingOther"> Other
+						</div>	
+					</div>
+					<div class="col-sm-12 activityContainer fishing">
+						<label class="col-sm-3 control-label"><strong>Fishing Equipment</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresFishingEquipment">Equipment Provided
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Fishing equipments</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresFishingEquipmentItemsBait"> Bait
+							<input type="checkbox" name="featuresFishingEquipmentItemsLines"> Fishing Line
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsHooks"> Hooks
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsLures"> Lures
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsNets"> Nets
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsRods"> Rods
+							
+							<input type="checkbox" name="featuresFishingEquipmentItemsSinkers"> Sinkers
+						</div>
+					</div>
+					<div class="col-sm-12 activityContainer sports">
+						<label class="col-sm-3 control-label"><strong>Sports Category</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresSportsSnorkeling"> Snorkeling
+							<input type="checkbox" name="featuresSportStubing"> Tubing
+							<input type="checkbox" name="featuresSportsWakeBoarding"> Wake Boarding
+							<input type="checkbox" name="featuresSportsWaterSkiing"> Water Skiing 
+						</div>
+					</div>
+					<div class="col-sm-12 activityContainer sports">
+						<label class="col-sm-3 control-label"><strong>Sport Equipment</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresSportsEquipment"> Equipment Provided
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Sport equipments</strong></label>
+						<div class="col-sm-7">
+							<input type="checkbox" name="featuresSportsEquipmentItemsFins"> Fins
+							<input type="checkbox" name="featuresSportsEquipmentItemsHelmets"> Helmets
+							<input type="checkbox" name="featuresSportsEquipmentItemsMasks"> Masks
+							<input type="checkbox" name="featuresSportsEquipmentItemsSnorkels"> Snorkels
+							<input type="checkbox" name="featuresSportsEquipmentItemsTowLine"> Tow Line
+							<input type="checkbox" name="featuresSportsEquipmentItemsTubes"> Tubes
+							<input type="checkbox" name="featuresSportsEquipmentItemsWakeboard"> Wakeboard
+							<input type="checkbox" name="featuresSportsEquipmentItemsWaterSkis"> Water Skis
+						</div>
+					</div>		
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Family Settings</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresGlobalChildren"> Children allowed 
+							<input type="checkbox" name="featuresGlobalSmoking"> Smoking Permitted
+							<input type="checkbox" name="featuresGlobalDrinking"> Drinking Permitted 
+							<input type="checkbox" name="featuresGlobalPets"> Pets Permitted 
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<label class="col-sm-3 control-label"><strong>Extras</strong></label>
+						<div class="col-sm-6">
+							<input type="checkbox" name="featuresExtrasFood"> Food
+							<input type="checkbox" name="featuresExtrasDrink"> Drink
+							<input type="checkbox" name="featuresExtrasMusic"> Music
+							<input type="checkbox" name="featuresExtrasTowels"> Towels
+							<input type="checkbox" name="featuresExtrasSunscreen"> Sunscreen
+							<input type="checkbox" name="featuresExtrasInflatables"> Inflatables 
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Departure Location</h3>
+			</div>
+
+			<div class="panel-body">
+				<div>
+					<input type="text" class="form-control" id="locationText" name="locationText">
+				</div>
+				<div class="embed-responsive embed-responsive-16by9 map" style="margin-top: 10px"></div>
+			</div>
+
+			<div class="panel-footer text-center">
+				<button type="submit" class="btn btn-default">Create BoatDay</button>
+			</div>
+		</div>
+	</div>
+</form>

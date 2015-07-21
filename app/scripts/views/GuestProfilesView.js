@@ -53,16 +53,18 @@ define([
 				query.contains("status", this._in("searchStatus").val());
 			}
 
-			var cbSuccess = function(guests) {
+			var cbSuccess = function(profiles) {
 
-				_.each(guests, function(guest) {
+				_.each(profiles, function(profile) {
 					
 					var data = {
-						id: guest.id, 
-						name: guest.get('displayName'),
-						rating: guest.get('rating'), 
-						status: guest.get('status'), 
-						profile: guest.get('profile')
+						id: profile.id, 
+						url: profile.get('profilePicture') ? profile.get('profilePicture').url() : '',
+						name: profile.get('displayName'),
+						rating: profile.get('rating'), 
+						status: profile.get('status'), 
+						email: profile.get('user').get('email'),
+						profile: profile.get('profile')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

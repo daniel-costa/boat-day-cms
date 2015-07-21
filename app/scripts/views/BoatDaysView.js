@@ -90,24 +90,7 @@ define([
 			};
 
 			query.find().then(cbSuccess);
-		}, 
-
-		// cancelBoatDay: function( event ) {
-
-		// 	event.preventDefault();
-		// 	var BoatDayModel = Parse.Object.extend("BoatDay");
-
-		// 	if( confirm("Are you sure you want cancel this Boatday ?") ) {
-
-		// 		BoatDayModel({ status: 'cancel' }).save().then(function() {
-		// 			alert('Boatday Cancelled');
-		// 		});
-
-		// 	} 
-
-		// },
-
-
+		}
 	});
 	return BoatDaysView;
 });

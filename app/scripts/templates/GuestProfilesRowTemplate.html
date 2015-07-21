@@ -1,5 +1,8 @@
 <tr>
 	<td><%= id %></td>
+	<td>
+		<div class="profile-picture" style="background-image:url(<%= url %>)"></div>
+	</td>
 	<td><%= name %></td>
 	<td>
 		<% if( typeof rating !== typeof undefined && rating ) { %>
@@ -7,7 +10,10 @@
 		<% } %>
 	</td>
 	<td><%= status %></td>
-	<td></td>
+	<td><% if( typeof email !== typeof undefined && email ) { %>
+			<%= email %>
+		<% } %>
+	</td>
 	<td>
 		<a class="btn btn-default" href="#/profile/<%= id %>">Edit</a>
 	</td>

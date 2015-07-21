@@ -246,7 +246,7 @@ define([
 			};
 			
 			var boatdayUpdateSuccess = function( boatday ) {
-				Parse.history.navigate('boatdays', true);
+				Parse.history.navigate('upcoming-boatdays', true);
 			};
 
 			this.model.save(data).then(boatdayUpdateSuccess);

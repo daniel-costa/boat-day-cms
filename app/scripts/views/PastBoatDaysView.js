@@ -1,13 +1,13 @@
 define([
 'views/BaseView',
-'text!templates/BoatDaysTemplate.html', 
-'text!templates/BoatDaysRowTemplate.html'
-], function(BaseView, BoatDaysTemplate, BoatDaysRowTemplate){
-	var BoatDaysView = BaseView.extend({
+'text!templates/PastBoatDaysTemplate.html', 
+'text!templates/PastBoatDaysRowTemplate.html'
+], function(BaseView, PastBoatDaysTemplate, PastBoatDaysRowTemplate){
+	var PastBoatDaysView = BaseView.extend({
 
-		className: "view-boatdays-lists",
+		className: "view-past-boatdays-lists",
 		
-		template: _.template(BoatDaysTemplate),
+		template: _.template(PastBoatDaysTemplate),
 
 		events : {
 
@@ -27,32 +27,36 @@ define([
 		renderRows: function() {
 
 			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
-			query.include('host');
-			query.include('boat');
-			query.include('captain');
-			query.descending('date');
-			query.descending('departureTime');
 
-			var tpl = _.template(BoatDaysRowTemplate);
+			var startingDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+
+			var queryPastBoatDays = new Parse.Query(Parse.Object.extend("BoatDay"));
+			queryPastBoatDays.include('host');
+			queryPastBoatDays.include('boat');
+			queryPastBoatDays.include('captain');
+			queryPastBoatDays.descending('date');
+			queryPastBoatDays.descending('departureTime');
+			queryPastBoatDays.lessThan("date", startingDate);
+
+			var tpl = _.template(PastBoatDaysRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {
-				query.contains("objectId", this._in("searchobjectId").val());
+				queryPastBoatDays.contains("objectId", this._in("searchobjectId").val());
 			}
 
 			if( this._in("searchName").val() != "" ) {
-				query.contains("name", this._in("searchName").val());
+				queryPastBoatDays.contains("name", this._in("searchName").val());
 			}
 
 			if( this._in("searchPriceMin").val() != "" ) {
-				query.greaterThanOrEqualTo("price", parseFloat(this._in("searchPriceMin").val()));
+				queryPastBoatDays.greaterThanOrEqualTo("price", parseFloat(this._in("searchPriceMin").val()));
 			}
 			if( this._in("searchPriceMax").val() != "" ) {
-				query.lessThanOrEqualTo("price", parseFloat(this._in("searchPriceMax").val()));
+				queryPastBoatDays.lessThanOrEqualTo("price", parseFloat(this._in("searchPriceMax").val()));
 			}
 
 			if( this._in("searchStatus").val() != "" ) {
-				query.contains("status", this._in("searchStatus").val());
+				queryPastBoatDays.contains("status", this._in("searchStatus").val());
 			}
 
 
@@ -89,8 +93,8 @@ define([
 
 			};
 
-			query.find().then(cbSuccess);
+			queryPastBoatDays.find().then(cbSuccess);
 		}
 	});
-	return BoatDaysView;
+	return PastBoatDaysView;
 });

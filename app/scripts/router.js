@@ -1,7 +1,7 @@
 define([
 	'views/HomeView',
 	'views/DashboardView',
-	'views/BoatDaysView', 
+	'views/UpcomingBoatDaysView', 
 	'views/BoatDayView',
 	'views/HostsView', 
 	'views/HostView',
@@ -15,14 +15,16 @@ define([
 	'views/HelpCenterView', 
 	'views/ReportView', 
 	'views/GuestProfilesView', 
-	'views/BoatDayNewView'
-], function(HomeView, DashboardView, BoatDaysView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
-	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView) {
+	'views/BoatDayNewView', 
+	'views/PastBoatDaysView'
+], function(HomeView, DashboardView, UpcomingBoatDaysView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, PastBoatDaysView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'boatdays': 'showBoatDaysView',
+			'upcoming-boatdays': 'showUpcomingBoatDaysView',
+			'past-boatdays': 'showPastBoatDaysView',
 			'boatDay/:new': 'showBoatDayNewView',
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',
@@ -51,7 +53,7 @@ define([
 			this.showHomeView();
 		},
 
-		showBoatDaysView: function() {
+		showUpcomingBoatDaysView: function() {
 			
 			// var self = this;
 			// var cb = function() {
@@ -59,8 +61,13 @@ define([
 			// };
 
 			// self.handleAdminAndSignUp(cb);
-			this.render(new BoatDaysView());
+			this.render(new UpcomingBoatDaysView());
 
+		}, 
+
+		showPastBoatDaysView: function() {
+			
+			this.render(new PastBoatDaysView());
 		}, 
 
 		showHostsView: function() {

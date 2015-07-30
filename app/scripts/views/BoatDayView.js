@@ -2,8 +2,8 @@ define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
 'text!templates/BoatDayTemplate.html', 
-'text!templates/SeatRequestsTemplate.html'
-], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTemplate){
+'text!templates/SeatRequestsTableTemplate.html'
+], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTableTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",
@@ -59,7 +59,7 @@ define([
 
 		appendSeatRequests: function(SeatRequest) {
 
-			this.$el.find('#seatRequests').append(_.template(SeatRequestsTemplate)({
+			this.$el.find('#seatRequests').append(_.template(SeatRequestsTableTemplate)({
 				id: SeatRequest.id, 
 				seat: SeatRequest
 			}));

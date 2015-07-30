@@ -16,16 +16,22 @@ define([
 	'views/ReportView', 
 	'views/GuestProfilesView', 
 	'views/BoatDayNewView', 
-	'views/PastBoatDaysView'
+	'views/PastBoatDaysView', 
+	'views/CouponsView', 
+	'views/CouponView',
+	'views/CouponNewView',
+	'views/SeatRequestsView'
 ], function(HomeView, DashboardView, UpcomingBoatDaysView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
-	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, PastBoatDaysView) {
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, PastBoatDaysView, 
+	CouponsView, CouponView, CouponNewView, SeatRequestsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
 			'upcoming-boatdays': 'showUpcomingBoatDaysView',
 			'past-boatdays': 'showPastBoatDaysView',
-			'boatDay/:new': 'showBoatDayNewView',
+			// 'boatDay/:new': 'showBoatDayNewView',
+			'create-boatday': 'showBoatDayNewView',
 			'boatday/:boatdayid': 'showBoatDayView', 
 			'hosts': 'showHostsView',
 			'host/:hostid': 'showHostView', 
@@ -41,6 +47,10 @@ define([
 			'help-center': 'showHelpCenterView',
 			'report': 'showReportView',
 			'guests': 'showGuestsView',  
+			'seat-requests': 'showSeatRequestsView', 
+			'coupons': 'showCouponsView',
+			'coupon/:couponid': 'showCouponView', 
+			'create-coupon': 'showCouponNewView',
 			'*actions': 'showDashboardView'
 		},
 
@@ -92,7 +102,17 @@ define([
 
 			this.render(new GuestProfilesView());
 		},
-		
+
+		showSeatRequestsView: function() {
+
+			this.render(new SeatRequestsView());
+		},
+
+		showCouponsView: function() {
+
+			this.render(new CouponsView());
+		}, 
+
 		showBoatsView: function() {
 
 			// var self = this;
@@ -167,6 +187,17 @@ define([
 
 		},
 
+		showCouponView: function( couponid ) {
+
+			var self = this;
+			var couponQuerySuccess = function( coupon ) {
+
+				self.render(new CouponView({ model: coupon }));
+			};
+
+			new Parse.Query(Parse.Object.extend('Coupon')).get(couponid).then(couponQuerySuccess);
+		}, 
+
 		showHostValidationView: function( hostid ) {
 
 			var self = this;
@@ -196,6 +227,11 @@ define([
 
 			this.render(new BoatDayNewView());
 		}, 
+
+		showCouponNewView: function() {
+
+			this.render(new CouponNewView());
+		},
 
 		showBoatView: function( boatid ) {
 

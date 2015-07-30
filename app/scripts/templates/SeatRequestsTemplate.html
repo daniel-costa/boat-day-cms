@@ -1,22 +1,36 @@
-<tr data-id="<%= id %>">
-	<td><%= id %></td>
-	<td>
-		<select class="input-small form-control" name="status">
-			<option value="creation" <%= seat.get('status') && seat.get('status') == "creation" ? 'selected' : '' %>>Creation</option> 
-			<option value="editing" <%= seat.get('status') && seat.get('status') == "editing" ? 'selected' : '' %>>Editing</option>
-			<option value="complete" <%= seat.get('status') && seat.get('status') == "complete" ? 'selected' : '' %>>Complete</option>
-			<option value="approved" <%= seat.get('status') && seat.get('status') == "approved" ? 'selected' : '' %>>Approved</option>
-			<option value="denied" <%= seat.get('status') && seat.get('status') == "denied" ? 'selected' : '' %>>Denied</option>
-		</select>
-	</td>
-	<td><input type="text" class="form-control" name="contribution" value="<%= seat.get('contribution') %>" /></td>
-	<td><input type="text" class="form-control" name="ratingGuest" value="<%= seat.get('ratingGuest') %>" /></td>
-	<td><input type="text" class="form-control" name="ratingHost" value="<%= seat.get('ratingHost') %>" /></td>
-	<td><input type="text" class="form-control" name="reviewGuest" value="<%= seat.get('reviewGuest') %>" /></td>
-	<td><input type="text" class="form-control" name="seats" value="<%= seat.get('seats') %>" /></td>
-	<td>
-		<button type="button" class="btn btn-default update-requests">Update</button>
-		<a href="#/boatday/<%= seat.get('boatday').id %>" class="btn btn-default">BoatDay</a>
-		<a href="#/profile/<%= seat.get('profile').id %>" class="btn btn-default">Profile</a> 
-	</td>
-</tr>
+<div class="top-navigation"></div>
+
+<div class="container-fluid">
+	<h1>Seat requests lists</h1>
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					ID
+					<input type="text" class="searchFilter form-control" name="searchobjectId">
+				</th>
+				<th>
+					Guests name
+					<input type="text" class="searchFilter form-control" name="searchGuests">
+				</th>
+				<th>
+					Boatday name
+					<input type="text" class="searchFilter form-control" name="searchBoatDays">
+				</th>
+				<th>
+					Host rating
+				</th>
+				<th>
+					Guests rating
+				</th>
+				<th>
+					Contibution
+				</th>
+				<th> 
+					
+				</th>
+			</tr>
+		</thead>
+		<tbody> </tbody>
+	</table>
+</div>

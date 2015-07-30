@@ -55,7 +55,9 @@ define([
 					var data = {
 						id: result.id, 
 						category: result.get('category'),
-						displayName: result.get('user').get('profile').get('displayName')
+						displayName: result.get('user').get('profile').get('displayName'), 
+						feedback: result.get('feedback'), 
+						status: result.get('status')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

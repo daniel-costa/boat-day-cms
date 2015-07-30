@@ -1,9 +1,9 @@
 define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html', 
-'text!templates/SeatRequestsTemplate.html',
+'text!templates/SeatRequestsTableTemplate.html',
 'text!templates/ReviewsTemplate.html'
-], function(BaseView, ProfileTemplate, SeatRequestsTemplate, ReviewsTemplate){
+], function(BaseView, ProfileTemplate, SeatRequestsTableTemplate, ReviewsTemplate){
 	var ProfileView = BaseView.extend({
 
 		className: "view-profile",
@@ -41,7 +41,7 @@ define([
 
 		appendSeatRequests: function(SeatRequest) {
 
-			this.$el.find('#seatRequests').append(_.template(SeatRequestsTemplate)({
+			this.$el.find('#seatRequests').append(_.template(SeatRequestsTableTemplate)({
 				id: SeatRequest.id, 
 				seat: SeatRequest
 			}));

@@ -1,0 +1,42 @@
+<div class="top-navigation"></div>
+
+<div class="container-fluid">
+	<a style="display:inline-block; float: right;" href="#/create-coupon"  class="btn btn-primary">Create Coupon</a>
+	<h1 style="display:inline-block">Coupon lists</h1>
+	<table class="table table-condensed table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>
+					ID
+					<input type="text" class="searchFilter form-control" name="searchobjectId">
+				</th>
+				<th>
+					Name
+					<input type="text" class="searchFilter form-control" name="searchName">
+				</th>
+				<th>
+					Code
+					<input type="text" class="searchFilter form-control" name="searchCode">
+				</th>
+				<th>
+					Discount
+				</th>
+				<th>
+					Status
+					<select class="searchFilter form-control" name="searchStatus">
+						<option value ="" selected>Select one</option>
+						<option value="creation">Creation</option> 
+						<option value="complete">Complete</option>
+						<option value="approved">Approved</option>
+						<option value="denied">Denied</option>
+					</select>
+				</th>
+				<th>
+					Expiration date
+				</th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody> </tbody>
+	</table>
+</div>

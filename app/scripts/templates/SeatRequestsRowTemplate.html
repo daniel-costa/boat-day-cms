@@ -1,0 +1,13 @@
+<tr>
+	<td><%= id %></td>
+	<td><%= profileName %></td>
+	<td><%= boatdayName %></td>
+	<td><%= hostRating %></td>
+	<td><%= guestRating %></td>
+	<td><%= contribution %></td> 
+	<td>
+		<a class="btn btn-default" href="#/profile/<%= profile.id %>">Profile</a>
+		<a class="btn btn-default" href="#/boatday/<%= boatday.id %>">BoatDay</a>
+		<% if(coupon) { %><a class="btn btn-default" href="#/coupon/<%= coupon.id %>">Coupon</a><% } %>
+	</td>
+</tr>

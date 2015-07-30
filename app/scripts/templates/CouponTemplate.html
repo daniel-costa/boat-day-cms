@@ -1,0 +1,73 @@
+<div class="top-navigation"></div>
+<form class="form-horizontal"> 
+	<div class="container"> 
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title text-center">Update Coupon</h3>
+			</div>
+
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="form-group">
+						<label for="profileId" class="col-sm-3 control-label">Coupon id</label>
+						<div class="col-sm-6">
+							<%= objectId %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+						<div class="col-sm-6">
+							<%= createdAt %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="updatedAt" class="col-sm-3 control-label">Updated at</label>
+						<div class="col-sm-6">
+							<%= updatedAt %>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label">Name</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="name" name="name" value= "<%= name %>" > 
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="code" class="col-sm-3 control-label">Code</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="code" name="code" value= "<%= code %>">
+						</div> 
+					</div>
+					<div class="form-group">
+						<label for="discount" class="col-sm-3 control-label">Discount</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="discount" name="discount" value= "<%= discount %>">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="expDate" class="col-sm-3 control-label">Expiration Date</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control expDate " placeholder="mm/dd/yyyy" name="expDate" value= "<%= expiration.iso %>" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="status" class="col-sm-3 control-label">Status</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" id="status" name="status">
+								<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
+								<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
+								<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
+								<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
+								<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="panel-footer text-center">
+				<button type="submit" class="btn btn-default">Update</button>
+			</div>
+		</div>
+	</div>
+</form>

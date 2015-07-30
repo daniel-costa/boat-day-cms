@@ -64,6 +64,7 @@ define([
 			event.preventDefault();
 			var self = this;
 			var host = self.collectionHosts[$(event.currentTarget).val()];
+			console.log(host);
 
 			var boatsFetchSuccess = function(matches) {
 

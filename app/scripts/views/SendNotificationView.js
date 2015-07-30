@@ -19,23 +19,44 @@ define([
 			BaseView.prototype.render.call(this);
 			var self = this;
 
-			var profilesFetchSuccess = function(matches) {
+			
+			var fetched = 0;
+			var total = 0;
+			var select = $('<select>').attr({ id: 'profile', name: 'profile', class: 'form-control' });
 
-				var select = $('<select>').attr({ id: 'profile', name: 'profile', class: 'form-control' });
+			var doQuery = function() {
+				console.log('fetched='+fetched);
+				console.log('total='+total);
 
-				_.each(matches, function(profile) {
-					var opt = $('<option>').attr('value', profile.id).text(profile.get('displayName'));
-					select.append(opt);
-					self.collectionProfiles[profile.id] = profile;
+				queryProfiles.find().then(function(matches) {
+					
+					_.each(matches, function(profile) {
+						select.append($('<option>').attr('value', profile.id).text(profile.get('firstName') + ' ' + profile.get('lastName')));
+						self.collectionProfiles[profile.id] = profile;
+					});
+
+					fetched += matches.length;
+
+					if( total > fetched) {
+						queryProfiles.skip(fetched);
+						doQuery();
+					} else {
+						self.$el.find('.profiles').html(select);
+					}
+					
 				});
-
-				self.$el.find('.profiles').html(select);
 			};
 
 			var queryProfiles = new Parse.Query(Parse.Object.extend("Profile"));
 			queryProfiles.equalTo('status', 'complete');
 			queryProfiles.ascending('displayName');
-			queryProfiles.find().then(profilesFetchSuccess);
+			queryProfiles.limit(500);
+			queryProfiles.count().then(function(_total) {
+				total = _total;
+				doQuery();
+			});
+
+			
 
 			return this;
 		}, 

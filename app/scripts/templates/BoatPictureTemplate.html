@@ -1,6 +1,8 @@
 <tr data-id="<%= file.id %>">
 	<td>
-		<div class="profile-picture rectangle" style="background-image:url(<%= file.get('file').url() %>)"></div>
+		<div class="profile-picture rectangle" style="background-image:url(<%= file.get('file').url() %>)"></div>\
+		<a href="<%= file.get('file').url() %>" target="_blank">save</a>
+
 	</td>
 	<td>
 		<input type="text" class="form-control" name="order" value="<%= file.get('order') %>" />

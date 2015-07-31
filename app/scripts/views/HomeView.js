@@ -24,6 +24,7 @@ define([
 		signIn: function(event) {
 			
 			event.preventDefault();
+			var self = this;
 
 			var logInSuccess = function(user) {
 				var query = (new Parse.Query(Parse.Role));
@@ -34,7 +35,7 @@ define([
 					Parse.history.navigate('dashboard', true);
 					
 					if ( adminRole ) {
-						// Parse.history.navigate('dashboard', true);
+						Parse.history.navigate('dashboard', true);
 					} else {
 
 					}
@@ -44,9 +45,8 @@ define([
 			};
 
 			var logInError = function(error) {
-				//alert(error.message);
-				this._error(error);
-				alert("Enter your correct credentials");
+				alert(error.message);
+				// self._error(error.message);
 			};
 			
 

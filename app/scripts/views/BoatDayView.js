@@ -131,23 +131,14 @@ define([
 
 			var self = this;
 
-			var gotAddress = function (results, status) {
-
+			new google.maps.Geocoder().geocode({ 'latLng': latlng }, function (results, status) {
 				if (status === google.maps.GeocoderStatus.OK) {
-
 					if (results[0]) {
 						var addr = results[0].formatted_address;
 						self._in('locationText').val(addr.slice(0, addr.lastIndexOf(",")));
-					
 					}
-
 				}
-
-			};
-
-			self._map.panTo(latlng);
-
-			new google.maps.Geocoder().geocode({ 'latLng': latlng }, gotAddress);
+			});
 
 			if( !self._marker ) {
 				self._marker = new google.maps.Marker({

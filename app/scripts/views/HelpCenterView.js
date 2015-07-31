@@ -28,7 +28,7 @@ define([
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
 			query.include('user.profile');
-
+			query.descending('createdAt');
 
 			var tpl = _.template(HelpCenterRowTemplate);
 
@@ -57,7 +57,10 @@ define([
 						category: result.get('category'),
 						displayName: result.get('user').get('profile').get('displayName'), 
 						feedback: result.get('feedback'), 
-						status: result.get('status')
+						status: result.get('status'),
+						file1: result.get('file1'),
+						file2: result.get('file2'),
+						file3: result.get('file3')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

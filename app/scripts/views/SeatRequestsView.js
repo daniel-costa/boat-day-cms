@@ -29,6 +29,7 @@ define([
 			query.include("boatday");
 			query.include("profile");
 			query.include("promoCode");
+			query.descending('createdAt');
 			var tpl = _.template(SeatRequestsRowTemplate);
 
 			if( this._in("searchobjectId").val() != "" ) {

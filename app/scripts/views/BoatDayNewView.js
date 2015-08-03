@@ -211,7 +211,6 @@ define([
 				duration: parseInt(this._in('duration').val()),
 				name: this._in('name').val(), 
 				price: parseInt(this._in('price').val()), 
-				status: this._in('status').val(), 
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),

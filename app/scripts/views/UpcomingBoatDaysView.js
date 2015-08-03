@@ -59,7 +59,6 @@ define([
 				queryUpcomingBoatDays.contains("status", this._in("searchStatus").val());
 			}
 
-
 			this.$el.find('tbody').html("");
 
 			var cbSuccess = function(boatdays) {

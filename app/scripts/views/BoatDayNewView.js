@@ -64,7 +64,6 @@ define([
 			event.preventDefault();
 			var self = this;
 			var host = self.collectionHosts[$(event.currentTarget).val()];
-			console.log(host);
 
 			var boatsFetchSuccess = function(matches) {
 
@@ -82,16 +81,21 @@ define([
 
 			var queryBoats = host.relation('boats').query();
 			queryBoats.equalTo('status', 'approved');
+			queryBoats.include('profile');
 			queryBoats.find().then(boatsFetchSuccess);
-		}, 	
+		}, 	  
 
 		boatSelected: function(event) {
 
 			event.preventDefault();
 			var self = this;
 			var boat = self.collectionBoats[$(event.currentTarget).val()];
+			console.log(boat);
 
 			self.collectionCaptains = {};
+			
+			self.collectionCaptains[boat.get('profile').id] = boat.get('profile');
+
 			var queryCaptains = boat.relation('captains').query();
 			queryCaptains.equalTo('status', 'approved');
 			queryCaptains.include('captainProfile');
@@ -106,14 +110,17 @@ define([
 				var select = $('<select>').attr({ id: 'captain', name: 'captain', class: 'form-control' });
 
 				_.each(self.collectionCaptains, function(captain) {
+
 					var opt = $('<option>').attr('value', captain.id).text(captain.get('displayName'));
 					select.append(opt);
 					self.collectionCaptains[captain.id] = captain;
 				});
 				
 				self.$el.find('.captains').html(select);
+				select.change();
 				
 			});
+		
 		}, 
 
 		setupGoogleMap: function() {
@@ -189,10 +196,10 @@ define([
 			var self = this;
 
 			var data = {
-				status: 'creation',
 				host: self.collectionHosts ? self.collectionHosts[this._in('host').val()] : null,
 				boat: self.collectionBoats ? self.collectionBoats[this._in('boat').val()] : null, 
 				captain: self.collectionCaptains ? self.collectionCaptains[this._in('captain').val()] : null,  
+				status: "creation",
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
 				cancellationPolicy: this._in('cancellationPolicy').val(), 
@@ -208,7 +215,8 @@ define([
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
-
+				bookedSeats: parseInt(this._in('bookSeats').val()), 
+				earnings: parseInt(this._in('earnings').val()),
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),
@@ -269,10 +277,9 @@ define([
 			};
 			
 			var boatdayCreateSuccess = function( boatday ) {
-				Parse.history.navigate('boatdays', true);
+				Parse.history.navigate('upcoming-boatdays', true);
 			};
 
-			//this.model.save(data).then(boatdayCreateSuccess);
 			var BoatDay = Parse.Object.extend("BoatDay");
 			var boatDay = new BoatDay();
 			boatDay.save(data).then(boatdayCreateSuccess);

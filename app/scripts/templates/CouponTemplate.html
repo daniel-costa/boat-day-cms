@@ -46,9 +46,18 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="perSeat" class="col-sm-3 control-label">Per seat</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="perSeat">
+								<option value="true" <%= perSeat ? 'selected' : '' %>>Yes</option> 
+								<option value="false" <%= !perSeat ? 'selected' : '' %>>No</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="expDate" class="col-sm-3 control-label">Expiration Date</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control expDate " placeholder="mm/dd/yyyy" name="expDate" value= "<%= expiration.iso %>" />
+							<input type="text" class="form-control expDate " placeholder="mm/dd/yyyy" name="expDate" value= "" />
 						</div>
 					</div>
 					<div class="form-group">

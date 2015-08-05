@@ -30,26 +30,27 @@ define([
 		save: function(event) {
 			
 			event.preventDefault();
+
 			var self = this;
 
-			var data = {
-				status: "approved", 
-				name: this._in('name').val(), 
-				code: this._in('code').val(),
-				discount: parseInt(this._in('discount').val()), 
-				expiration: this._in('date').datepicker('getDate'), 
-				perSeat: Boolean(this._in('perSeat').val())
-			};
-			
-			var couponSaveSuccess = function( profile ) {
-
-				Parse.history.navigate('coupons', true);
-
-			};
-			
 			var Coupon = Parse.Object.extend("Coupon");
 			var coupon = new Coupon();
-			coupon.save(data).then(couponSaveSuccess);
+			
+			if( this._in('name').val() == '' || this._in('code').val() == '' || this._in('discount').val() == '' || !this._in('date').datepicker('getDate')) {
+				alert('Some fields empty');
+				return;
+			}
+
+			coupon.save({
+				status: "approved", 
+				name: this._in('name').val(), 
+				code: this._in('code').val().toUpperCase(),
+				discount: parseInt(this._in('discount').val()),
+				expiration: this._in('date').datepicker('getDate'),
+				perSeat: this._in('perSeat').val() == 'true',
+			}).then(function( profile ) {
+				Parse.history.navigate('coupons', true);
+			});
 
 		}
 

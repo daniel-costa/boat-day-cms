@@ -25,7 +25,7 @@ define([
 			});
 
 			this.$el.find('.expDate').datepicker('setDate', this.model.get('expiration'));
-			
+
 			return this;
 		},
 		
@@ -41,7 +41,7 @@ define([
 			}
 
 			this.model.save({
-				status: "approved", 
+				status: this._in('status').val(), 
 				name: this._in('name').val(), 
 				code: this._in('code').val().toUpperCase(),
 				discount: parseInt(this._in('discount').val()),

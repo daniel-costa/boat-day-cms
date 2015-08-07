@@ -9,7 +9,7 @@
 			<div class="panel-body">
 				<div class="col-sm-12">
 					<div class="form-group">
-						<label for="profileId" class="col-sm-3 control-label">Coupon id</label>
+						<label for="profileId" class="col-sm-3 control-label">ID</label>
 						<div class="col-sm-6">
 							<%= objectId %>
 						</div>
@@ -32,7 +32,6 @@
 							<input type="text" class="form-control" id="name" name="name" value= "<%= name %>" > 
 						</div>
 					</div>
-
 					<div class="form-group">
 						<label for="code" class="col-sm-3 control-label">Code</label>
 						<div class="col-sm-6">
@@ -64,9 +63,6 @@
 						<label for="status" class="col-sm-3 control-label">Status</label>
 						<div class="col-sm-6">
 							<select class="input-small form-control" id="status" name="status">
-								<option value="creation" <%= status && status == "creation" ? 'selected' : '' %>>Creation</option> 
-								<option value="editing" <%= status && status == "editing" ? 'selected' : '' %>>Editing</option>
-								<option value="complete" <%= status && status == "complete" ? 'selected' : '' %>>Complete</option>
 								<option value="approved" <%= status && status == "approved" ? 'selected' : '' %>>Approved</option>
 								<option value="denied" <%= status && status == "denied" ? 'selected' : '' %>>Denied</option>
 							</select>

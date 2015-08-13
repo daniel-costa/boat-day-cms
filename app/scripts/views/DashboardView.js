@@ -40,6 +40,7 @@ define([
 
 					var data = { 
 						host: host,
+						url: host.get('profile').get('profilePicture') ? host.get('profile').get('profilePicture').url() : '',
 						user: host.get('user'),
 						profile: host.get('profile'), 
 						profileId: host.get('profile').id

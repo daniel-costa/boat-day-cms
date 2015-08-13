@@ -32,24 +32,18 @@ define([
 				query.equalTo("users", Parse.User.current());
 				query.first().then(function(adminRole) {
 					
-					Parse.history.navigate('dashboard', true);
-					
 					if ( adminRole ) {
 						Parse.history.navigate('dashboard', true);
 					} else {
-
+						alert("Your username and password do not match.");
 					}
-
 				});
-
 			};
 
 			var logInError = function(error) {
 				alert(error.message);
-				// self._error(error.message);
 			};
 			
-
 			Parse.User.logIn(this._in('email').val(), this._in('password').val()).then(logInSuccess, logInError);
 		}
 

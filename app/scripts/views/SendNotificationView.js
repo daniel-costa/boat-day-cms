@@ -25,8 +25,6 @@ define([
 			var select = $('<select>').attr({ id: 'profile', name: 'profile', class: 'form-control' });
 
 			var doQuery = function() {
-				console.log('fetched='+fetched);
-				console.log('total='+total);
 
 				queryProfiles.find().then(function(matches) {
 					
@@ -66,8 +64,6 @@ define([
 			event.preventDefault();
 
 			var self = this;
-			
-			console.log();
 
 			var data = {
 				to: self.collectionProfiles[this._in('profile').val()],
@@ -81,13 +77,11 @@ define([
 				// boatday: this.model
 			}; 
 
-			var sendNotificationSuccess = function( SendNotification ) {
-
+			var NotificationModel = Parse.Object.extend('Notification');
+			var model = NotificationModel();
+			model.save(data).then(function( SendNotification ) {
 				Parse.history.navigate('dashboard', true);
-
-			};
-
-			this.model.save(data).then(sendNotificationSuccess);
+			});
 
 		}
 

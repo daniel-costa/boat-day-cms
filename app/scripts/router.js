@@ -65,77 +65,77 @@ define([
 
 		showUpcomingBoatDaysView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new UpcomingBoatDaysView());
 			});
 		}, 
 
 		showPastBoatDaysView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new PastBoatDaysView());
 			});
 		}, 
 
 		showHostsView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new HostsView());
 			});
 		}, 
 
 		showProfilesView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new HostProfilesView());
 			});
 		},
 
 		showHelpCenterView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new HelpCenterView());
 			});
 		}, 
 
 		showReportView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new ReportView());
 			});
 		},
 
 		showGuestsView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new GuestProfilesView());
 			});
 		},
 
 		showSeatRequestsView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new SeatRequestsView());
 			});
 		},
 
 		showCouponsView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new CouponsView());
 			});
 		}, 
 
 		showBoatsView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new BoatsView());
 			});
 		},
 
 		showSendNotificationView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				var NotificationModel = Parse.Object.extend('Notification');
 				self.render(new SendNotificationView({ model: new NotificationModel() }));
 			});
@@ -143,7 +143,7 @@ define([
 
 		showProfileView: function( profileid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(function( profile ) {
 					self.render(new ProfileView({ model: profile }));
 				});
@@ -152,7 +152,7 @@ define([
 
 		showProfileValidationView: function( profileid ){
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Profile')).get(profileid).then(function( profile ) {
 					self.render(new ProfileValidationView({ model: profile }));
 				});
@@ -161,7 +161,7 @@ define([
 
 		showHostView: function( hostid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(function( host ) {
 					self.render(new HostView({ model: host }));
 				});
@@ -170,7 +170,7 @@ define([
 
 		showCouponView: function( couponid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Coupon')).get(couponid).then(function( coupon ) {
 					self.render(new CouponView({ model: coupon }));
 				});
@@ -179,7 +179,7 @@ define([
 
 		showHostValidationView: function( hostid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(function( host ) {
 					self.render(new HostValidationView({ model: host }));
 				});
@@ -188,7 +188,7 @@ define([
 
 		showBoatDayView: function( boatdayid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(function( boatday ) {
 					self.render(new BoatDayView({ model: boatday }));
 				});
@@ -197,21 +197,21 @@ define([
 
 		showBoatDayNewView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new BoatDayNewView());
 			});
 		}, 
 
 		showCouponNewView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new CouponNewView());
 			});
 		},
 
 		showBoatView: function( boatid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(function( boat ) {
 					self.render(new BoatView({ model: boat }));
 				});
@@ -220,7 +220,7 @@ define([
 
 		showBoatValidationView: function( boatid ) {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				new Parse.Query(Parse.Object.extend('Boat')).get(boatid).then(function( boat ) {
 					self.render(new BoatValidationView({ model: boat }));
 				});
@@ -229,7 +229,7 @@ define([
 
 		showDashboardView: function() {
 			var self = this;
-			self.handleAdminAndSignUp({
+			self.handleAdminAndSignUp(function() {
 				self.render(new DashboardView());
 			});
 		},

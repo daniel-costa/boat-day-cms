@@ -50,7 +50,7 @@ define([
 			}
 
 			if( this._in("searchStatus").val() != "" ) {
-				query.contains("status", this._in("searchStatus").val());
+				query.equalTo("status", this._in("searchStatus").val());
 			}
 
 			var cbSuccess = function(profiles) {

@@ -2,11 +2,11 @@
 	<td><%= id %></td>
 	<td>
 		<select class="input-small form-control" name="status">
-			<option value="creation" <%= seat.get('status') && seat.get('status') == "creation" ? 'selected' : '' %>>Creation</option> 
-			<option value="editing" <%= seat.get('status') && seat.get('status') == "editing" ? 'selected' : '' %>>Editing</option>
-			<option value="complete" <%= seat.get('status') && seat.get('status') == "complete" ? 'selected' : '' %>>Complete</option>
-			<option value="approved" <%= seat.get('status') && seat.get('status') == "approved" ? 'selected' : '' %>>Approved</option>
+			<option value="approved" <%= seat.get('status') && seat.get('status') == "approved" ? 'selected' : '' %>>Approved</option> 
+			<option value="pending" <%= seat.get('status') && seat.get('status') == "pending" ? 'selected' : '' %>>Pending</option>
 			<option value="denied" <%= seat.get('status') && seat.get('status') == "denied" ? 'selected' : '' %>>Denied</option>
+			<option value="cancelled-guest" <%= seat.get('status') && seat.get('status') == "cancelled-guest" ? 'selected' : '' %>>Cancelled-guest</option>
+			<option value="cancelled-host" <%= seat.get('status') && seat.get('status') == "cancelled-host" ? 'selected' : '' %>>Cancelled-host</option>
 		</select>
 	</td>
 	<td><input type="text" class="form-control" name="contribution" value="<%= seat.get('contribution') %>" /></td>

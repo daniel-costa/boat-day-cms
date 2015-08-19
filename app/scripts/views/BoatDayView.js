@@ -44,6 +44,11 @@ define([
 
 		},
 
+		boatSelected: function() {
+
+
+		}, 
+
 		renderSeatRequests: function() {
 
 			var self = this; 
@@ -160,7 +165,6 @@ define([
 			var self = this;
 
 			var data = {
-
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
 				cancellationPolicy: this._in('cancellationPolicy').val(), 
@@ -176,7 +180,8 @@ define([
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
-
+				bookedSeats: parseInt(this._in('bookSeats').val()), 
+				earnings: parseInt(this._in('earnings').val()),
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

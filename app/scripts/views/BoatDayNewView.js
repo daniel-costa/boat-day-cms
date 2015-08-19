@@ -90,7 +90,6 @@ define([
 			event.preventDefault();
 			var self = this;
 			var boat = self.collectionBoats[$(event.currentTarget).val()];
-			console.log(boat);
 
 			self.collectionCaptains = {};
 			

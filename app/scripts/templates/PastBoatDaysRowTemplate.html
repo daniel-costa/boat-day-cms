@@ -1,4 +1,4 @@
-<tr>
+<tr data-id="<%= id %>">
 	<td><%= id %></td>
 	<td><%= category %></td>
 	<td><%= name %></td>
@@ -10,5 +10,7 @@
 		<a href='#/boat/<%= boatId %>'class='btn btn-default'>Boat</a>
 		<a href='#/profile/<%= captainId %>'class='btn btn-default'>Captain</a>
 		<a class="btn btn-default" href="#/boatday/<%= id %>">Edit</a>
+		<a class="btn btn-primary btn-duplicate">Duplicate</a>
+	</td>
 	</td>
 </tr>

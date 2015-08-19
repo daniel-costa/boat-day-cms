@@ -14,12 +14,14 @@ define([
 			departureTime: null,
 			duration: null, 
 			price: null, 
-			availableSeats: null, 
+			availableSeats: null,
+			bookedSeats: 0, 
 			location: null, 
 			description: null,
 			bookingPolicy: null, 
 			cancellationPolicy: null, 
 			category: null,
+			earnings: 0,
 			features: {
 				leisure: {
 					cruising: false,
@@ -76,51 +78,7 @@ define([
 					inflatables: false
 				}
 			}
-		},
-
-		validate: function(attributes) {
-
-			var _return = { 
-				fields: {},
-				type: 'model-validation'
-			};
-
-			if( attributes.name == "" ) {
-				_return.fields.name = "Oops, you missed one! Please provide a name for your BoatDay.";
-			}
-
-			if( !attributes.boat ) {
-				_return.fields.boat = "Oops, you missed one! Please select the boat for your BoatDay.";
-			}
-
-			if( !attributes.captain ) {
-				_return.fields.captain = "Oops, you missed one! Please select the captain for your BoatDay.";
-			}
-
-			if( !attributes.availableSeats ) {
-				_return.fields.availableSeats = "Oops, you missed one! Please specify the number of avialable seats for your BoatDay.";
-			}
-
-			if( !/^[0-9]+([\.][0-9]+)?$/g.test(attributes.price) ) {
-				_return.fields.price = "A price per seat is not valid";
-			}
-
-			if( !attributes.description ) {
-				_return.fields.description = "Oops, you missed one! Please describe your BoatDay for potential Guests.";
-			}
-
-			if( !attributes.location ) {
-				_return.fields.location = "Oops, you missed one! Please tell Guests where to come aboard your BoatDay.";
-			}
-
-			if( !attributes.date ) {
-				_return.fields.date = "Oops, you missed one! Please choose a date for your BoatDay.";
-			}
-
-			if( _.size(_return.fields) > 0 ) {
-				return _return;
-			}
-		 }
+		}
 
 	});
 	return BoatDayModel;

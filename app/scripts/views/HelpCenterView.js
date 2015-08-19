@@ -9,9 +9,12 @@ define([
 		
 		template: _.template(HelpCenterTemplate),
 
+		helpcenter: {},
+
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn", 
+			"click .btn-read": "statusUpdate"
 		},
 
 		render: function() {
@@ -22,6 +25,30 @@ define([
 			return this;
 
 		},
+
+		statusUpdate: function(event) {
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr').attr('data-id');
+			console.log(parent);
+
+			if(confirm("Do you want to change status to read?")) {
+				var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
+				query.equalTo("objectId", parent);
+				query.first({
+					success: function(object) {
+						object.set("status", "read").save().then(function(){
+							self.render();
+						});
+					}, 
+					error: function(error) {
+						console.log("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+		}, 
 
 		renderRows: function() {
 

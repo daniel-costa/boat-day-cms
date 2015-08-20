@@ -163,25 +163,26 @@ define([
 			event.preventDefault();
 
 			var self = this;
+			
 
-			var data = {
+			this.model.save({
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
 				cancellationPolicy: this._in('cancellationPolicy').val(), 
 				category: this._in('category').val(), 
 				date: this._in('date').datepicker('getDate'),
-				departureTime: parseInt(this._in('departureTime').val()),
-				arrivalTime: parseInt(this._in('departureTime').val()) + parseInt(this._in('duration').val()),
+				departureTime: parseFloat(this._in('departureTime').val()),
+				arrivalTime: parseFloat(this._in('departureTime').val()) + parseInt(this._in('duration').val()),
 				description: this._in('description').val(), 
-				duration: parseInt(this._in('duration').val()),
+				duration: parseFloat(this._in('duration').val()),
 				name: this._in('name').val(), 
-				price: parseInt(this._in('price').val()), 
+				price: parseFloat(this._in('price').val()), 
 				status: this._in('status').val(), 
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
 				bookedSeats: parseInt(this._in('bookSeats').val()), 
-				earnings: parseInt(this._in('earnings').val()),
+				earnings: parseFloat(this._in('earnings').val()),
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),
@@ -239,13 +240,9 @@ define([
 					}
 				}
 
-			};
-			
-			var boatdayUpdateSuccess = function( boatday ) {
+			}).then(function( boatday ) {
 				Parse.history.navigate('upcoming-boatdays', true);
-			};
-
-			this.model.save(data).then(boatdayUpdateSuccess);
+			});
 
 		},
 

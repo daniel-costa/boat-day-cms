@@ -52,7 +52,7 @@ define([
 				name: this._in('name').val(),
 				hullID: this._in('hullID').val(),
 				buildYear: parseInt(this._in('buildYear').val()),
-				length: parseInt(this._in('length').val()),
+				length: parseFloat(this._in('length').val()),
 				capacity: parseInt(this._in('capacity').val()),
 				type: this._in('type').val(),
 				validationText: this._in('validationText').val(), 

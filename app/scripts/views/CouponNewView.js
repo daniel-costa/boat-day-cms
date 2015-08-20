@@ -45,7 +45,7 @@ define([
 				status: "approved", 
 				name: this._in('name').val(), 
 				code: this._in('code').val().toUpperCase(),
-				discount: parseInt(this._in('discount').val()),
+				discount: parseFloat(this._in('discount').val()),
 				expiration: this._in('date').datepicker('getDate'),
 				perSeat: this._in('perSeat').val() == 'true',
 			}).then(function( profile ) {

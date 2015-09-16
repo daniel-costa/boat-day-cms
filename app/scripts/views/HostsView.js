@@ -11,7 +11,8 @@ define([
 
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn",
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -23,14 +24,17 @@ define([
 
 		},
 
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		}, 
+
 		renderRows: function() {
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Host"));
 			query.include("user");
 			var tpl = _.template(HostsRowTemplate);
-
-
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());

@@ -11,7 +11,8 @@ define([
 
 		events : {
 			"blur .searchFilter": "renderSeatRequests",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn",
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -21,6 +22,11 @@ define([
 			return this;
 
 		}, 
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		},
 
 		renderSeatRequests: function() {
 
@@ -36,20 +42,12 @@ define([
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
-			if( this._in("searchGuests").val() != "" ) {
-				query.contains("displayName", this._in("searchGuests").val());
-			}
-
-			if( this._in("searchBoatDays").val() != "" ) {
-				query.contains("name", this._in("searchBoatDays").val());
-			}
-
 			this.$el.find('tbody').html("");
 
 			var cbSuccess = function(seatRequests) {
 
 				_.each(seatRequests, function(seatRequest) {
-				
+
 					var data = {
 						id: seatRequest.id, 
 						profileName: seatRequest.get('profile').get('displayName'), 

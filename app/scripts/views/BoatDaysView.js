@@ -10,6 +10,7 @@ define([
 		events : {
 			"blur .searchFilter": "applyFilter",
 			"keyup .searchFilter": "watchForReturn",
+			"click .idInfo": "alertObjectID", 
 			"click .btn-duplicate": "duplicate"
 		},
 
@@ -62,10 +63,11 @@ define([
 					var host = boatday.get('host');
 					var boat = boatday.get('boat');
 					var captain = boatday.get('captain');
+					console.log(host.id);
 					var data = {
 						id: boatday.id, 
 						availableSeats: boatday.get('availableSeats'), 
-						date: boatday.get('date').toUTCString().substring(0, 26), 
+						date: boatday.get("date"),
 						departureTime: boatday.get('departureTime'), 
 						name: boatday.get('name'),
 						category: boatday.get('category'),
@@ -73,8 +75,8 @@ define([
 						status: boatday.get('status'), 
 						availableSeats: boatday.get('availableSeats'), 
 						bookedSeats: boatday.get('bookedSeats'), 
-						hostId: host.id ? host.id : null, 
-						hostName: host.get('firstname'),
+						hostId: typeof host.id !== 'undefined' ? host.id : '', 
+						hostName: host.get('firstname') +" "+ host.get('lastname'),
 						boatId: boat.id ? boat.id: null,
 						boatName: boat.get('name'),
 						captainId: captain ? captain.id: null, 
@@ -97,41 +99,50 @@ define([
 
 		},
 
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		},
+
 		duplicate: function(event) {
 			event.preventDefault();
 
 			var baseBoatDay = this.boatdays[$(event.currentTarget).closest('tr').attr('data-id')];
 			var newBoatday = baseBoatDay.clone();
-		
-			newBoatday.save({
+
+			if( confirm("Do you really want to duplicate this boat?") ) {
+
+				newBoatday.save({
 		  		status:'creation',
 		  		date: null,
 		  		bookedSeats: 0,
 			  	earnings: 0,
-		  	}).then(function(newBoatday) {
 
-		  		var q = new Parse.Query(Parse.Object.extend("Question"));
-		  		q.equalTo("boatday", baseBoatDay);
-		  		q.find().then(function(items) {
+			  	}).then(function(newBoatday) {
 
-		  			var promises = [];
-		  			_.each(items, function(item) {
-		  				var newItem = item.clone();
-		  				promises.push(newItem.save({
-		  					boatday: newBoatday,
-		  					addToBoatDay: true,
-		  				}));
-		  			});
+			  		var q = new Parse.Query(Parse.Object.extend("Question"));
+			  		q.equalTo("boatday", baseBoatDay);
+			  		q.find().then(function(items) {
 
-		  			return Parse.Promise.when(promises);
+			  			var promises = [];
+			  			_.each(items, function(item) {
+			  				var newItem = item.clone();
+			  				promises.push(newItem.save({
+			  					boatday: newBoatday,
+			  					addToBoatDay: true,
+			  				}));
+			  			});
 
-		  		}).then(function(){
-		  			Parse.history.navigate('#/boatday/'+newBoatday.id, true);
-		  		});
+			  			return Parse.Promise.when(promises);
 
-			}, function(error) {
-				console.log(error);
-			});
+			  		}).then(function(){
+			  			Parse.history.navigate('#/boatday/'+newBoatday.id, true);
+			  		});
+
+				}, function(error) {
+					console.log(error);
+				});
+			}
 		}
 	});
 	return BoatDaysView;

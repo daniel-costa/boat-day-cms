@@ -1,32 +1,28 @@
 <div class="top-navigation"></div>
 
 <div class="container-fluid">
-	<h1>Guest profiles lists</h1>
+	<h1>Profiles of guests</h1>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
+				<th></th>
 				<th>
-					ID
-					<input type="text" class="searchFilter form-control" name="searchobjectId">
+					<input type="text" class="searchFilter form-control" placeholder="id" name="searchobjectId">
 				</th>
-				<th colspan="2">
-					Display name
-					<input type="text" class="searchFilter form-control" name="searchName">
+				<th>
+					<input type="text" class="searchFilter form-control" placeholder="display name" name="searchName">
 				</th>
 				<th>
 					Ratings
-					<input type="text" class="searchFilter form-control" name="searchRatings">
 				</th>
 				<th>
-					Status
 					<select class="searchFilter form-control" name="searchStatus">
-						<option value ="" selected>Select one</option>
+						<option value ="" selected>Status</option>
 						<option value="creation">Creation</option> 
 						<option value="editing">Editing</option> 
 						<option value="complete">Complete</option>
 					</select>
 				</th>
-				<th>Email</th>
 				<th></th>
 			</tr>
 		</thead>

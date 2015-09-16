@@ -1,31 +1,31 @@
 <div class="top-navigation"></div>
 
 <div class="container-fluid">
-	<h1>Upcoming BoatDays lists</h1>
+	<h1>Upcoming BoatDays</h1>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
 				<th>
-					ID
-					<input type="text" class="searchFilter form-control" name="searchobjectId"></td>
+					<input type="text" class="searchFilter form-control" placeholder="id" name="searchobjectId"></td>
+				</th>
+				<th>
+					<input type="text" class="searchFilter form-control" placeholder="name" name="searchName">
 				</th>
 				<th>
 					Category
-				</th>
-				<th>
-					BoatDay name
-					<input type="text" class="searchFilter form-control" name="searchName">
 				</th>
 				<th>Date</th>
 				<th>
 					Price
 					<input type="text" class="searchFilter form-control" name="searchPriceMin" placeholder="min">
+					
+				</th>
+				<th>
 					<input type="text" class="searchFilter form-control" name="searchPriceMax" placeholder="max">
 				</th>
 				<th>
-					Status
 					<select class="searchFilter form-control" name="searchStatus">
-						<option value ="" selected>Select one</option>
+						<option value ="" selected>Status</option>
 						<option value="creation">Creation</option> 
 						<option value="complete">Complete</option>
 						<option value="cancelled">Cancelled</option>
@@ -33,6 +33,9 @@
 				</th>
 				<th>Total seats</th>
 				<th>Booked seats</th>
+				<th>Host</th>
+				<th>Boat</th>
+				<th>Captain</th>
 				<th> </th>
 			</tr>
 		</thead>

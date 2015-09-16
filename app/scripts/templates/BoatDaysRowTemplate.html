@@ -1,16 +1,18 @@
 <tr data-id="<%= id %>">
-	<td><%= id %></td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= name %>
+	</td>
 	<td><%= category %></td>
-	<td><%= name %></td>
-	<td><%= date %> at <%= departureTime %></td>
-	<td>$<%= price %></td>
+	<td><%= new Date(date).toLocaleDateString() %> at <%= departureTime %></td>
+	<td colspan="2">$<%= price %></td>
 	<td><%= status %></td>
 	<td><%= availableSeats %></td>
 	<td><%= bookedSeats %></td>
+	<td><a href="#/host/<%= hostId %>"><%= hostName %></a></td>
+	<td><a href="#/boat/<%= boatId %>"><%= boatName %></a></td>
+	<td><a href="#/profile/<%= captainId %>"><%= captainName %></a></td>
 	<td>
-		<a href="#/host/<%= hostId %>" class='btn btn-default'>Host</a>
-		<a href="#/boat/<%= boatId %>" class='btn btn-default'>Boat</a>
-		<a href="#/profile/<%= captainId %>" class='btn btn-default'>Captain</a>
 		<a class="btn btn-default" href="#/boatday/<%= id %>">Edit</a>
 		<a class="btn btn-primary btn-duplicate">Duplicate</a>
 	</td>

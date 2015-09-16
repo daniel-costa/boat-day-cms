@@ -1,37 +1,38 @@
 <div class="top-navigation"></div>
 
 <div class="container-fluid">
-	<h1>Boat lists</h1>
+	<h1>Boats</h1>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
 				<th>
-					ID
-					<input type="text" class="searchFilter form-control" name="searchobjectId">
+					<input type="text" class="searchFilter form-control" placeholder="id" name="searchobjectId">
 				</th>
 				<th>
-					Name
-					<input type="text" class="searchFilter form-control" name="searchName">
+					<input type="text" class="searchFilter form-control" placeholder="name" name="searchName">
 				</th>
 				<th>
 					Hull Id
 				</th>
 				<th>
-					Build
+					Build Year
 					<input type="text" class="searchFilter form-control" name="searchBuildYearMin" placeholder="min">
+				</th>
+				<th>
 					<input type="text" class="searchFilter form-control" name="searchBuildYearMax" placeholder="max">
 				</th>
 				<th>
-					Length
-					<input type="text" class="searchFilter form-control" name="searchbelow15" placeholder="below 15 feet">
-					<input type="text" class="searchFilter form-control" name="searchbetween15-30" placeholder="between 15-30 feet">
-					<input type="text" class="searchFilter form-control" name="searchbetween30-45" placeholder="between 30-45 feet">
-					<input type="text" class="searchFilter form-control" name="searchabove45" placeholder="above 45 feet">
+					<select class="searchFilter form-control" name="searchBoatLength">
+						<option value="" selected>Length</option>
+						<option value="searchbelow15" >below 15 feet</option>
+						<option value="searchbetween15to30" >between 15-30 feet</option>
+						<option value="searchbetween30to45" >between 30-45 feet</option>
+						<option value="searchabove45" >above 45 feet</option>
+					</select>
 				</th>
 				<th>
-					Status
 					<select class="searchFilter form-control" name="searchStatus">
-						<option value ="" selected>Select one</option>
+						<option value ="" selected>Status</option>
 						<option value="creation">Creation</option> 
 						<option value="editing">Editing</option>
 						<option value="complete">Complete</option>
@@ -40,10 +41,10 @@
 					</select>
 				</th>
 				<th>
-					Boat type
-					<input type="text" class="searchFilter form-control" name="searchType">
+					<input type="text" class="searchFilter form-control" placeholder="Boat type" name="searchType">
 				</th>
-				<th> </th>
+				<th>Host</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody> </tbody>

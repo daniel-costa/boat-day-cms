@@ -1,14 +1,19 @@
 <tr data-id="<%= id %>">
-	<td><%= id %></td>
-	<td><%= name %></td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= name %>
+	</td>
 	<td><%= hullId %></td>
-	<td><%= build %></td>
+	<td colspan="2"><%= build %></td>
 	<td><%= length %></td>
 	<td><%= status %></td>
 	<td><%= type %></td>
+	<td><% if(host) { %><a href="#/host/<%= host.id %>"><%= host.get('firstname') %> <%= host.get('lastname') %></a><% } %></td>
 	<td>
-		<% if(host) { %><a class="btn btn-default" href="#/host/<%= host.id %>">Host</a><% } %>
 		<a class="btn btn-default" href="#/boat/<%= id %>">Edit</a>
 		<a class="btn btn-primary btn-duplicate">Duplicate</a>
 	</td>
 </tr>
+
+
+

@@ -12,7 +12,8 @@ define([
 		events : {
 			"focus .searchFilter": "tagFieldValue",
 			"blur .searchFilter": "leaveField",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -23,6 +24,12 @@ define([
 
 			return this;
 
+		},
+
+		alertObjectID: function(event) {
+			
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 

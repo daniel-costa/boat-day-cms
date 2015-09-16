@@ -1,20 +1,23 @@
-<tr>
-	<td><%= id %></td>
+<tr data-id="<%= id %>">
 	<td>
 		<div class="profile-picture" style="background-image:url(<%= url %>)"></div>
 	</td>
-	<td><%= name %></td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= name %>
+	</td>
 	<td>
 		<% if( typeof rating !== typeof undefined && rating ) { %>
 			<%= rating %>
 		<% } %>
 	</td>
 	<td><%= status %></td>
-	<td><% if( typeof email !== typeof undefined && email ) { %>
-			<%= email %>
-		<% } %>
-	</td>
 	<td>
+		<% if( email ) { %> 
+			<a class="btn btn-default" href="mailto: <%= email %>">
+				<span class="glyphicon glyphicon-envelope"></span>
+			</a>
+		</a><% } %>
 		<a class="btn btn-default" href="#/profile/<%= id %>">Edit</a>
 	</td>
 </tr> 

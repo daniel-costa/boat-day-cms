@@ -1,23 +1,25 @@
 <tr data-id="<%= id %>">
-	<td><%= id %></td>
-	<td><%= createdAt %></td>
-	<td><%= category %></td>
-	<td><%= displayName %></td>
-	<td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
 		<%= feedback %><br/>
 		<% if(file1) { %> <a target="_blank" href="<%= file1.url() %>">File 1</a><% } %>
 		<% if(file2) { %> <a target="_blank" href="<%= file2.url() %>">File 2</a><% } %>
 		<% if(file3) { %> <a target="_blank" href="<%= file3.url() %>">File 3</a><% } %>
 	</td>
-	<!-- <td><%= status %></td> -->
-	<td><a class="btn btn-primary btn-read" data-status="<%= status %>">
 
-		<% if( status == "read" ) { %>
-			unread
-		<% } else { %>
-			read
-		<% } %>
+	</td>
+	<td><%= createdAt %></td>
+	<td><%= category %></td>
+	<td><a href="#/profile/<%= profile.id %>"><%= displayName %></a></td>
+	<td>
+		<a class="btn btn-primary btn-read" data-status="<%= status %>">
+
+			<% if( status == "read" ) { %>
+				unread
+			<% } else { %>
+				read
+			<% } %>
 		
-	</a></td>
-	<td><%= updatedAt %></td>
+		</a>
+	</td>
 </tr>

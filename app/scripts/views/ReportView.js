@@ -12,7 +12,8 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
-			"click .btn-read": "readUpdate"
+			"click .btn-read": "readUpdate",
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -22,6 +23,11 @@ define([
 			
 			return this;
 
+		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 		readUpdate: function(event) {
@@ -57,6 +63,8 @@ define([
 			var query = new Parse.Query(Parse.Object.extend("Report"));
 
 			query.include('fromProfile');
+			query.include('profile');
+			query.include('boatday');
 
 			var tpl = _.template(ReportRowTemplate);
 
@@ -69,9 +77,9 @@ define([
 			// }
 
 			
-			if( this._in("searchAction").val() != "" ) {
-				query.contains("action", this._in("searchAction").val());
-			}
+			// if( this._in("searchAction").val() != "" ) {
+			// 	query.contains("action", this._in("searchAction").val());
+			// }
 			
 			this.$el.find('tbody').html("");
 
@@ -87,7 +95,7 @@ define([
 						sender: report.get('fromProfile'),
 						boatday: report.get('boatday'), 
 						profile: report.get('profile'), 
-						read: report.get('read')
+						read: report.get('read'), 
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

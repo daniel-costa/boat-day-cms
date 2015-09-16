@@ -1,9 +1,10 @@
 <tr data-id="<%= id %>">
-	<td><%= id %></td>
+	<td colspan="2" >
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= message %>
+	</td>
 	<td><%= createdAt %></td>
-	<td><a class="btn btn-default" href="#/profile/<%= sender.id %>"><%= sender.get('displayName') %></a></td>
-	<td><%= action %></td>
-	<td><%= message %></td>
+	<td><a href="#/profile/<%= sender.id %>"><%= sender.get('displayName') %></a></td>
 	<td><a class="btn btn-primary btn-read" data-read="<%= read %>">
 
 		<% if( read == true ) { %>
@@ -12,6 +13,6 @@
 			read 
 		<% } %>
 	</a></td>
-	<td><% if(boatday) { %><a class="btn btn-default" href="#/boatday/<%= boatday.id %>">BoatDay</a><% } %>
-	<% if(profile) { %><a class="btn btn-default" href="#/profile/<%= profile.id %>">Profile</a><% } %></td>
+	<td><% if(boatday) { %><a href="#/boatday/<%= boatday.id %>"><%= boatday.get('name') %></a><% } %>
+	<% if(profile) { %><a href="#/profile/<%= profile.id %>"><%= profile.get('displayName') %></a><% } %></td>
 </tr>

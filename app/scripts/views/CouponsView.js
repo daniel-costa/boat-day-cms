@@ -11,7 +11,8 @@ define([
 
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -22,6 +23,12 @@ define([
 			return this;
 
 		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		},
+
 
 		renderRows: function() {
 

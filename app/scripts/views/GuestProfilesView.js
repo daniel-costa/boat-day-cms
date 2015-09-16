@@ -11,7 +11,8 @@ define([
 
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn",
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -20,6 +21,11 @@ define([
 			this.renderRows();
 			return this;
 
+		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 		renderRows: function() {
@@ -45,10 +51,6 @@ define([
 				query.contains("displayName", this._in("searchName").val());
 			}
 
-			if( this._in("searchRatings").val() != "" ) {
-				query.contains("rating", parseInt(this._in("searchRatings").val()));
-			}
-
 			if( this._in("searchStatus").val() != "" ) {
 				query.contains("status", this._in("searchStatus").val());
 			}
@@ -56,7 +58,7 @@ define([
 			var cbSuccess = function(profiles) {
 
 				_.each(profiles, function(profile) {
-					
+						
 					var data = {
 						id: profile.id, 
 						url: profile.get('profilePicture') ? profile.get('profilePicture').url() : '',

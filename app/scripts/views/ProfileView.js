@@ -67,8 +67,6 @@ define([
 			query.find().then(function(matches){
 				_.each(matches, self.appendSeatRequests, self);
 			});
-
-			//console.log(self.model.id);
 		}, 
 
 		appendSeatRequests: function(SeatRequest) {

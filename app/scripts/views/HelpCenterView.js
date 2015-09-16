@@ -14,7 +14,8 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
-			"click .btn-read": "statusUpdate"
+			"click .btn-read": "statusUpdate", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -24,6 +25,11 @@ define([
 			
 			return this;
 
+		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 		statusUpdate: function(event) {
@@ -89,11 +95,12 @@ define([
 			var cbSuccess = function(helpCenter) {
 
 				_.each(helpCenter, function(result) {
-
+		
 					var data = {
 						id: result.id, 
 						createdAt: result.createdAt.toUTCString().substring(0, 26),
 						category: result.get('category'),
+						profile: result.get('user').get('profile'), 
 						displayName: result.get('user').get('profile').get('displayName'), 
 						feedback: result.get('feedback'), 
 						status: result.get('status'),

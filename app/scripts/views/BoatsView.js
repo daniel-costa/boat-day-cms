@@ -14,7 +14,8 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
-			"click .btn-duplicate": "duplicate"
+			"click .btn-duplicate": "duplicate", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		render: function() {
@@ -24,6 +25,11 @@ define([
 			
 			return this;
 
+		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 		duplicate: function(event) {
@@ -36,39 +42,42 @@ define([
 			var r2 = baseBoat.relation("proofOfInsurance").query();
 			var r3 = baseBoat.relation("captains").query();
 			
-			Parse.Promise.when(r1.find(), r2.find(), r3.find()).then(function(boatPictures, proofOfInsurances, captainRequests) {
+			if( confirm("Do you really want to duplicate this boat?") ) {
 
-				baseBoat.clone().save().then(function(newBoat) {
-					
-					_.each(boatPictures, function(boatPicture) { 
-						newBoat.relation("boatPictures").add(boatPicture);
-					});
+				Parse.Promise.when(r1.find(), r2.find(), r3.find()).then(function(boatPictures, proofOfInsurances, captainRequests) {
 
-					_.each(proofOfInsurances, function(proofOfInsurance) { 
-						newBoat.relation("proofOfInsurance").add(proofOfInsurance);
-					});
+					baseBoat.clone().save().then(function(newBoat) {
+						
+						_.each(boatPictures, function(boatPicture) { 
+							newBoat.relation("boatPictures").add(boatPicture);
+						});
 
-					_.each(captainRequests, function(captainRequest) { 
-						newBoat.relation("captains").add(captainRequest);
-					});
+						_.each(proofOfInsurances, function(proofOfInsurance) { 
+							newBoat.relation("proofOfInsurance").add(proofOfInsurance);
+						});
 
-					newBoat.save({
-						name: newBoat.get("name") + " bis",
-					}).then(function(boat) {
-						Parse.history.navigate('#/boat/'+boat.id, true);
+						_.each(captainRequests, function(captainRequest) { 
+							newBoat.relation("captains").add(captainRequest);
+						});
+
+						newBoat.save({
+							name: newBoat.get("name") ,
+						}).then(function(boat) {
+							Parse.history.navigate('#/boat/'+boat.id, true);
+						});
 					});
 				});
-			});
-
+			}
  		}, 
 
 		renderRows: function() {
 
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Boat"));
-			query.include('Host');
+			query.include('host');
+			console.log(this._in("searchBoatLength").val());
 			var tpl = _.template(BoatsRowTemplate);
-
+	
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
@@ -84,25 +93,25 @@ define([
 			if( this._in("searchBuildYearMax").val() != "" ) {
 				query.lessThanOrEqualTo("buildYear", parseInt(this._in("searchBuildYearMax").val()));
 			}
-
-			if( this._in("searchbelow15").val() != "" ) {
+			
+			if( this._in("searchBoatLength").val() == "searchbelow15" ) {
 				query.lessThan("length", 15);
 			}
 
-			if( this._in("searchbetween15-30").val() != "" ) {
+			if( this._in("searchBoatLength").val() == "searchbetween15to30" ) {
 				query.greaterThan("length", 15);
 				query.lessThan("length", 30);
 			}
 
-			if( this._in("searchbetween30-45").val() != "" ) {
+			if( this._in("searchBoatLength").val() == "searchbetween30to45" ) {
 				query.greaterThan("length", 30);
 				query.lessThan("length", 45);
 			}
 
-			if( this._in("searchabove45").val() != "" ) {
+			if( this._in("searchBoatLength").val() == "searchabove45" ) {
 				query.greaterThan("length", 45);
 			}
-			
+
 
 			if( this._in("searchStatus").val() != "" ) {
 				query.contains("status", this._in("searchStatus").val());
@@ -119,7 +128,7 @@ define([
 				_.each(boats, function(boat) {
 
 					self.boats[boat.id] = boat;
-
+					
 					var data = {
 						id: boat.id,
 						build: boat.get('buildYear'), 

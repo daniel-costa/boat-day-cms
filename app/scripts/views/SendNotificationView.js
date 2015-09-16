@@ -24,12 +24,23 @@ define([
 			var total = 0;
 			var select = $('<select>').attr({ id: 'profile', name: 'profile', class: 'form-control' });
 
+			var queryProfiles = new Parse.Query(Parse.Object.extend("Profile"));
+			queryProfiles.equalTo('status', 'complete');
+			queryProfiles.ascending('displayName');
+			queryProfiles.limit(500);
+			queryProfiles.count().then(function(_total) {
+				total = _total;
+				doQuery();
+			});
+
 			var doQuery = function() {
 
 				queryProfiles.find().then(function(matches) {
 					
 					_.each(matches, function(profile) {
-						select.append($('<option>').attr('value', profile.id).text(profile.get('firstName') + ' ' + profile.get('lastName')));
+						console.log(profile.get('displayName'));
+
+						select.append($('<option>').attr('value', profile.id).text(profile.get('displayName')));
 						self.collectionProfiles[profile.id] = profile;
 					});
 
@@ -45,17 +56,6 @@ define([
 				});
 			};
 
-			var queryProfiles = new Parse.Query(Parse.Object.extend("Profile"));
-			queryProfiles.equalTo('status', 'complete');
-			queryProfiles.ascending('displayName');
-			queryProfiles.limit(500);
-			queryProfiles.count().then(function(_total) {
-				total = _total;
-				doQuery();
-			});
-
-			
-
 			return this;
 		}, 
 
@@ -64,14 +64,13 @@ define([
 			event.preventDefault();
 
 			var self = this;
-
+			console.log(Parse.User.current().get('profile'))
 			var data = {
 				to: self.collectionProfiles[this._in('profile').val()],
 				action: "bd-message", 
 				message: this._in('message').val(), 
 				fromTeam: true,
 				from: Parse.User.current().get('profile'), 
-				//sendEmail: Boolean(this._in('sendEmail').val().selected)
 				sendEmail: Boolean(this.$el.find('[name="sendEmail"]').val())
 				// boat: this.model
 				// boatday: this.model

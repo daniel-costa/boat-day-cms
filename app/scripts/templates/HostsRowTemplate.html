@@ -1,13 +1,20 @@
-<tr>
-	<td><%= id %></td>
-	<td><%= firstname %></td>
-	<td><%= lastname %></td>
+<tr data-id="<%= id %>">
+	<td colspan="3">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= firstname %>
+		<%= lastname %> 
+	</td>  
 	<td><%= phone %></td>
 	<td><%= status %></td>
 	<td><%= type %></td> 
-	<td><%= email %></td>
 	<td>
-		<% if(profile) { %><a class="btn btn-default" href="#/profile/<%= profile.id %>">Profile</a><% } %>
+		<a class="btn btn-default" href="mailto:<%= email %>">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</a>
+		<% if(profile) { %><a class="btn btn-default" href="#/profile/<%= profile.id %>">
+			<span class="glyphicon glyphicon-user"></span>
+		</a><% } %>
+
 		<a class="btn btn-default" href="#/host/<%= id %>">Edit</a>
 	</td>
 </tr>

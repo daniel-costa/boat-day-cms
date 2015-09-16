@@ -1,9 +1,17 @@
-<tr>
+<tr data-id="<%= id %>">
 	<td><%= id %></td>
-	<td>To do</td>
-	<!-- <td><%= typeof sender !== typeof undefined ? sender : '' %></td> -->
+	<td><%= createdAt %></td>
+	<td><a class="btn btn-default" href="#/profile/<%= sender.id %>"><%= sender.get('displayName') %></a></td>
 	<td><%= action %></td>
 	<td><%= message %></td>
+	<td><a class="btn btn-primary btn-read" data-read="<%= read %>">
+
+		<% if( read == true ) { %>
+			unread 
+		<% } else { %>
+			read 
+		<% } %>
+	</a></td>
 	<td><% if(boatday) { %><a class="btn btn-default" href="#/boatday/<%= boatday.id %>">BoatDay</a><% } %>
 	<% if(profile) { %><a class="btn btn-default" href="#/profile/<%= profile.id %>">Profile</a><% } %></td>
 </tr>

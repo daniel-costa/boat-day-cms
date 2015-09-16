@@ -11,7 +11,8 @@ define([
 
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn", 
+			"click .btn-read": "readUpdate"
 		},
 
 		render: function() {
@@ -22,6 +23,33 @@ define([
 			return this;
 
 		},
+
+		readUpdate: function(event) {
+
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr').attr('data-id');
+			var currentStatus = e.closest('a').attr('data-read');
+			var booleanCurrentStatus = (currentStatus.toLowerCase() == "true");
+			var newStatus = !booleanCurrentStatus;
+			
+			if(confirm("Do you want to change status to " + newStatus + "?")) {
+				var query = new Parse.Query(Parse.Object.extend("Report"));
+				query.equalTo("objectId", parent);
+				query.first({
+					success: function(object) {
+						object.set("read", newStatus).save().then(function(){
+							self.render();
+						});
+					}, 
+					error: function(error) {
+						console.log("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+		}, 
 
 		renderRows: function() {
 
@@ -51,16 +79,15 @@ define([
 
 				_.each(reports, function(report) {
 
-					// query.include('fromProfile');
-					// console.log(senderProfile);
 					var data = {
 						id: report.id, 
+						createdAt: report.createdAt.toUTCString().substring(0, 26),
 						action: report.get('action'), 
 						message: report.get('message'), 
-						//sender: senderProfile.displayName, 
+						sender: report.get('fromProfile'),
 						boatday: report.get('boatday'), 
-						profile: report.get('profile')
-						
+						profile: report.get('profile'), 
+						read: report.get('read')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

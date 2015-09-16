@@ -213,8 +213,9 @@ define([
 				category: this._in('activity').val(),
 				location: self._marker ? new Parse.GeoPoint({latitude: self._marker.getPosition().lat(), longitude: self._marker.getPosition().lng()}) : null,
 				locationText: this._in('locationText').val(),
-				bookedSeats: parseInt(this._in('bookSeats').val()), 
+				bookedSeats: 0, 
 				earnings: parseInt(this._in('earnings').val()),
+				featured: parseInt(this._in('featured').val()),
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

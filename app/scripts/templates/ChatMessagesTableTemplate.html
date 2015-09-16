@@ -1,0 +1,7 @@
+<tr data-id="<%= id %>">
+	<td><%= id %></td>
+	<td><%= message.createdAt.toUTCString().substring(0, 26) %></td>
+	<td><%=  message.get('message') %></td>
+	<td><%= message.get('status') %></td>
+	<td><a class="btn btn-default" href="#/profile/<%= message.get('profile').id %>">Profile</a></td>
+</tr>

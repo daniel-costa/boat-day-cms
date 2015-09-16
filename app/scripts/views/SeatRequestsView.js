@@ -49,7 +49,7 @@ define([
 			var cbSuccess = function(seatRequests) {
 
 				_.each(seatRequests, function(seatRequest) {
-					//console.log(seatRequest.get('promoCode').id);
+				
 					var data = {
 						id: seatRequest.id, 
 						profileName: seatRequest.get('profile').get('displayName'), 

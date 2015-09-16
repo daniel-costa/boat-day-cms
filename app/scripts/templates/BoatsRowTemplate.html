@@ -1,4 +1,4 @@
-<tr>
+<tr data-id="<%= id %>">
 	<td><%= id %></td>
 	<td><%= name %></td>
 	<td><%= hullId %></td>
@@ -7,7 +7,8 @@
 	<td><%= status %></td>
 	<td><%= type %></td>
 	<td>
-		<a href='#/host/<%= host.id %>'class='btn btn-default'>Host</a>
+		<% if(host) { %><a class="btn btn-default" href="#/host/<%= host.id %>">Host</a><% } %>
 		<a class="btn btn-default" href="#/boat/<%= id %>">Edit</a>
+		<a class="btn btn-primary btn-duplicate">Duplicate</a>
 	</td>
 </tr>

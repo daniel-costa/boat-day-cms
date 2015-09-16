@@ -2,8 +2,9 @@ define([
 'views/BaseView',
 'text!templates/ProfileTemplate.html', 
 'text!templates/SeatRequestsTableTemplate.html',
-'text!templates/ReviewsTemplate.html'
-], function(BaseView, ProfileTemplate, SeatRequestsTableTemplate, ReviewsTemplate){
+'text!templates/ReviewsTemplate.html',
+'text!templates/ProfileNotificationTableRow.html'
+], function(BaseView, ProfileTemplate, SeatRequestsTableTemplate, ReviewsTemplate, ProfileNotificationTableRow){
 	var ProfileView = BaseView.extend({
 
 		className: "view-profile",
@@ -23,8 +24,37 @@ define([
 			BaseView.prototype.render.call(this);
 			this.renderSeatRequests();
 			this.renderReviews();
+			this.renderNotification();
 			return this;
 		},
+
+		renderNotification: function() {
+
+			var self = this;
+			var query = new Parse.Query(Parse.Object.extend('Notification'));
+			query.equalTo("to", self.model);
+			query.include('boatday');
+			query.find().then(function (notifications){
+
+				self.$el.find('#notification').html("");
+				var tpl = _.template(ProfileNotificationTableRow);
+
+				_.each(notifications, function(notification){
+
+					var data = { 
+						id: notification.id,
+						action: notification.get('action'),
+						fromTeam: notification.get('fromTeam'),
+						message: notification.get('message')
+						//boatday: notification.get('boatday'),
+					};
+					
+					self.$el.find('#notification').append( tpl(data) ) ;
+					
+				});
+
+			});
+		}, 
 
 		renderSeatRequests: function() {
 
@@ -37,6 +67,8 @@ define([
 			query.find().then(function(matches){
 				_.each(matches, self.appendSeatRequests, self);
 			});
+
+			//console.log(self.model.id);
 		}, 
 
 		appendSeatRequests: function(SeatRequest) {

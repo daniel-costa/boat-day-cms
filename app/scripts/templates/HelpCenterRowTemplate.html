@@ -1,5 +1,6 @@
 <tr data-id="<%= id %>">
 	<td><%= id %></td>
+	<td><%= createdAt %></td>
 	<td><%= category %></td>
 	<td><%= displayName %></td>
 	<td>
@@ -8,6 +9,15 @@
 		<% if(file2) { %> <a target="_blank" href="<%= file2.url() %>">File 2</a><% } %>
 		<% if(file3) { %> <a target="_blank" href="<%= file3.url() %>">File 3</a><% } %>
 	</td>
-	<td><%= status %></td>
-	<td><a class="btn btn-primary btn-read">read</a></td>
+	<!-- <td><%= status %></td> -->
+	<td><a class="btn btn-primary btn-read" data-status="<%= status %>">
+
+		<% if( status == "read" ) { %>
+			unread
+		<% } else { %>
+			read
+		<% } %>
+		
+	</a></td>
+	<td><%= updatedAt %></td>
 </tr>

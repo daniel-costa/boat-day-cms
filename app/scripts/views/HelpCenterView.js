@@ -32,15 +32,26 @@ define([
 			var self = this;
 			var e = $(event.currentTarget);
 			var parent = e.closest('tr').attr('data-id');
-			console.log(parent);
+			var currentStatus = e.closest('a').attr('data-status');
+			var newStatus;
 
-			if(confirm("Do you want to change status to read?")) {
+			if(currentStatus == "read"){
+				newStatus = "unread";
+			} else {
+				newStatus = "read";
+			}
+			
+			console.log(currentStatus);
+
+			if(confirm("Do you want to change status to " + newStatus + "?")) {
 				var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
 				query.equalTo("objectId", parent);
 				query.first({
 					success: function(object) {
-						object.set("status", "read").save().then(function(){
+						object.set("status", newStatus).save().then(function(){
 							self.render();
+
+							console.log(newStatus);
 						});
 					}, 
 					error: function(error) {
@@ -81,13 +92,15 @@ define([
 
 					var data = {
 						id: result.id, 
+						createdAt: result.createdAt.toUTCString().substring(0, 26),
 						category: result.get('category'),
 						displayName: result.get('user').get('profile').get('displayName'), 
 						feedback: result.get('feedback'), 
 						status: result.get('status'),
 						file1: result.get('file1'),
 						file2: result.get('file2'),
-						file3: result.get('file3')
+						file3: result.get('file3'), 
+						updatedAt: result.updatedAt.toUTCString().substring(0, 26)
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

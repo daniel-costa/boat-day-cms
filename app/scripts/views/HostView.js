@@ -1,8 +1,11 @@
 define([
 'views/BaseView',
-'text!templates/HostPastBoatDaysRowTemplate.html',
+'text!templates/HostBoatDaysRowTemplate.html',
+'text!templates/HostUserInfoRowTemplate.html',
+'text!templates/HostBoatsRowTemplate.html',
+'text!templates/HostBgCheckQuestionsRowTemplate.html',
 'text!templates/HostTemplate.html'
-], function(BaseView, HostPastBoatDaysRowTemplate, HostTemplate){
+], function(BaseView, HostBoatDaysRowTemplate, HostUserInfoRowTemplate, HostBoatsRowTemplate, HostBgCheckQuestionsRowTemplate, HostTemplate){
 	var HostView = BaseView.extend({
 
 		className: "view-host-update",
@@ -29,34 +32,95 @@ define([
 
 			BaseView.prototype.render.call(this);
 
-			this.renderPastBoatDays();
+			this.renderBoats();
+			this.renderUserInfo();
+			this.renderBoatDays();
+			this.renderBgCheckQuestions();
 
 			return this;
 		},
 
-		renderPastBoatDays: function() {
+		renderBgCheckQuestions: function() {
 
 			var self = this;
-			this.$el.find('#pastBoatDays').html("");
+			this.$el.find("#bgQuestions").html("");
+			var tpl= _.template(HostBgCheckQuestionsRowTemplate);
+			var data = {
+				bgCheckQ1: self.model.get('bgCheckQ1'),
+				bgCheckQ2: self.model.get('bgCheckQ2'),
+				bgCheckQ3: self.model.get('bgCheckQ3'),
+				bgCheckQ4: self.model.get('bgCheckQ4'),
+				bgCheckQ5: self.model.get('bgCheckQ5'),
+				bgCheckQ6: self.model.get('bgCheckQ6'),
+				bgCheckQ7: self.model.get('bgCheckQ7'),
+				bgCheckQ8: self.model.get('bgCheckQ8'),
+				bgCheckQ9: self.model.get('bgCheckQ9')
+			}
+			self.$el.find("#bgQuestions").append( tpl(data) );
+		}, 
+
+		renderUserInfo: function() {
+
+			var self = this;
+			this.$el.find("#userInfo").html("");
+
+			var user = self.model.get('user');
+			var tpl = _.template(HostUserInfoRowTemplate);
+
+			var data = {
+				id: user.id, 
+				type: user.get('type'), 
+				email: user.get('email'), 
+				status: user.get('status'), 
+				tos: user.get('tos')
+			}
+			self.$el.find("#userInfo").append( tpl(data) );
+		}, 
+
+		renderBoatDays: function() {
+
+			var self = this;
+			this.$el.find("#boatDays").html("");
 			var query = self.model.relation('boatdays').query();
-			query.lessThan("date", new Date());
-			var tpl = _.template(HostPastBoatDaysRowTemplate);
+			query.descending('date');
+			var tpl = _.template(HostBoatDaysRowTemplate);
 
 			query.find().then(function(matches) {
-				_.each(matches, function(pastBoatDay){
-					console.log(pastBoatDay.id);
+				_.each(matches, function(boatDay){
 
-					var datas = {
-
-						id: pastBoatDay.id, 
-						name: pastBoatDay.get('name'), 
-						category: pastBoatDay.get('category'),
-						date: pastBoatDay.get('date').toUTCString().substring(0, 16)
+					var data = {
+						id: boatDay.id, 
+						name: boatDay.get('name'), 
+						category: boatDay.get('category'),
+						date: boatDay.get('date').toUTCString().substring(0, 16), 
+						departureTime: boatDay.get('departureTime')
 					}
-					self.$el.find('#pastBoatDays').append( tpl(datas) );
+					self.$el.find('#boatDays').append( tpl(data) );
 				});
 			});
 
+		}, 
+
+		renderBoats: function() {
+
+			var self = this;
+			this.$el.find("#boats").html("");
+			var query = self.model.relation('boats').query();
+			var tpl = _.template(HostBoatsRowTemplate);
+
+			query.find().then(function(matches) {
+				_.each(matches, function(boats){
+
+					var data = {
+						id: boats.id, 
+						name: boats.get('name'), 
+						type: boats.get('type'), 
+						buildYear: boats.get('buildYear'), 
+						hullID: boats.get('hullID')
+					}
+					self.$el.find("#boats").append( tpl(data) );
+				});	
+			});
 		}, 
 
 		uploadBgScreen: function(event) {
@@ -127,7 +191,7 @@ define([
 				street: this._in('street').val(),
 				accountRouting: this._in('accountRout').val().trim().replace(/\s+/g, ''), 
 				accountNumber: this._in('accountNum').val().trim().replace(/\s+/g, ''),  
-				//birthdate: this._in('birthDate').val(),
+				birthdate: this._in('birthDate').val(),
 				validationText: this._in('validationText').val(), 
 				validationTextInternal: this._in('validationTextInternal').val(), 
 				city: this._in('city').val(),
@@ -152,8 +216,10 @@ define([
 				certResponseSL: this._in('certResponseSL').val(), 
 				certResponseFAC: this._in('certResponseFAC').val(), 
 				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
-				coupon: this._in('coupon').val()
-			
+				coupon: this._in('coupon').val(), 
+				rate: this._in('rate').val(), 
+				stripeId: this._in('stripeId').val()
+				//bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
 			};
 			
 			var hostUpdateSuccess = function( profile ) {

@@ -1,7 +1,7 @@
 define([
 	'views/HomeView',
 	'views/DashboardView',
-	'views/UpcomingBoatDaysView', 
+	'views/BoatDaysUpcomingView', 
 	'views/BoatDayView',
 	'views/HostsView', 
 	'views/HostView',
@@ -16,20 +16,20 @@ define([
 	'views/ReportView', 
 	'views/GuestProfilesView', 
 	'views/BoatDayNewView', 
-	'views/PastBoatDaysView', 
+	'views/BoatDaysPastView', 
 	'views/CouponsView', 
 	'views/CouponView',
 	'views/CouponNewView',
 	'views/SeatRequestsView'
-], function(HomeView, DashboardView, UpcomingBoatDaysView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
-	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, PastBoatDaysView, 
+], function(HomeView, DashboardView, BoatDaysUpcomingView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
+	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, BoatDaysPastView, 
 	CouponsView, CouponView, CouponNewView, SeatRequestsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
 		routes: {
-			'upcoming-boatdays': 'showUpcomingBoatDaysView',
-			'past-boatdays': 'showPastBoatDaysView',
+			'upcoming-boatdays': 'showBoatDaysUpcomingView',
+			'past-boatdays': 'showBoatDaysPastView',
 			// 'boatDay/:new': 'showBoatDayNewView',
 			'create-boatday': 'showBoatDayNewView',
 			'boatday/:boatdayid': 'showBoatDayView', 
@@ -63,17 +63,17 @@ define([
 			this.showHomeView();
 		},
 
-		showUpcomingBoatDaysView: function() {
+		showBoatDaysUpcomingView: function() {
 			var self = this;
 			self.handleAdminAndSignUp(function() {
-				self.render(new UpcomingBoatDaysView());
+				self.render(new BoatDaysUpcomingView());
 			});
 		}, 
 
-		showPastBoatDaysView: function() {
+		showBoatDaysPastView: function() {
 			var self = this;
 			self.handleAdminAndSignUp(function() {
-				self.render(new PastBoatDaysView());
+				self.render(new BoatDaysPastView());
 			});
 		}, 
 
@@ -162,7 +162,12 @@ define([
 		showHostView: function( hostid ) {
 			var self = this;
 			self.handleAdminAndSignUp(function() {
-				new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(function( host ) {
+				// new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(function( host ) {
+				// 	self.render(new HostView({ model: host }));
+				// });
+				var query = new Parse.Query(Parse.Object.extend('Host'));
+				query.include('user');
+				query.get(hostid).then(function( host ) {
 					self.render(new HostView({ model: host }));
 				});
 			});

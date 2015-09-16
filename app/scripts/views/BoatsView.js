@@ -9,9 +9,12 @@ define([
 		
 		template: _.template(BoatsTemplate),
 
+		boats: {},
+
 		events : {
 			"blur .searchFilter": "renderRows",
-			"keyup .searchFilter": "watchForReturn"
+			"keyup .searchFilter": "watchForReturn", 
+			"click .btn-duplicate": "duplicate"
 		},
 
 		render: function() {
@@ -22,6 +25,42 @@ define([
 			return this;
 
 		},
+
+		duplicate: function(event) {
+
+			event.preventDefault();
+
+			var baseBoat = this.boats[$(event.currentTarget).closest('tr').attr('data-id')];
+
+			var r1 = baseBoat.relation("boatPictures").query();
+			var r2 = baseBoat.relation("proofOfInsurance").query();
+			var r3 = baseBoat.relation("captains").query();
+			
+			Parse.Promise.when(r1.find(), r2.find(), r3.find()).then(function(boatPictures, proofOfInsurances, captainRequests) {
+
+				baseBoat.clone().save().then(function(newBoat) {
+					
+					_.each(boatPictures, function(boatPicture) { 
+						newBoat.relation("boatPictures").add(boatPicture);
+					});
+
+					_.each(proofOfInsurances, function(proofOfInsurance) { 
+						newBoat.relation("proofOfInsurance").add(proofOfInsurance);
+					});
+
+					_.each(captainRequests, function(captainRequest) { 
+						newBoat.relation("captains").add(captainRequest);
+					});
+
+					newBoat.save({
+						name: newBoat.get("name") + " bis",
+					}).then(function(boat) {
+						Parse.history.navigate('#/boat/'+boat.id, true);
+					});
+				});
+			});
+
+ 		}, 
 
 		renderRows: function() {
 
@@ -79,6 +118,8 @@ define([
 
 				_.each(boats, function(boat) {
 
+					self.boats[boat.id] = boat;
+
 					var data = {
 						id: boat.id,
 						build: boat.get('buildYear'), 
@@ -87,8 +128,7 @@ define([
 						name: boat.get('name'), 
 						status: boat.get('status'), 
 						type: boat.get('type'), 
-						host: boat.get('host')
-
+						host: typeof boat.get('host') !== 'undefined' ? boat.get('host') : ''
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

@@ -2,8 +2,9 @@ define([
 'async!https://maps.google.com/maps/api/js?sensor=false',
 'views/BaseView',
 'text!templates/BoatDayTemplate.html', 
-'text!templates/SeatRequestsTableTemplate.html'
-], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTableTemplate){
+'text!templates/SeatRequestsTableTemplate.html', 
+'text!templates/ChatMessagesTableTemplate.html'
+], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTableTemplate, ChatMessagesTableTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",
@@ -11,6 +12,8 @@ define([
 		template: _.template(BoatDayTemplate),
 
 		seatRequests: {},
+
+		chatWall: {}, 
 
 		events : {
 			'submit form' : 'update',
@@ -27,6 +30,7 @@ define([
 			BaseView.prototype.render.call(this);
 
 			this.renderSeatRequests();
+			this.renderChatWall();
 
 			this.$el.find('.date').datepicker({
 				startDate: '0d',
@@ -71,6 +75,30 @@ define([
 
 			this.seatRequests[SeatRequest.id] = SeatRequest;
 		},
+
+		renderChatWall: function() {
+
+			var self = this;
+			self.chatWall = {};
+			this.$el.find('#chatWall').html('');
+
+			var query = self.model.relation('chatMessages').query();
+			query.ascending("createdAt");
+			query.find().then(function(matches) {
+				_.each(matches, self.appendChatWall, self);
+			});
+		}, 
+
+		appendChatWall: function(ChatMessages) {
+
+			this.$el.find('#chatWall').append(_.template(ChatMessagesTableTemplate)({
+				id: ChatMessages.id, 
+				message: ChatMessages
+			}));
+
+			this.chatWall[chatWall.id] = ChatMessages;
+		}, 
+
 
 		updateSeatRequest: function(event) {
 
@@ -164,7 +192,6 @@ define([
 
 			var self = this;
 			
-
 			this.model.save({
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
@@ -183,6 +210,7 @@ define([
 				locationText: this._in('locationText').val(),
 				bookedSeats: parseInt(this._in('bookSeats').val()), 
 				earnings: parseFloat(this._in('earnings').val()),
+				featured: parseInt(this._in('featured').val()), 
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

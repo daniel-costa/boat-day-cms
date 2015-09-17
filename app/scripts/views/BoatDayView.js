@@ -97,8 +97,7 @@ define([
 
 			this.chatWall[chatWall.id] = ChatMessages;
 		}, 
-
-
+		
 		updateSeatRequest: function(event) {
 
 			event.preventDefault();

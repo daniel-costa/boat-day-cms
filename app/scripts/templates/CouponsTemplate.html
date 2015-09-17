@@ -1,31 +1,34 @@
 <div class="top-navigation"></div>
 
 <div class="container-fluid">
-	<h1>Coupon lists</h1>
+	<h1>Coupons</h1>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
 				<th>
-					ID
-					<input type="text" class="searchFilter form-control" name="searchobjectId">
+					<input type="text" class="searchFilter form-control" placeholder="Id" name="searchobjectId">
 				</th>
 				<th>
-					Name
-					<input type="text" class="searchFilter form-control" name="searchName">
+					<input type="text" class="searchFilter form-control" placeholder="Name" name="searchName">
 				</th>
 				<th>
-					Code
-					<input type="text" class="searchFilter form-control" name="searchCode">
+					<input type="text" class="searchFilter form-control" placeholder="Code" name="searchCode">
 				</th>
 				<th>
 					Discount
 				</th>
 				<th>
-					Status
 					<select class="searchFilter form-control" name="searchStatus">
-						<option value ="" selected>Select one</option>
+						<option value ="" selected>Status</option>
 						<option value="approved">Approved</option>
 						<option value="denied">Denied</option>
+					</select>
+				</th>
+				<th>
+					<select class="searchFilter form-control" name="searchPerSeat">
+						<option value ="" selected>Per seat</option>
+						<option value="true" >True</option>
+						<option value="false" >False</option>
 					</select>
 				</th>
 				<th>

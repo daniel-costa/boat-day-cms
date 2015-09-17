@@ -52,6 +52,10 @@ define([
 				query.contains("status", this._in("searchStatus").val());
 			}
 
+			if( this._in("searchPerSeat").val() != "" ) {
+				query.contains("perSeat", Boolean(this._in("searchPerSeat").val().toString()));
+			}
+
 			this.$el.find('tbody').html("");
 
 			var cbSuccess = function(coupons) {
@@ -64,7 +68,8 @@ define([
 						code: coupon.get('code'), 
 						discount: coupon.get('discount'), 
 						status: coupon.get('status'), 
-						expDate: coupon.get('expiration').toUTCString().substring(0, 16)
+						expDate: coupon.get('expiration').toUTCString().substring(0, 16), 
+						perSeat: coupon.get('perSeat')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

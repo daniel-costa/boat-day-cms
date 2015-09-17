@@ -18,7 +18,6 @@ define([
 
 		initialize: function() {
 
-			console.log("BoatDaysView:initialize")
 			this.query = new Parse.Query(Parse.Object.extend("BoatDay"));
 			this.query.include('host');
 			this.query.include('boat');
@@ -39,6 +38,11 @@ define([
 
 			if( this._in("searchName").val() != "" ) {
 				this.query.contains("name", this._in("searchName").val());
+			}
+
+
+			if( this._in("searchCategory").val() != "" ) {
+				this.query.contains("category", this._in("searchCategory").val());
 			}
 
 			if( this._in("searchPriceMin").val() != "" ) {
@@ -63,7 +67,7 @@ define([
 					var host = boatday.get('host');
 					var boat = boatday.get('boat');
 					var captain = boatday.get('captain');
-					console.log(host.id);
+					
 					var data = {
 						id: boatday.id, 
 						availableSeats: boatday.get('availableSeats'), 

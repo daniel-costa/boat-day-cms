@@ -75,7 +75,7 @@ define([
 			var self = this;
 			var query = new Parse.Query(Parse.Object.extend("Boat"));
 			query.include('host');
-			console.log(this._in("searchBoatLength").val());
+			query.include('profile');
 			var tpl = _.template(BoatsRowTemplate);
 	
 			if( this._in("searchobjectId").val() != "" ) {
@@ -137,7 +137,9 @@ define([
 						name: boat.get('name'), 
 						status: boat.get('status'), 
 						type: boat.get('type'), 
-						host: typeof boat.get('host') !== 'undefined' ? boat.get('host') : ''
+						host: typeof boat.get('host') !== 'undefined' ? boat.get('host') : '', 
+						profile: boat.get('profile'), 
+						profileName: boat.get('profile').get('displayName')
 					}
 
 					self.$el.find('tbody').append( tpl(data) );

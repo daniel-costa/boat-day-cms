@@ -67,8 +67,6 @@ define([
 			var cbSuccess = function(hosts) {
 
 				_.each(hosts, function(host) {
-
-					// var user = typeof host.get('user') !== 'undefined' ? host.get('user') : '';
 					
 					var data = {
 						id: host.id, 

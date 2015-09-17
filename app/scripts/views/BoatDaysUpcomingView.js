@@ -5,16 +5,18 @@ define([
 	
 	var BoatDaysUpcomingView = BoatDaysView.extend({
 
-		className: "view-boatdays-upcoming-lists",
+		className: "view-boatdays-upcoming",
 		
 		template: _.template(BoatDaysUpcomingTemplate),
 
-		initialize: function() {
+		applyFilter: function(query) {
+			
+			BoatDaysView.prototype.applyFilter.call(this, query);
 
-			BoatDaysView.prototype.initialize.call(this);
+			query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+			query.ascending('date, departureTime');
 
-			this.query.greaterThanOrEqualTo("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
-
+			return query;
 		}
 
 	});

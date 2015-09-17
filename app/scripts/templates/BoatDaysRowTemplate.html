@@ -1,19 +1,31 @@
-<tr data-id="<%= id %>">
+<tr data-id="<%= model.id %>">
 	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= name %>
+		<%= model.get('name') %>
 	</td>
-	<td><%= category %></td>
-	<td><%= new Date(date).toLocaleDateString() %> at <%= departureTime %></td>
-	<td colspan="2">$<%= price %></td>
-	<td><%= status %></td>
-	<td><%= availableSeats %></td>
-	<td><%= bookedSeats %></td>
-	<td><a href="#/host/<%= hostId %>"><%= hostName %></a></td>
-	<td><a href="#/boat/<%= boatId %>"><%= boatName %></a></td>
-	<td><a href="#/profile/<%= captainId %>"><%= captainName %></a></td>
+	<td><%= model.get('category') %></td>
+	<td><%= new Date(model.get("date").iso).toLocaleDateString() %> at <%= self.departureTimeToDisplayTime(model.get('departureTime')) %></td>
+	<td colspan="2">$<%= model.get('price') %></td>
+	<td><%= model.get('status') %></td>
+	<td><%= model.get('availableSeats') %></td>
+	<td><%= model.get('bookedSeats') %></td>
 	<td>
-		<a class="btn btn-primary" href="#/boatday/<%= id %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+		<% if( typeof model.get('host') !== typeof undefined) { %>
+			<a href="#/host/<%= model.get('host').id %>"><%= model.get('host').get('firstname') + ' ' + model.get('host').get('lastname') %></a></td>
+		<% } %>
+	</td>
+	<td>
+		<% if( typeof model.get('boat') !== typeof undefined) { %>
+			<a href="#/boat/<%= model.get('boat').id %>"><%= model.get('boat').get('name') %></a>
+		<% } %>
+	</td>
+	<td>
+		<% if( typeof model.get('captain') !== typeof undefined) { %>
+			<a href="#/profile/<%= model.get('captain').id %>"><%= model.get('captain').get('displayName') %></a>
+		<% } %>
+	</td>
+	<td>
+		<a class="btn btn-primary" href="#/boatday/<%= model.id %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
 		<a class="btn btn-warning btn-duplicate"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></a>
 	</td>
 </tr>

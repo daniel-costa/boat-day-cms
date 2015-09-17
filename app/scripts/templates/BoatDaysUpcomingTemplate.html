@@ -2,22 +2,28 @@
 
 <div class="container-fluid">
 	<h1>Upcoming BoatDays</h1>
+	<div class="pagination"></div>
 	<table class="table table-condensed table-bordered table-striped">
 		<thead>
 			<tr>
 				<th>
-					<input type="text" class="searchFilter form-control" placeholder="Id" name="searchobjectId"></td>
+					<input type="text" class="searchFilter form-control" placeholder="ID" name="searchobjectId"></td>
 				</th>
 				<th>
 					<input type="text" class="searchFilter form-control" placeholder="Name" name="searchName">
 				</th>
 				<th>
-					<input type="text" class="searchFilter form-control" placeholder="Category" name="searchCategory">
+					<select name="searchCategory" class="searchFilter form-control">
+						<option value="">Category</option>
+						<option value="leisure">Leisure</option>
+						<option value="sailing">Sailing</option>
+						<option value="fishing">Fishing</option>
+						<option value="sports">Water Sports</option>
+					</select>
 				</th>
 				<th>Date</th>
 				<th>
 					<input type="text" class="searchFilter form-control" name="searchPriceMin" placeholder="Price min">
-					
 				</th>
 				<th>
 					<input type="text" class="searchFilter form-control" name="searchPriceMax" placeholder="Price max">
@@ -30,8 +36,8 @@
 						<option value="cancelled">Cancelled</option>
 					</select>
 				</th>
-				<th>Total seats</th>
-				<th>Booked seats</th>
+				<th>Seats</th>
+				<th>Booked</th>
 				<th>Host</th>
 				<th>Boat</th>
 				<th>Captain</th>
@@ -40,4 +46,5 @@
 		</thead>
 		<tbody> </tbody>
 	</table>
+	<div class="pagination"></div>
 </div>

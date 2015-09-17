@@ -1,25 +1,21 @@
-<tr data-id="<%= id %>">
+<tr data-id="<%= model.id %>">
 	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= feedback %><br/>
-		<% if(file1) { %> <a target="_blank" href="<%= file1.url() %>">File 1</a><% } %>
-		<% if(file2) { %> <a target="_blank" href="<%= file2.url() %>">File 2</a><% } %>
-		<% if(file3) { %> <a target="_blank" href="<%= file3.url() %>">File 3</a><% } %>
+		<%= model.get('feedback') %><br/>
+		<% if( model.get('file1') ) { %> <a target="_blank" href="<%= model.get('file1').url() %>">File 1</a><% } %>
+		<% if( model.get('file2') ) { %> <a target="_blank" href="<%= model.get('file2').url() %>">File 2</a><% } %>
+		<% if( model.get('file3') ) { %> <a target="_blank" href="<%= model.get('file3').url() %>">File 3</a><% } %>
 	</td>
-
-	</td>
-	<td><%= createdAt %></td>
-	<td><%= category %></td>
-	<td><a href="#/profile/<%= profile.id %>"><%= displayName %></a></td>
+	<td><%= model.createdAt.toUTCString().substring(0, 26) %></td>
+	<td><%= model.get('category') %></td>
 	<td>
-		<a class="btn btn-primary btn-read" data-status="<%= status %>">
-
-			<% if( status == "read" ) { %>
-				unread
-			<% } else { %>
-				read
-			<% } %>
-		
+		<a href="#/profile/<%= model.get('user').get('profile').id %>">
+			<%= model.get('user').get('profile').get('displayName') %>
+		</a>
+	</td>
+	<td>
+		<a class="btn btn-default btn-read" data-status="<%= model.get('status') %>">
+			<%= model.get('status') == "read" ? 'unread' : 'read' %>
 		</a>
 	</td>
 </tr>

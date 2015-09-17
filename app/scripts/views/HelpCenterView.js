@@ -15,12 +15,20 @@ define([
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
 			"click .btn-read": "statusUpdate", 
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID",
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = HelpCenterView.prototype.renderRows;
+			
 		},
 
 		render: function() {
 
 			BaseView.prototype.render.call(this);
+
 			this.renderRows();
 			
 			return this;
@@ -66,17 +74,8 @@ define([
 				});
 			}
 		}, 
-
-		renderRows: function() {
-
-			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
-			query.include('user.profile');
-			query.descending('createdAt');
-
-			var tpl = _.template(HelpCenterRowTemplate);
-
-
+		
+		applyFilter: function(query) {
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -86,37 +85,34 @@ define([
 				query.contains("category", this._in("searchCategory").val());
 			}
 
-			// if( this._in("searchName").val() != "" ) {
-			// 	query.contains("lastname", this._in("searchName").val());
-			// }
+			if( this._in("searchFeedback").val() != "" ) {
+				query.contains("feedback", this._in("searchFeedback").val());
+			}
 
-			this.$el.find('tbody').html("");
+			return query;
 
-			var cbSuccess = function(helpCenter) {
+		},
 
-				_.each(helpCenter, function(result) {
-		
-					var data = {
-						id: result.id, 
-						createdAt: result.createdAt.toUTCString().substring(0, 26),
-						category: result.get('category'),
-						profile: result.get('user').get('profile'), 
-						displayName: result.get('user').get('profile').get('displayName'), 
-						feedback: result.get('feedback'), 
-						status: result.get('status'),
-						file1: result.get('file1'),
-						file2: result.get('file2'),
-						file3: result.get('file3'), 
-						updatedAt: result.updatedAt.toUTCString().substring(0, 26)
-					}
+		renderRows: function() {
 
-					self.$el.find('tbody').append( tpl(data) );
+			var self = this;
+			
+			self.$el.find('tbody').html("");
 
+			var query = new Parse.Query(Parse.Object.extend("HelpCenter"));
+			query.descending('createdAt');
+			
+			query = self.applyFilter(query);
+
+			query.include('user.profile');
+
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(matches) {
+					_.each(matches, function(match) {
+						self.$el.find('tbody').append(_.template(HelpCenterRowTemplate)({ model: match }));
+					});
 				});
-
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 		
 	});

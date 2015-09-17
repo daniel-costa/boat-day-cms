@@ -5,16 +5,18 @@ define([
 	
 	var BoatDaysPastView = BoatDaysView.extend({
 
-		className: "view-boatdays-past-lists",
+		className: "view-boatdays-past",
 		
 		template: _.template(BoatDaysPastTemplate),
 
-		initialize: function() {
+		applyFilter: function(query) {
+			
+			BoatDaysView.prototype.applyFilter.call(this, query);
 
-			BoatDaysView.prototype.initialize.call(this);
-
-			this.query.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
-
+			query.lessThan("date", new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()));
+			query.descending('date, departureTime');
+			
+			return query;
 		}
 
 	});

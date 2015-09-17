@@ -8,87 +8,69 @@ define([
 		query: null,
 
 		events : {
-			"blur .searchFilter": "applyFilter",
+			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn",
 			"click .idInfo": "alertObjectID", 
-			"click .btn-duplicate": "duplicate"
+			"click .btn-duplicate": "duplicate",
+			"click .page": "changePage",
 		},
 
 		boatdays: {},
 
 		initialize: function() {
 
-			this.query = new Parse.Query(Parse.Object.extend("BoatDay"));
-			this.query.include('host');
-			this.query.include('boat');
-			this.query.include('captain');
-			this.query.descending('date');
-			this.query.descending('departureTime');
+			this.pagination.cbRefreshPage = BoatDaysView.prototype.renderRows;
 
 		},
 
-		applyFilter: function() {
-			var self = this;
-
-			var tpl = _.template(BoatDaysRowTemplate);
-
+		applyFilter: function(query) {
+			
 			if( this._in("searchobjectId").val() != "" ) {
-				this.query.contains("objectId", this._in("searchobjectId").val());
+				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
 			if( this._in("searchName").val() != "" ) {
-				this.query.contains("name", this._in("searchName").val());
+				query.contains("name", this._in("searchName").val());
 			}
 
-
 			if( this._in("searchCategory").val() != "" ) {
-				this.query.contains("category", this._in("searchCategory").val());
+				query.equalTo("category", this._in("searchCategory").val());
 			}
 
 			if( this._in("searchPriceMin").val() != "" ) {
-				this.query.greaterThanOrEqualTo("price", parseFloat(this._in("searchPriceMin").val()));
+				query.greaterThanOrEqualTo("price", parseFloat(this._in("searchPriceMin").val()));
 			}
 			if( this._in("searchPriceMax").val() != "" ) {
-				this.query.lessThanOrEqualTo("price", parseFloat(this._in("searchPriceMax").val()));
+				query.lessThanOrEqualTo("price", parseFloat(this._in("searchPriceMax").val()));
 			}
 
 			if( this._in("searchStatus").val() != "" ) {
-				this.query.contains("status", this._in("searchStatus").val());
+				query.contains("status", this._in("searchStatus").val());
 			}
 
+			return query;
+		},
+
+		renderRows: function() {
+
+			var self = this;
+
 			this.$el.find('tbody').html("");
+			
+			var query = new Parse.Query(Parse.Object.extend("BoatDay"));
+			
+			query = self.applyFilter(query);
 
-			this.query.find().then(function(boatdays) {
+			query.include('host');
+			query.include('boat');
+			query.include('captain');
 
-				_.each(boatdays, function(boatday) {
-					
-					self.boatdays[boatday.id] = boatday;
-
-					var host = boatday.get('host');
-					var boat = boatday.get('boat');
-					var captain = boatday.get('captain');
-					
-					var data = {
-						id: boatday.id, 
-						availableSeats: boatday.get('availableSeats'), 
-						date: boatday.get("date"),
-						departureTime: boatday.get('departureTime'), 
-						name: boatday.get('name'),
-						category: boatday.get('category'),
-						price: boatday.get('price'), 
-						status: boatday.get('status'), 
-						availableSeats: boatday.get('availableSeats'), 
-						bookedSeats: boatday.get('bookedSeats'), 
-						hostId: typeof host.id !== 'undefined' ? host.id : '', 
-						hostName: host.get('firstname') +" "+ host.get('lastname'),
-						boatId: boat.id ? boat.id: null,
-						boatName: boat.get('name'),
-						captainId: captain ? captain.id: null, 
-						captainName: captain ? captain.get('displayName') : null
-					}
-
-					self.$el.find('tbody').append( tpl(data) );
-
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(boatdays) {
+					_.each(boatdays, function(boatday) {
+						self.boatdays[boatday.id] = boatday;
+						self.$el.find('tbody').append(_.template(BoatDaysRowTemplate)({ self: self, model: boatday }));
+					});
 				});
 			});
 		},
@@ -97,7 +79,7 @@ define([
 
 			BaseView.prototype.render.call(this);
 			
-			this.applyFilter();
+			this.renderRows();
 
 			return this;
 
@@ -117,11 +99,10 @@ define([
 			if( confirm("Do you really want to duplicate this boat?") ) {
 
 				newBoatday.save({
-		  		status:'creation',
-		  		date: null,
-		  		bookedSeats: 0,
-			  	earnings: 0,
-
+			  		status:'creation',
+			  		date: null,
+			  		bookedSeats: 0,
+				  	earnings: 0,
 			  	}).then(function(newBoatday) {
 
 			  		var q = new Parse.Query(Parse.Object.extend("Question"));

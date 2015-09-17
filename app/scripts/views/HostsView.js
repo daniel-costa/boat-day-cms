@@ -12,7 +12,14 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn",
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID",
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = HostsView.prototype.renderRows;
+
 		},
 
 		render: function() {
@@ -66,21 +73,23 @@ define([
 
 			var self = this;
 
-			var query = self.applyFilter( new Parse.Query(Parse.Object.extend("Host")) );
+			self.$el.find('tbody').html("");
+
+			var query = new Parse.Query(Parse.Object.extend("Host"))
+			query.ascending("firstname, lastname");
+
+			query = self.applyFilter(query);
+			
 			query.include("user");
-
-			this.$el.find('tbody').html("");
-
-			query.find().then(function(hosts) {
-
-				_.each(hosts, function(host) {
-					
-					self.$el.find('tbody').append( _.template(HostsRowTemplate)({ model: host }) );
-
+			
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(hosts) {
+					_.each(hosts, function(host) {
+						self.$el.find('tbody').append( _.template(HostsRowTemplate)({ model: host }) );
+					});
 				});
-
 			});
-		}
+		},
 		
 	});
 	return HostsView;

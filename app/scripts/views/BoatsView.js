@@ -15,7 +15,14 @@ define([
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
 			"click .btn-duplicate": "duplicate", 
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID",
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = BoatsView.prototype.renderRows;
+			
 		},
 
 		render: function() {
@@ -65,20 +72,15 @@ define([
 						}).then(function(boat) {
 							Parse.history.navigate('#/boat/'+boat.id, true);
 						});
+
 					});
 				});
 			}
  		}, 
 
-		renderRows: function() {
+ 		applyFilters: function(query) {
 
-			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("Boat"));
-			query.include('host');
-			query.include('profile');
-			var tpl = _.template(BoatsRowTemplate);
-	
-			if( this._in("searchobjectId").val() != "" ) {
+ 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
@@ -121,34 +123,43 @@ define([
 				query.contains("type", this._in("searchType").val());
 			}
 
-			this.$el.find('tbody').html("");
+			if( this._in("searchHost").val() != "" ) {
+				var queryHostsFirstname = new Parse.Query(Parse.Object.extend("Host"));
+				queryHostsFirstname.contains('firstname', this._in("searchHost").val());
 
-			var cbSuccess = function(boats) {
+				var queryHostsLastname = new Parse.Query(Parse.Object.extend("Host"));
+				queryHostsLastname.contains('lastname', this._in("searchHost").val());
 
-				_.each(boats, function(boat) {
+				var queryHosts = new Parse.Query.or(queryHostsFirstname, queryHostsLastname);
 
-					self.boats[boat.id] = boat;
-					
-					var data = {
-						id: boat.id,
-						build: boat.get('buildYear'), 
-						length: boat.get('length'),
-						hullId: boat.get('hullID'), 
-						name: boat.get('name'), 
-						status: boat.get('status'), 
-						type: boat.get('type'), 
-						host: typeof boat.get('host') !== 'undefined' ? boat.get('host') : '', 
-						profile: boat.get('profile'), 
-						profileName: boat.get('profile').get('displayName')
-					}
+				query.matchesQuery("host", queryHosts);
+			}
 
-					self.$el.find('tbody').append( tpl(data) );
+			return query;
+ 		},
 
+		renderRows: function() {
+
+			var self = this;
+
+			self.$el.find('tbody').html("");
+
+			var query = new Parse.Query(Parse.Object.extend("Boat"));
+			query.ascending("name");
+
+			query = self.applyFilters(query);
+
+			query.include('host');
+			query.include('profile');
+
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(boats) {
+					_.each(boats, function(boat) {
+						self.boats[boat.id] = boat;
+						self.$el.find('tbody').append( _.template(BoatsRowTemplate)({ model: boat }) );
+					});
 				});
-
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 
 	});

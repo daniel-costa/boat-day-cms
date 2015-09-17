@@ -12,7 +12,14 @@ define([
 		events : {
 			"blur .searchFilter": "renderSeatRequests",
 			"keyup .searchFilter": "watchForReturn",
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID",
+			"click .page": "changePage",
+		},
+		
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = SeatRequestsView.prototype.renderSeatRequests;
+
 		},
 
 		render: function() {
@@ -28,44 +35,37 @@ define([
 			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
-		renderSeatRequests: function() {
-
-			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("SeatRequest"));
-			query.include("boatday");
-			query.include("profile");
-			query.include("promoCode");
-			query.descending('createdAt');
-			var tpl = _.template(SeatRequestsRowTemplate);
+		applyFilter: function(query) {
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
 			}
 
-			this.$el.find('tbody').html("");
+			return query;
+		},
 
-			var cbSuccess = function(seatRequests) {
+		renderSeatRequests: function() {
 
-				_.each(seatRequests, function(seatRequest) {
+			var self = this;
 
-					var data = {
-						id: seatRequest.id, 
-						profileName: seatRequest.get('profile').get('displayName'), 
-						boatdayName: seatRequest.get('boatday').get('name'), 
-						hostRating: seatRequest.get('ratingHost'), 
-						guestRating: seatRequest.get('ratingGuest'), 
-						contribution: seatRequest.get('contribution'), 
-						profile: seatRequest.get('profile'), 
-						boatday: seatRequest.get('boatday'), 
-						coupon: seatRequest.get('promoCode')
+			self.$el.find('tbody').html("");
 
-					}
+			var query = new Parse.Query(Parse.Object.extend("SeatRequest"));
+			query.descending('createdAt');
 
-					self.$el.find('tbody').append( tpl(data) );
+			query = self.applyFilter(query);
+
+			query.include("boatday");
+			query.include("profile");
+			query.include("promoCode");
+			
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(seatRequests) {
+					_.each(seatRequests, function(seatRequest) {
+						self.$el.find('tbody').append(_.template(SeatRequestsRowTemplate)({ model: seatRequest }));
+					});
 				});
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 
 	});

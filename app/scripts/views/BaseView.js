@@ -25,6 +25,13 @@ define([
 
 		__ANIMATION_ENDS__: 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
 
+		pagination: {
+			itemsPerPage: 20,
+			currentPage: 1,
+			totalPages: 0,
+			cbRefreshPage: null
+		},
+
 		render: function() {
 			console.log("### Render by BaseView (" + this.className + ") ###");
 
@@ -60,6 +67,40 @@ define([
 			}
 
 			return this;
+		},
+
+		changePage: function(event) {
+
+			this.pagination.currentPage = parseInt($(event.currentTarget).attr('data-page'));
+			this.pagination.cbRefreshPage.call(this);
+
+		},
+
+		handlePagination: function(query) {
+
+			var self = this;
+
+			var promise = new Parse.Promise();
+
+			query.count().then(function(total) {
+
+				self.pagination.totalPages = Math.ceil(total / self.pagination.itemsPerPage)
+
+				query.limit(self.pagination.itemsPerPage);
+				query.skip( (self.pagination.currentPage - 1) * self.pagination.itemsPerPage );
+
+				self.$el.find('.pagination').html('');
+
+				for(var i = 1; i <= self.pagination.totalPages; i++) {
+					self.$el.find('.pagination').append('<button class="btn '+ (i == self.pagination.currentPage ? 'btn-primary' : 'btn-default') +' page" data-page="'+i+'">'+ i +'</button>');
+				}
+
+				promise.resolve(query); 
+
+			});
+
+  			return promise;
+
 		},
 
 		tagFieldValue: function(event) {

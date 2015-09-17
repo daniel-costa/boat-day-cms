@@ -1,14 +1,30 @@
-<tr data-id="<%= id %>">
+<tr data-id="<%= model.id %>">
 	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= profileName %>
+		<%= model.get('profile').get('displayName') %>
 	</td>
-	<td><a href="#/boatday/<%= boatday.id %>"><%= boatdayName %></a></td>
-	<td><%= hostRating %></td>
-	<td><%= guestRating %></td>
-	<td><% if(contribution) { %> $<%= contribution %> <% } %></td> 
-	<td><a href="#/profile/<%= profile.id %>"><%= profile.get('displayName') %></a></td>
 	<td>
-		<% if(coupon) { %> <a href="#/coupon/<%= coupon.id %>"><%= coupon.get('code') %></a><% } %>
+		<a href="#/boatday/<%= model.get('boatday').id %>">
+			<%= model.get('boatday').get('name') %>
+		</a>
+	</td>
+	<td><%= model.get('ratingHost') %></td>
+	<td><%= model.get('ratingGuest') %></td>
+	<td>
+		<% if( model.get('contribution') ) { %> 
+			$<%= model.get('contribution') %> 
+		<% } %>
+	</td> 
+	<td>
+		<a href="#/profile/<%= model.get('profile').id %>">
+			<%= model.get('profile').get('displayName') %>
+		</a>
+	</td>
+	<td>
+		<% if( model.get('promoCode')) { %> 
+			<a href="#/ model.get('promoCode')/<%= model.get('promoCode').id %>">
+				<%= model.get('promoCode').get('code') %>
+			</a>
+		<% } %>
 	</td>
 </tr>

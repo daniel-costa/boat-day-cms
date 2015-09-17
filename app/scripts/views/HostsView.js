@@ -5,7 +5,7 @@ define([
 ], function(BaseView, HostsTemplate, HostsRowTemplate){
 	var HostsView = BaseView.extend({
 
-		className: "view-hosts-lists",
+		className: "view-hosts",
 		
 		template: _.template(HostsTemplate),
 
@@ -18,6 +18,7 @@ define([
 		render: function() {
 
 			BaseView.prototype.render.call(this);
+
 			this.renderRows();
 			
 			return this;
@@ -29,12 +30,7 @@ define([
 			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		}, 
 
-		renderRows: function() {
-
-			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("Host"));
-			query.include("user");
-			var tpl = _.template(HostsRowTemplate);
+		applyFilter: function(query) {
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -62,30 +58,28 @@ define([
 				query.contains("type", this._in("searchType").val());
 			}
 
+			return query;
+
+		},
+
+		renderRows: function() {
+
+			var self = this;
+
+			var query = self.applyFilter( new Parse.Query(Parse.Object.extend("Host")) );
+			query.include("user");
+
 			this.$el.find('tbody').html("");
 
-			var cbSuccess = function(hosts) {
+			query.find().then(function(hosts) {
 
 				_.each(hosts, function(host) {
 					
-					var data = {
-						id: host.id, 
-						firstname: host.get('firstname'),
-						lastname: host.get('lastname'),
-						phone: host.get('phone'), 
-						status: host.get('status'), 
-						type: host.get('type'),
-						profile: host.get('profile'),
-						email: host.get('user').get('email') 
-					}
-
-					self.$el.find('tbody').append( tpl(data) );
+					self.$el.find('tbody').append( _.template(HostsRowTemplate)({ model: host }) );
 
 				});
 
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 		
 	});

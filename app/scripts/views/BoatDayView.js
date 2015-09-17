@@ -18,7 +18,6 @@ define([
 		events : {
 			'submit form' : 'update',
 			"click .update-requests": "updateSeatRequest"
-
 		},
 
 		_map: null,
@@ -139,9 +138,10 @@ define([
 					var ctn = self.$el.find('.map').get(0);
 					self._map = new google.maps.Map(ctn, opts);
 
-					google.maps.event.addListener(self._map, "idle", function(){
+					google.maps.event.addListenerOnce(self._map, "idle", function(){
 						google.maps.event.trigger(self._map, 'resize');
-					}); 
+						self._map.setCenter(latlng);
+					});
 
 					google.maps.event.addListener(self._map, 'click', function(event) {
 						self.moveMarker(event.latLng)

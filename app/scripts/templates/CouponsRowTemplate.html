@@ -1,14 +1,14 @@
-<tr  data-id="<%= id %>">
+<tr  data-id="<%= model.id %>">
 	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= name %>
+		<%= model.get('name') %>
 	</td>
-	<td><%= code %></td>
-	<td><%= discount %></td>
-	<td><%= status %></td>
-	<td><%= perSeat %></td>
-	<td><%= expDate %></td> 
+	<td><%= model.get('code') %></td>
+	<td><%= model.get('discount') %></td>
+	<td><%= model.get('status') %></td>
+	<td><%= model.get('perSeat') %></td>
+	<td><%= model.get('expiration').toUTCString().substring(0, 16) %></td> 
 	<td>
-		<a class="btn btn-primary" href="#/coupon/<%= id %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
+		<a class="btn btn-primary" href="#/coupon/<%= model.id %>"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></a>
 	</td>
 </tr>

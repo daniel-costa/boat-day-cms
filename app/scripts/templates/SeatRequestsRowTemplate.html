@@ -22,7 +22,7 @@
 	</td>
 	<td>
 		<% if( model.get('promoCode')) { %> 
-			<a href="#/ model.get('promoCode')/<%= model.get('promoCode').id %>">
+			<a href="#/coupon/<%= model.get('promoCode').id %>">
 				<%= model.get('promoCode').get('code') %>
 			</a>
 		<% } %>

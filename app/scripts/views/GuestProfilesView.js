@@ -3,7 +3,7 @@ define([
 'text!templates/GuestProfilesTemplate.html', 
 'text!templates/GuestProfilesRowTemplate.html'
 ], function(BaseView, GuestProfilesTemplate, GuestProfilesRowTemplate){
-	var HostsView = BaseView.extend({
+	var GuestProfilesView = BaseView.extend({
 
 		className: "view-guests-lists",
 		
@@ -12,7 +12,14 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn",
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID", 
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = GuestProfilesView.prototype.renderRows;
+
 		},
 
 		render: function() {
@@ -28,20 +35,7 @@ define([
 			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
-		renderRows: function() {
-
-			var self = this;
-			
-			var innerQuery = new Parse.Query(Parse.Object.extend('User'));
-			innerQuery.equalTo('type', 'guest');
-
-			var query = new Parse.Query(Parse.Object.extend('Profile'));
-			query.matchesQuery("user", innerQuery);
-			query.include('user');
-			
-			var tpl = _.template(GuestProfilesRowTemplate);
-
-			this.$el.find('tbody').html("");
+		applyFilter: function(query) {
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -55,30 +49,38 @@ define([
 				query.contains("status", this._in("searchStatus").val());
 			}
 
-			var cbSuccess = function(profiles) {
+			return query;
+		}, 
 
-				_.each(profiles, function(profile) {
-						
-					var data = {
-						id: profile.id, 
-						url: profile.get('profilePicture') ? profile.get('profilePicture').url() : '',
-						name: profile.get('displayName'),
-						rating: profile.get('rating'), 
-						status: profile.get('status'), 
-						email: profile.get('user').get('email'),
-						profile: profile.get('profile')
-					}
+		renderRows: function() {
 
-					self.$el.find('tbody').append( tpl(data) );
+			var self = this;
+
+			self.$el.find('tbody').html("");
+
+			
+			var innerQuery = new Parse.Query(Parse.Object.extend('User'));
+			innerQuery.equalTo('type', 'guest');
+
+			var query = new Parse.Query(Parse.Object.extend('Profile'));
+			query.matchesQuery("user", innerQuery);
+
+			query = self.applyFilter(query);
+
+			query.include('user');
+
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(profiles) {
+					_.each(profiles, function(profile) {
+						self.$el.find('tbody').append( _.template(GuestProfilesRowTemplate)({ model: profile }) );
+
+					});
 
 				});
 
-			};
-
-			query.find().then(cbSuccess);
-			
-		}
+			});
+		},
 		
 	});
-	return HostsView;
+	return GuestProfilesView;
 });

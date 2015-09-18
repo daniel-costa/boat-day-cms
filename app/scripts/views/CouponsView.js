@@ -12,7 +12,14 @@ define([
 		events : {
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID",
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = CouponsView.prototype.renderRows;
+
 		},
 
 		render: function() {
@@ -29,12 +36,7 @@ define([
 			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
-
-		renderRows: function() {
-
-			var self = this;
-			var query = new Parse.Query(Parse.Object.extend("Coupon"));
-			var tpl = _.template(CouponsRowTemplate);
+		applyFilter: function(query) {
 
 			if( this._in("searchobjectId").val() != "" ) {
 				query.contains("objectId", this._in("searchobjectId").val());
@@ -53,32 +55,32 @@ define([
 			}
 
 			if( this._in("searchPerSeat").val() != "" ) {
-				query.contains("perSeat", Boolean(this._in("searchPerSeat").val().toString()));
+				query.equalTo("perSeat", this._in("searchPerSeat").val() == "true");
 			}
+
+			return query;
+
+		},
+
+		renderRows: function() {
+
+			var self = this;
 
 			this.$el.find('tbody').html("");
 
-			var cbSuccess = function(coupons) {
+			var query = new Parse.Query(Parse.Object.extend("Coupon"));
 
-				_.each(coupons, function(coupon) {
+			query = self.applyFilter(query);
 
-					var data = {
-						id: coupon.id, 
-						name: coupon.get('name'), 
-						code: coupon.get('code'), 
-						discount: coupon.get('discount'), 
-						status: coupon.get('status'), 
-						expDate: coupon.get('expiration').toUTCString().substring(0, 16), 
-						perSeat: coupon.get('perSeat')
-					}
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(coupons) {
+					_.each(coupons, function(coupon) {
+						self.$el.find('tbody').append( _.template(CouponsRowTemplate)({ model: coupon }) );
 
-					self.$el.find('tbody').append( tpl(data) );
+					});
 
 				});
-
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 		
 	});

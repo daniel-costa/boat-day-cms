@@ -1,18 +1,31 @@
-<tr data-id="<%= id %>">
+<tr data-id="<%= model.id %>">
 	<td colspan="2" >
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= message %>
+		<%= model.get('message') %>
 	</td>
-	<td><%= createdAt %></td>
-	<td><a href="#/profile/<%= sender.id %>"><%= sender.get('displayName') %></a></td>
-	<td><a class="btn btn-primary btn-read" data-read="<%= read %>">
+	<td><%= model.createdAt.toUTCString().substring(0, 26) %></td>
+	<td>
+		<a href="#/profile/<%= model.get('fromProfile').id %>"><%= model.get('fromProfile').get('displayName') %>
+		</a>
+	</td>
+	<td><a class="btn btn-primary btn-read" data-read="<%= model.get('read') %>">
 
-		<% if( read == true ) { %>
-			unread 
-		<% } else { %>
-			read 
+			<% if( model.get('read') == true ) { %>
+				unread 
+			<% } else { %>
+				read 
+			<% } %>
+		</a>
+	</td>
+	<td>
+		<% if(model.get('boatday')) { %>
+			<a href="#/boatday/<%= model.get('boatday').id %>"><%= model.get('boatday').get('name') %>
+			</a>
 		<% } %>
-	</a></td>
-	<td><% if(boatday) { %><a href="#/boatday/<%= boatday.id %>"><%= boatday.get('name') %></a><% } %>
-	<% if(profile) { %><a href="#/profile/<%= profile.id %>"><%= profile.get('displayName') %></a><% } %></td>
+
+		<% if(model.get('profile')) { %>
+			<a href="#/profile/<%= model.get('profile').id %>"><%= model.get('profile').get('displayName') %>
+			</a>
+		<% } %>
+	</td>
 </tr>

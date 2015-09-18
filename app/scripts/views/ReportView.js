@@ -13,7 +13,14 @@ define([
 			"blur .searchFilter": "renderRows",
 			"keyup .searchFilter": "watchForReturn", 
 			"click .btn-read": "readUpdate",
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID", 
+			"click .page": "changePage",
+		},
+
+		initialize: function() {
+
+			this.pagination.cbRefreshPage = ReportView.prototype.renderRows;
+
 		},
 
 		render: function() {
@@ -29,6 +36,23 @@ define([
 			event.preventDefault();
 			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
+
+		applyFilter: function(query) {
+
+			if( this._in("searchobjectId").val() != "" ) {
+				query.contains("objectId", this._in("searchobjectId").val());
+			}
+
+			if( this._in("searchSender").val() != "" ) {
+				var queryDisplayName = new Parse.Query(Parse.Object.extend("Profile"));
+				queryDisplayName.contains("displayName", this._in("searchSender").val());
+
+				querySenderProfile = new Parse.Query.or(queryDisplayName);
+				query.matchesQuery("fromProfile", querySenderProfile);
+			}
+
+			return query;
+		}, 
 
 		readUpdate: function(event) {
 
@@ -60,7 +84,12 @@ define([
 		renderRows: function() {
 
 			var self = this;
+
+			this.$el.find('tbody').html("");
+
 			var query = new Parse.Query(Parse.Object.extend("Report"));
+
+			query = self.applyFilter(query);
 
 			query.include('fromProfile');
 			query.include('profile');
@@ -68,43 +97,15 @@ define([
 
 			var tpl = _.template(ReportRowTemplate);
 
-			if( this._in("searchobjectId").val() != "" ) {
-				query.contains("objectId", this._in("searchobjectId").val());
-			}
+			self.handlePagination(query).then(function(query) {
+				query.find().then(function(reports) {
+					_.each(reports, function(report) {
+						self.$el.find('tbody').append( _.template(ReportRowTemplate)({ model: report }) );
 
-			// if( this._in("searchName").val() != "" ) {
-			// 	query.contains("name", this._in("searchName").val());
-			// }
-
-			
-			// if( this._in("searchAction").val() != "" ) {
-			// 	query.contains("action", this._in("searchAction").val());
-			// }
-			
-			this.$el.find('tbody').html("");
-
-			var cbSuccess = function(reports) {
-
-				_.each(reports, function(report) {
-
-					var data = {
-						id: report.id, 
-						createdAt: report.createdAt.toUTCString().substring(0, 26),
-						action: report.get('action'), 
-						message: report.get('message'), 
-						sender: report.get('fromProfile'),
-						boatday: report.get('boatday'), 
-						profile: report.get('profile'), 
-						read: report.get('read'), 
-					}
-
-					self.$el.find('tbody').append( tpl(data) );
+					});
 
 				});
-
-			};
-
-			query.find().then(cbSuccess);
+			});
 		}
 		
 	});

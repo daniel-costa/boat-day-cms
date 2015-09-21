@@ -8,15 +8,6 @@
 		<a href="#/profile/<%= model.get('fromProfile').id %>"><%= model.get('fromProfile').get('displayName') %>
 		</a>
 	</td>
-	<td><a class="btn btn-primary btn-read" data-read="<%= model.get('read') %>">
-
-			<% if( model.get('read') == true ) { %>
-				unread 
-			<% } else { %>
-				read 
-			<% } %>
-		</a>
-	</td>
 	<td>
 		<% if(model.get('boatday')) { %>
 			<a href="#/boatday/<%= model.get('boatday').id %>"><%= model.get('boatday').get('name') %>
@@ -27,5 +18,15 @@
 			<a href="#/profile/<%= model.get('profile').id %>"><%= model.get('profile').get('displayName') %>
 			</a>
 		<% } %>
+	</td>
+	<td>
+		<a class="btn btn-primary btn-read" data-read="<%= model.get('read') %>">
+
+			<% if( model.get('read') == true ) { %>
+				unread 
+			<% } else { %>
+				read 
+			<% } %>
+		</a>
 	</td>
 </tr>

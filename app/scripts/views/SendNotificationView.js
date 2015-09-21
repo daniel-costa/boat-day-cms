@@ -38,7 +38,6 @@ define([
 				queryProfiles.find().then(function(matches) {
 					
 					_.each(matches, function(profile) {
-						console.log(profile.get('displayName'));
 
 						select.append($('<option>').attr('value', profile.id).text(profile.get('displayName')));
 						self.collectionProfiles[profile.id] = profile;
@@ -64,7 +63,7 @@ define([
 			event.preventDefault();
 
 			var self = this;
-			console.log(Parse.User.current().get('profile'))
+			
 			var data = {
 				to: self.collectionProfiles[this._in('profile').val()],
 				action: "bd-message", 
@@ -77,7 +76,7 @@ define([
 			}; 
 
 			var NotificationModel = Parse.Object.extend('Notification');
-			var model = NotificationModel();
+			var model = new NotificationModel();
 			model.save(data).then(function( SendNotification ) {
 				Parse.history.navigate('dashboard', true);
 			});

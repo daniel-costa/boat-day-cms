@@ -1,9 +1,10 @@
-<tr>
-	<td><%= id %></td>
-	<td><%= name %></td>
-	<td><%= type %></td>
-	<td><%= buildYear %></td>
-	<td><%= hullID %></td>
-	<td><a class="btn btn-default" href="#/boat/<%= id %>">Boat</a></td>
+<tr data-id="<%= model.id %>">
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<a href="#/boat/<%= model.id %>"><%= model.get('name') %></a>
+	</td>
+	<td><%= model.get('type') %></td>
+	<td><%= model.get('buildYear') %></td>
+	<td><%= model.get('hullID') %></td>
 </tr>
 </tr>

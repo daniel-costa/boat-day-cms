@@ -4,7 +4,7 @@
 		<%= model.get('name') %>
 	</td>
 	<td><%= model.get('category') %></td>
-	<td><%= new Date(model.get("date").iso).toLocaleDateString() %> at <%= self.departureTimeToDisplayTime(model.get('departureTime')) %></td>
+	<td><%= new Date(model.get("date")).toLocaleDateString() %> at <%= self.departureTimeToDisplayTime(model.get('departureTime')) %></td>
 	<td colspan="2">$<%= model.get('price') %></td>
 	<td><%= model.get('status') %></td>
 	<td><%= model.get('availableSeats') %></td>

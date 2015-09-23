@@ -15,15 +15,9 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+						<label for="name" class="col-sm-3 control-label">Name</label>
 						<div class="col-sm-6">
-							<%= createdAt %>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="updatedAt" class="col-sm-3 control-label">Updated at</label>
-						<div class="col-sm-6">
-							<%= updatedAt%>
+							<input type="text" class="form-control" id="name" name="name" value="<%= name %>">
 						</div>
 					</div>
 					<div class="form-group">
@@ -54,12 +48,6 @@
 						<label for="duration" class="col-sm-3 control-label">Duration</label>
 						<div class="col-sm-6">
 							<input type="text" class="form-control" id="duration" name="duration" value="<%= duration %>">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="name" class="col-sm-3 control-label">Name</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="name" name="name" value="<%= name %>">
 						</div>
 					</div>
 					<div class="form-group">
@@ -256,13 +244,14 @@
 					<thead>
 						<tr>
 							<th>ID</th>
+							<th>Profile</th>
+							<th>Seats</th>
 							<th>Status</th>
 							<th>Contibution</th>
 							<th>GuestRate</th>
 							<th>HostRate</th>
 							<th>reviewGuest</th>
-							<th>Seats</th>
-							<th>Requested time</th>
+							<th>BoatDay</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -278,8 +267,8 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>CreatedAt</th>
 							<th>Message</th>
+							<th>CreatedAt</th>
 							<th>Status</th>
 							<th>Profile</th>
 						</tr>

@@ -1,7 +1,9 @@
 <tr data-id="<%= id %>">
-	<td><%= id %></td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%=  message.get('message') %>
+	</td>
 	<td><%= message.createdAt.toUTCString().substring(0, 26) %></td>
-	<td><%=  message.get('message') %></td>
 	<td><%= message.get('status') %></td>
-	<td><a class="btn btn-default" href="#/profile/<%= message.get('profile').id %>">Profile</a></td>
+	<td><a href="#/profile/<%= message.get('profile').id %>"><%= message.get('profile').get('displayName') %></a></td>
 </tr>

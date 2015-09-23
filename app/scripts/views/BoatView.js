@@ -26,7 +26,8 @@ define([
 			"click .delete-insurance": "deleteInsurance",
 			"click .notify-host": "sendBoatNotification", 
 			"click .update-captain": "updateCaptain", 
-			"click .update-insurance": "updateInsurance"
+			"click .update-insurance": "updateInsurance", 
+			"click .idInfo": "alertObjectID"
 		}, 
 
 		render: function() {
@@ -40,13 +41,18 @@ define([
 
 		},
 
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		}, 
+
 		update: function(event) {
 			
 			event.preventDefault();
 
 			var self = this;
 
-			var data = {
+			self.model.save({
 
 				status: this._in('status').val(),
 				name: this._in('name').val(),
@@ -80,16 +86,11 @@ define([
 					trollingMotor: Boolean(this._in('featureTrollingMotor').is(':checked')),
 					wakeboardTower: Boolean(this._in('featureWakeboardTower').is(':checked'))
 				}, 
-			};	
+				
+			}).then(function() {
 
-			var boatUpdateSuccess = function( boat ) {
-
-				//Parse.history.navigate('boats', true);
 				self.render();
-
-			};
-
-			this.model.save(data).then(boatUpdateSuccess);
+			});
 		},
 
 		displayBoatPictures: function() {

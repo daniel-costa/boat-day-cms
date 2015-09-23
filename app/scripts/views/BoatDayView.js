@@ -16,8 +16,10 @@ define([
 		chatWall: {}, 
 
 		events : {
+
 			'submit form' : 'update',
-			"click .update-requests": "updateSeatRequest"
+			"click .update-requests": "updateSeatRequest", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		_map: null,
@@ -47,6 +49,11 @@ define([
 
 		},
 
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		},
+
 		boatSelected: function() {
 
 
@@ -59,6 +66,8 @@ define([
 			this.$el.find('#seatRequests').html('');
 
 			var query = self.model.relation('seatRequests').query();
+			query.include('boatday');
+			query.include('profile');
 			query.ascending("createdAt");
 			query.find().then(function(matches){
 				_.each(matches, self.appendSeatRequests, self);
@@ -82,6 +91,7 @@ define([
 			this.$el.find('#chatWall').html('');
 
 			var query = self.model.relation('chatMessages').query();
+			query.include('profile');
 			query.ascending("createdAt");
 			query.find().then(function(matches) {
 				_.each(matches, self.appendChatWall, self);
@@ -192,6 +202,7 @@ define([
 			var self = this;
 			
 			this.model.save({
+				
 				availableSeats: parseInt(this._in('availableSeats').val()),
 				bookingPolicy: this._in('bookingPolicy').val(),
 				cancellationPolicy: this._in('cancellationPolicy').val(), 

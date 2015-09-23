@@ -1,5 +1,5 @@
 <tr data-id="<%= file.id %>">
-	<td><%= id %></td>
+	<td><span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span></td>
 	<td>
 		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
 	</td>
@@ -9,12 +9,9 @@
 	</td>
 	<td>
 		<input type="text" class="form-control expiryDate" placeholder="mm/dd/yyyy"  name="expiryDate" value="<%= typeof file.get('expiryDate') !== typeof undefined ? file.get('expiryDate') : '' %>"/> 
-		<!-- <input type="text" class="form-control expiryDate" placeholder="mm/dd/yyyy"  name="expiryDate" value="<%= new Date(file.get('expiryDate')).toLocaleDateString() %>"/> -->
 	</td>
 	<td class="text-center">
 		<button type="button" class="btn btn-default update-insurance">Update</button>
 		<button type="button" class="btn btn-danger delete-insurance">Delete</button>
 	</td>
 </tr>
-
-<!-- value= "<%= typeof file.get('expiryDate') !== typeof undefined ? file.get('expiryDate') : '' %>" -->

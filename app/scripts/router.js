@@ -20,10 +20,11 @@ define([
 	'views/CouponsView', 
 	'views/CouponView',
 	'views/CouponNewView',
-	'views/SeatRequestsView'
+	'views/SeatRequestsView', 
+	'views/SeatRequestView'
 ], function(HomeView, DashboardView, BoatDaysUpcomingView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
 	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, BoatDaysPastView, 
-	CouponsView, CouponView, CouponNewView, SeatRequestsView) {
+	CouponsView, CouponView, CouponNewView, SeatRequestsView, SeatRequestView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -48,6 +49,7 @@ define([
 			'report': 'showReportView',
 			'guests': 'showGuestsView',  
 			'seat-requests': 'showSeatRequestsView', 
+			'seat-request/:requestid': 'showSeatRequestView', 
 			'coupons': 'showCouponsView',
 			'coupon/:couponid': 'showCouponView', 
 			'create-coupon': 'showCouponNewView',
@@ -162,9 +164,6 @@ define([
 		showHostView: function( hostid ) {
 			var self = this;
 			self.handleAdminAndSignUp(function() {
-				// new Parse.Query(Parse.Object.extend('Host')).get(hostid).then(function( host ) {
-				// 	self.render(new HostView({ model: host }));
-				// });
 				var query = new Parse.Query(Parse.Object.extend('Host'));
 				query.include('user');
 				query.get(hostid).then(function( host ) {
@@ -199,6 +198,25 @@ define([
 				});
 			});
 		},
+
+
+		showSeatRequestView: function( requestid ) {
+
+			var self = this;
+			self.handleAdminAndSignUp(function() {
+		
+				var query = new Parse.Query(Parse.Object.extend('SeatRequest'));
+				query.include('boatday');
+				query.include('profile');
+				query.include('user');
+				query.include('promoCode');
+				
+				query.get(requestid).then(function( request ) {
+					self.render(new SeatRequestView({ model: request }));
+				});
+			});
+			
+		}, 
 
 		showBoatDayNewView: function() {
 			var self = this;

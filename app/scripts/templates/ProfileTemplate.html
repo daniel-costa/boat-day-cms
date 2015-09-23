@@ -4,7 +4,7 @@
 	<div class="container"> 
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title text-center">Update profile...</h3>
+				<h3 class="panel-title text-center">Update profile</h3>
 			</div>
 
 			<div class="panel-body">
@@ -16,27 +16,15 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="createdAt" class="col-sm-3 control-label">Created at</label>
+						<label for="displayName" class="col-sm-3 control-label">Profile name</label>
 						<div class="col-sm-6">
-							<%= createdAt %>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="updatedAt" class="col-sm-3 control-label">Updated at</label>
-						<div class="col-sm-6">
-							<%= updatedAt %>
+							<input type="text" class="form-control" id="displayName" name="displayName" value= "<%= displayName %>" > 
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="about" class="col-sm-3 control-label">About</label>
 						<div class="col-sm-6">
 							<textarea rows="5" name="about" id="about" class="form-control"><%= about %></textarea>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="displayName" class="col-sm-3 control-label">Profile name</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="displayName" name="displayName" value= "<%= displayName %>" > 
 						</div>
 					</div>
 					<div class="form-group">
@@ -52,7 +40,7 @@
 					<div class="form-group">
 						<label for="profilePic" class="col-sm-3 control-label">Profile picture</label>
 						<div class="col-sm-6">
-							<img class="profile-picture rectangle" src="<%= typeof profilePicture.url !== typeof undefined ? profilePicture.url : '' %>" />
+							<img class="profile-picture rectangle" style =" height: 225px"src="<%= profilePicture ? profilePicture.url : '' %>" />
 						</div> 
 					</div>
 				</div>
@@ -65,15 +53,15 @@
 				<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>Profile</th>
+							<th>Seats</th>
 							<th>Status</th>
 							<th>Contibution</th>
 							<th>GuestRate</th>
 							<th>HostRate</th>
 							<th>reviewGuest</th>
-							<th>Seats</th>
-							<th>Requested time</th>
-							<th></th>
+							<th>BoatDay</th>
+							<th>Actions</th>
 						</tr>
 					</thead>
 					<tbody id="seatRequests"></tbody>
@@ -87,11 +75,10 @@
 				<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>ID</th>
+							<th>Review</th>
+							<th>Average rate</th>
 							<th>From profile</th>
 							<th>To profile</th>
-							<th>Average rate</th>
-							<th>review</th>
 						</tr>
 					</thead>
 					<tbody id="reviews"></tbody>
@@ -105,9 +92,14 @@
 				<table class="table table-condensed table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>action</th>
+							<th>Action</th>
 							<th>Message</th>
+							<th>From team</th>
+							<th>Send email</th>
+							<th>BoatDay</th>
+							<th>From</th>
+							<th>Boat</th>
+							<th>Seat request</th>
 						</tr>
 					</thead>
 					<tbody id="notification"></tbody>

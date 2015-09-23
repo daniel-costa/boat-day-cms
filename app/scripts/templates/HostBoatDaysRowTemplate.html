@@ -1,7 +1,8 @@
-<tr>
-	<td><%= id %></td>
-	<td><%= name %></td>
-	<td><%= category %></td>
-	<td><%= date %> at <%= departureTime %></td>
-	<td><a class="btn btn-default" href="#/boatday/<%= id %>">BoatDay</a></td>
-</tr>
+<tr data-id="<%= model.id %>">
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<a href="#/boatday/<%= model.id %>"><%= model.get('name') %></a>
+	</td>
+	<td><%= model.get('category') %></td>
+	<td><%= new Date(model.get('date')).toLocaleDateString() %> at <%= model.get('departureTime') %></td>	
+</tr>	

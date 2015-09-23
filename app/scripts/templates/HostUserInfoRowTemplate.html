@@ -1,7 +1,9 @@
-<tr>
-	<td><%= id %></td>
-	<td><%= type %></td>
-	<td><%= email %></td>
-	<td><%= status %></td>
-	<td><%= tos %></td>
+<tr data-id="<%= model.id %>"> 
+	<td>
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+	</td>
+	<td><%= model.get('type') %></td>
+	<td><%= model.get('email') %></td>
+	<td><%= model.get('status') %></td>
+	<td><%= model.get('tos') %></td>
 </tr>

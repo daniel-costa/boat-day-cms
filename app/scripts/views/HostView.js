@@ -17,7 +17,8 @@ define([
 			"submit form" : "update", 
 			'click .btn-send-cert-noti': 'sendCertNotification',
 			'click .btn-send-host-noti': 'sendHostNotification',
-			"change .upload": "uploadBgScreen" 
+			"change .upload": "uploadBgScreen", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		initialize: function() {
@@ -40,11 +41,16 @@ define([
 			return this;
 		},
 
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
+		},
+
 		renderBgCheckQuestions: function() {
 
 			var self = this;
 			this.$el.find("#bgQuestions").html("");
-			var tpl= _.template(HostBgCheckQuestionsRowTemplate);
+		
 			var data = {
 				bgCheckQ1: self.model.get('bgCheckQ1'),
 				bgCheckQ2: self.model.get('bgCheckQ2'),
@@ -56,7 +62,8 @@ define([
 				bgCheckQ8: self.model.get('bgCheckQ8'),
 				bgCheckQ9: self.model.get('bgCheckQ9')
 			}
-			self.$el.find("#bgQuestions").append( tpl(data) );
+			
+			self.$el.find("#bgQuestions").append( _.template(HostBgCheckQuestionsRowTemplate)(data) );
 		}, 
 
 		renderUserInfo: function() {
@@ -65,16 +72,7 @@ define([
 			this.$el.find("#userInfo").html("");
 
 			var user = self.model.get('user');
-			var tpl = _.template(HostUserInfoRowTemplate);
-
-			var data = {
-				id: user.id, 
-				type: user.get('type'), 
-				email: user.get('email'), 
-				status: user.get('status'), 
-				tos: user.get('tos')
-			}
-			self.$el.find("#userInfo").append( tpl(data) );
+			self.$el.find("#userInfo").append( _.template(HostUserInfoRowTemplate)({ model:user }) );
 		}, 
 
 		renderBoatDays: function() {
@@ -83,19 +81,10 @@ define([
 			this.$el.find("#boatDays").html("");
 			var query = self.model.relation('boatdays').query();
 			query.descending('date');
-			var tpl = _.template(HostBoatDaysRowTemplate);
 
 			query.find().then(function(matches) {
 				_.each(matches, function(boatDay){
-
-					var data = {
-						id: boatDay.id, 
-						name: boatDay.get('name'), 
-						category: boatDay.get('category'),
-						date: boatDay.get('date').toUTCString().substring(0, 16), 
-						departureTime: boatDay.get('departureTime')
-					}
-					self.$el.find('#boatDays').append( tpl(data) );
+					self.$el.find('#boatDays').append( _.template(HostBoatDaysRowTemplate)({ model: boatDay }) );
 				});
 			});
 
@@ -106,19 +95,10 @@ define([
 			var self = this;
 			this.$el.find("#boats").html("");
 			var query = self.model.relation('boats').query();
-			var tpl = _.template(HostBoatsRowTemplate);
 
 			query.find().then(function(matches) {
-				_.each(matches, function(boats){
-
-					var data = {
-						id: boats.id, 
-						name: boats.get('name'), 
-						type: boats.get('type'), 
-						buildYear: boats.get('buildYear'), 
-						hullID: boats.get('hullID')
-					}
-					self.$el.find("#boats").append( tpl(data) );
+				_.each(matches, function(boat){
+					self.$el.find("#boats").append( _.template(HostBoatsRowTemplate)({ model:boat }) );
 				});	
 			});
 		}, 
@@ -219,12 +199,10 @@ define([
 				coupon: this._in('coupon').val(), 
 				rate: this._in('rate').val(), 
 				stripeId: this._in('stripeId').val()
-				//bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null,
 			};
 			
 			var hostUpdateSuccess = function( profile ) {
 
-				//Parse.history.navigate('hosts', true);
 				self.render();
 
 			};

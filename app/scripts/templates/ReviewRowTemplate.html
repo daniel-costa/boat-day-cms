@@ -1,0 +1,9 @@
+<tr data-id="<%= model.id %>">
+	<td>
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= model.get('review') %>
+	</td>
+	<td><%= model.get('rateAvg') %></td>
+	<td><a href='#/profile/<%= model.get('fromProfile').id %>'><%= model.get('fromProfile').get('displayName') %></a></td>
+	<td><a href='#/profile/<%= model.get('toProfile').id %>'><%= model.get('toProfile').get('displayName') %></a></td>
+</tr>

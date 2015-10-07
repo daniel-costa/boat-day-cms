@@ -1,8 +1,11 @@
 <tr data-id="<%= file.id %>">
-	<td><%= id %></td>
-	<td>
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
 		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
 	</td>
+	<!-- <td>
+		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
+	</td> -->
 	<td>
 		<%= new Date(file.createdAt).toLocaleDateString() %> at
 		<%= new Date(file.createdAt).toLocaleTimeString() %> 

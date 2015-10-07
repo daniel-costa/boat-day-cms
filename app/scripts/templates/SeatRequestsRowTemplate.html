@@ -1,7 +1,9 @@
 <tr data-id="<%= model.id %>">
-	<td>
+	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
-		<%= model.get('profile').get('displayName') %>
+		<a href="#/profile/<%= model.get('profile').id %>">
+			<%= model.get('profile').get('displayName') %>
+		</a>
 	</td>
 	<td>
 		<a href="#/boatday/<%= model.get('boatday').id %>">
@@ -14,11 +16,6 @@
 		<% if( model.get('contribution') ) { %> 
 			$<%= model.get('contribution') %> 
 		<% } %>
-	</td> 
-	<td>
-		<a href="#/profile/<%= model.get('profile').id %>">
-			<%= model.get('profile').get('displayName') %>
-		</a>
 	</td>
 	<td>
 		<% if( model.get('promoCode')) { %> 

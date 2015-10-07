@@ -20,7 +20,8 @@ define([
 			"click .delete-picture": "deleteBoatPicture",
 			"click .update-picture": "updateBoatPicture",
 			"change .upload": "uploadNewFile",
-			"click .notify-host": "sendBoatNotification"
+			"click .notify-host": "sendBoatNotification", 
+			"click .idInfo": "alertObjectID"
 		},
 
 		
@@ -32,6 +33,11 @@ define([
 			this.displayProofsOfInurance();
 
 			return this;
+		},
+
+		alertObjectID: function(event) {
+			event.preventDefault();
+			alert($(event.currentTarget).closest('tr').attr('data-id'));
 		},
 
 		save: function( event ) {

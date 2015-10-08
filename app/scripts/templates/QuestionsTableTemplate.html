@@ -1,0 +1,25 @@
+<tr data-id="<%= id %>">
+	<td>
+		<div class="profile-picture" style="background-image:url(<%= question.get('from').get('profilePicture').url() %>)"></div>
+	</td>
+	<td>
+		<input type="text" class="form-control" name="question" value="<%= question.get('question') %>" />
+	</td>
+	<td><input type="text" class="form-control" name="answer" value="<%= question.get('answer') %>" /></td>
+	<td>
+		<select class="input-small form-control" name="public">
+			<option value="true" <%= question.get('public')  ? 'selected' : '' %>>Yes</option> 
+			<option value="false" <%= !question.get('public') ? 'selected' : '' %>>No</option>
+		</select>
+	</td>
+	<td>
+		<select class="input-small form-control" name="status">
+			<option value="approved" <%= question.get('status') && question.get('status') == "approved" ? 'selected' : '' %>>Approved</option> 
+			<option value="denied" <%= question.get('status') && question.get('status') == "denied" ? 'selected' : '' %>>Denied</option>
+		</select>
+	</td>
+	<td>
+		<button type="button" class="btn btn-default update-question">Update</button>
+		<button type="button" class="btn btn-warning btn-notify-guest">Notify Guest</button>
+	</td>
+</tr>

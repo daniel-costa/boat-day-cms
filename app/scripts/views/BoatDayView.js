@@ -3,8 +3,9 @@ define([
 'views/BaseView',
 'text!templates/BoatDayTemplate.html', 
 'text!templates/SeatRequestsTableTemplate.html', 
-'text!templates/ChatMessagesTableTemplate.html'
-], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTableTemplate, ChatMessagesTableTemplate){
+'text!templates/ChatMessagesTableTemplate.html', 
+'text!templates/QuestionsTableTemplate.html'
+], function(gmaps, BaseView, BoatDayTemplate, SeatRequestsTableTemplate, ChatMessagesTableTemplate, QuestionsTableTemplate){
 	var BoatDayView = BaseView.extend({
 
 		className: "view-boatday-update",
@@ -15,11 +16,15 @@ define([
 
 		chatWall: {}, 
 
+		questions: {}, 
+
 		events : {
 
 			'submit form' : 'update',
 			"click .update-requests": "updateSeatRequest", 
-			"click .idInfo": "alertObjectID"
+			"click .idInfo": "alertObjectID", 
+			"click .update-question": "updateQuestions", 
+			"click .btn-notify-guest": "notifyGuest"
 		},
 
 		_map: null,
@@ -32,6 +37,7 @@ define([
 
 			this.renderSeatRequests();
 			this.renderChatWall();
+			this.renderQuestions();
 
 			this.$el.find('.date').datepicker({
 				startDate: '0d',
@@ -107,6 +113,26 @@ define([
 
 			this.chatWall[chatWall.id] = ChatMessages;
 		}, 
+
+		renderQuestions: function() {
+
+			var self = this;
+			self.questions = {};
+			this.$el.find("#questions").html("");
+
+			var query = self.model.relation('questions').query();
+			query.include('from');
+			query.ascending('createdAt');
+			query.find().then(function(matches) {
+				_.each(matches, function(question) {
+					self.$el.find("#questions").append(_.template(QuestionsTableTemplate)({
+						id: question.id, 
+						question: question
+					}));
+					self.questions[question.id] = question;
+				});	
+			});
+		}, 
 		
 		updateSeatRequest: function(event) {
 
@@ -130,6 +156,47 @@ define([
 			});
 			
 		},
+
+		updateQuestions: function(event) {
+			event.preventDefault();
+
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
+			
+			self.questions[parent.attr('data-id')].save({
+				question: parent.find('[name="question"]').val(), 
+				answer: parent.find('[name="answer"]').val(), 
+				"public": parent.find('[name="public"]').val() == "true", 
+				status: parent.find('[name="status"]').val()
+			}).then(function() {
+				self.renderQuestions();
+			}, function(e) {
+				console.log(e);
+			});
+		}, 
+
+		notifyGuest: function(event) {
+			event.preventDefault();
+			var self = this;
+
+			self.model.relation('questions').query().first().then(function(matches) {
+
+				var NotificationModel = Parse.Object.extend("Notification");
+				if( confirm("Are you sure you want to send a notification ?") ) {
+					new NotificationModel({
+						action: "boatday-answer",
+						from: self.model.get('captain'),
+						to: matches.get('from'),
+						boatday: self.model,
+						fromTeam: false,
+						sendEmail: false
+					}).save().then(function() {
+						alert('Notification Sent');	
+					});
+				}
+			});
+		}, 
 
 		setupGoogleMap: function() {
 

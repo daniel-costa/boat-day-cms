@@ -193,7 +193,10 @@ define([
 		showBoatDayView: function( boatdayid ) {
 			var self = this;
 			self.handleAdminAndSignUp(function() {
-				new Parse.Query(Parse.Object.extend('BoatDay')).get(boatdayid).then(function( boatday ) {
+				var query = new Parse.Query(Parse.Object.extend('BoatDay'));
+				query.include('from');
+				query.include('captain');
+				query.get(boatdayid).then(function( boatday ) {
 					self.render(new BoatDayView({ model: boatday }));
 				});
 			});

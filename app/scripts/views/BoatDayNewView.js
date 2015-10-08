@@ -88,6 +88,11 @@ define([
 		boatSelected: function(event) {
 
 			event.preventDefault();
+
+			if( $(event.currentTarget).val() == null ) {
+				return;
+			}
+
 			var self = this;
 			var boat = self.collectionBoats[$(event.currentTarget).val()];
 
@@ -193,8 +198,11 @@ define([
 			event.preventDefault();
 
 			var self = this;
+			
 
-			var data = {
+			var BoatDay = Parse.Object.extend("BoatDay");
+			var boatDay = new BoatDay();
+			boatDay.save({
 				host: self.collectionHosts ? self.collectionHosts[this._in('host').val()] : null,
 				boat: self.collectionBoats ? self.collectionBoats[this._in('boat').val()] : null, 
 				captain: self.collectionCaptains ? self.collectionCaptains[this._in('captain').val()] : null,  
@@ -273,15 +281,12 @@ define([
 					}
 				}
 
-			};
-			
-			var boatdayCreateSuccess = function( boatday ) {
-				Parse.history.navigate('upcoming-boatdays', true);
-			};
-
-			var BoatDay = Parse.Object.extend("BoatDay");
-			var boatDay = new BoatDay();
-			boatDay.save(data).then(boatdayCreateSuccess);
+			}).then(function( boatday ) {
+				boatday.get('host').relation('boatdays').add(boatday);
+				boatday.get('host').save().then(function() {
+					Parse.history.navigate('upcoming-boatdays', true);
+				})
+			});
 
 
 		},

@@ -90,7 +90,7 @@
 						<div class="col-sm-6">
 							<select class="input-small form-control" name="featured">
 								<option value="0" <%= typeof featured != typeof undefined && featured=='0' ? 'selected' : '' %>>No</option>
-								<option value="1" <%= typeof featured != typeof undefined && featured=='1' ? 'selected' : '' %>>Yes</option>
+								<option value="-1" <%= typeof featured != typeof undefined && featured=='-1' ? 'selected' : '' %>>Yes</option>
 							</select>
 						</div>
 					</div>

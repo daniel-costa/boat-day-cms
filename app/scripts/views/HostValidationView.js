@@ -46,15 +46,15 @@ define([
 				certStatusFAC: this._in('certStatusFAC').val(), 
 				certResponseFAC: this._in('certResponseFAC').val(), 
 				bgCheck: self.tempBinaries.bgCheck ? self.tempBinaries.bgCheck : null, 
-				bgCheckQ1: Boolean(this._in('bgCheckQ1').val()),
-				bgCheckQ2: Boolean(this._in('bgCheckQ2').val()),
-				bgCheckQ3: Boolean(this._in('bgCheckQ3').val()),
-				bgCheckQ4: Boolean(this._in('bgCheckQ4').val()),
-				bgCheckQ5: Boolean(this._in('bgCheckQ5').val()),
-				bgCheckQ6: Boolean(this._in('bgCheckQ6').val()),
-				bgCheckQ7: Boolean(this._in('bgCheckQ7').val()),
-				bgCheckQ8: Boolean(this._in('bgCheckQ8').val()),
-				bgCheckQ9: Boolean(this._in('bgCheckQ9').val())
+				bgCheckQ1: this._in('bgCheckQ1').val() == "true",
+				bgCheckQ2: this._in('bgCheckQ2').val() == "true",
+				bgCheckQ3: this._in('bgCheckQ3').val() == "true",
+				bgCheckQ4: this._in('bgCheckQ4').val() == "true",
+				bgCheckQ5: this._in('bgCheckQ5').val() == "true",
+				bgCheckQ6: this._in('bgCheckQ6').val() == "true",
+				bgCheckQ7: this._in('bgCheckQ7').val() == "true",
+				bgCheckQ8: this._in('bgCheckQ8').val() == "true",
+				bgCheckQ9: this._in('bgCheckQ9').val() == "true"
 			};
 
 			this.model.save(data).then(function( profile ) {

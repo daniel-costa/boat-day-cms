@@ -81,12 +81,10 @@ define([
 		}, 
 
 		appendSeatRequests: function(SeatRequest) {
-
 			this.$el.find('#seatRequests').append(_.template(SeatRequestsTableTemplate)({
 				id: SeatRequest.id, 
 				seat: SeatRequest
 			}));
-
 			this.seatRequests[SeatRequest.id] = SeatRequest;
 		},
 
@@ -145,10 +143,7 @@ define([
 			self.seatRequests[parent.attr('data-id')].save({ 
 				status: parent.find('[name="status"]').val(),
 				contribution: parseInt(parent.find('[name="contribution"]').val()),
-				ratingGuest: parseInt(parent.find('[name="ratingGuest"]').val()),
-				ratingHost: parseInt(parent.find('[name="ratingHost"]').val()), 
-				reviewGuest: parent.find('[name="reviewGuest"]').val(),
-				seats: parseInt(parent.find('[name="ratingHost"]').val())
+				seats: parseInt(parent.find('[name="seats"]').val())
 			}).then(function() {
 				self.renderSeatRequests();
 			}, function(e) {
@@ -163,7 +158,7 @@ define([
 			var self = this;
 			var e = $(event.currentTarget);
 			var parent = e.closest('tr');
-			
+
 			self.questions[parent.attr('data-id')].save({
 				question: parent.find('[name="question"]').val(), 
 				answer: parent.find('[name="answer"]').val(), 

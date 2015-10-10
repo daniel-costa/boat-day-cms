@@ -29,7 +29,8 @@
 					<div class="form-group">
 						<label for="BDdiscountLabel" class="col-sm-3 control-label">BD discount label</label>
 						<div class="col-sm-6">
-							<%= bdDiscountLabel %>
+						
+							<%= typeof bdDiscountLabel !== typeof undefined ? bdDiscountLabel : '' %>
 						</div>
 					</div>
 					<div class="form-group">
@@ -53,39 +54,37 @@
 					<div class="form-group">
 						<label for="contribution" class="col-sm-3 control-label">Contribution</label>
 						<div class="col-sm-6">
-							<%= contribution %>
+							<%= typeof contribution !== typeof undefined ? contribution : '' %>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="contributionPaid" class="col-sm-3 control-label">Contribution paid</label>
 						<div class="col-sm-6">
-							<%= contributionPaid%>
+							<%= typeof contributionPaid !== typeof undefined ? contributionPaid : '' %>
 						</div>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label for="guestLastRead" class="col-sm-3 control-label">Guest last read</label>
 						<div class="col-sm-6">
-							<% if( guestLastRead ) { %>
-								<%= guestLastRead.iso %>
-							<% } %>
+							<%= typeof guestLastRead !== typeof undefined ? guestLastRead.iso : '' %>
 						</div>
-					</div>
+					</div> -->
 					<div class="form-group">
 						<label for="ratingGuest" class="col-sm-3 control-label">Rating guest</label>
 						<div class="col-sm-6">
-							<%= ratingGuest %>
+							<%= typeof ratingGuest !== typeof undefined ? ratingGuest : '' %>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="ratingHost" class="col-sm-3 control-label">Rating host</label>
 						<div class="col-sm-6">
-							<%= ratingHost %>
+							<%= typeof ratingHost !== typeof undefined ? ratingHost : '' %>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="reviewGuest" class="col-sm-3 control-label">Review guest</label>
 						<div class="col-sm-6">
-							<%= reviewGuest %>
+							<%= typeof reviewGuest !== typeof undefined ? reviewGuest : '' %>
 						</div>
 					</div>
 					<div class="form-group">
@@ -105,7 +104,7 @@
 						<div class="col-sm-6">
 							<a class="btn btn-default" href="#/boatday/<%= boatday.objectId %>">See BoatDay</a>
 							<a class="btn btn-default" href="#/profile/<%= profile.objectId %>">See Profile</a>
-							<% if( promoCode ) { %>
+							<% if( typeof promoCode !== typeof undefined && promoCode ) { %>
 								<a class="btn btn-default" href="#/coupon/<%= promoCode.objectId %>">See Coupon</a>
 							<% } %>
 							

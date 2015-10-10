@@ -1,5 +1,5 @@
 <tr data-id="<%= id %>">
-	<td>
+	<td colspan="2">
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
 		<a href="#/profile/<%= seat.get('profile').id %>"><%= seat.get('profile').get('displayName') %></a>
 	</td>
@@ -14,9 +14,6 @@
 		</select>
 	</td>
 	<td><input type="text" class="form-control" name="contribution" value="<%= seat.get('contribution') %>" /></td>
-	<td><input type="text" class="form-control" name="ratingGuest" value="<%= seat.get('ratingGuest') %>" /></td>
-	<td><input type="text" class="form-control" name="ratingHost" value="<%= seat.get('ratingHost') %>" /></td>
-	<td><input type="text" class="form-control" name="reviewGuest" value="<%= seat.get('reviewGuest') %>" /></td>
 	<td><a href="#/boatday/<%= seat.get('boatday').id %>"><%= seat.get('boatday').get('name') %></a></td>
 	<td>
 		<a class="btn btn-primary" href="#/seat-request/<%= id %>"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a>

@@ -21,10 +21,11 @@ define([
 	'views/CouponView',
 	'views/CouponNewView',
 	'views/SeatRequestsView', 
-	'views/SeatRequestView'
+	'views/SeatRequestView', 
+	'views/NotificationsView'
 ], function(HomeView, DashboardView, BoatDaysUpcomingView, BoatDayView, HostsView, HostView, HostProfilesView, ProfileView, BoatsView, 
 	BoatView, SendNotificationView, HostValidationView, BoatValidationView, HelpCenterView, ReportView, GuestProfilesView, BoatDayNewView, BoatDaysPastView, 
-	CouponsView, CouponView, CouponNewView, SeatRequestsView, SeatRequestView) {
+	CouponsView, CouponView, CouponNewView, SeatRequestsView, SeatRequestView, NotificationsView) {
 	
 	var AppRouter = Parse.Router.extend({
 
@@ -53,6 +54,7 @@ define([
 			'coupons': 'showCouponsView',
 			'coupon/:couponid': 'showCouponView', 
 			'create-coupon': 'showCouponNewView',
+			'notifications': 'showNotificationsView', 
 			'*actions': 'showDashboardView'
 		},
 
@@ -132,6 +134,13 @@ define([
 			var self = this;
 			self.handleAdminAndSignUp(function() {
 				self.render(new BoatsView());
+			});
+		},
+
+		showNotificationsView: function() {
+			var self = this;
+			self.handleAdminAndSignUp(function() {
+				self.render(new NotificationsView());
 			});
 		},
 

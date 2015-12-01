@@ -8,9 +8,11 @@
 	<td><%= model.get('status') %></td>
 	<td><%= model.get('type') %></td> 
 	<td>
-		<a class="btn btn-default" href="mailto:<%= model.get('user').get('email')  %>">
-			<span class="glyphicon glyphicon-envelope"></span>
-		</a>
+		<% if( model.get('user')) { %>
+			<a class="btn btn-default" href="mailto:<%= model.get('user').get('email')  %>">
+				<span class="glyphicon glyphicon-envelope"></span>
+			</a>
+		<% } %>
 
 		<% if( model.get('profile') ) { %>
 			<a class="btn btn-default" href="#/profile/<%= model.get('profile').id %>">

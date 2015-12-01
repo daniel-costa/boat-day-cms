@@ -1,0 +1,36 @@
+<tr data-id="<%= model.id %>">
+	<td colspan="2">
+		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
+		<%= model.get('action') %>
+	</td>
+	<td><%= model.get('fromTeam') %></td>
+	<td><%= model.get('message') ? model.get('message') : null %></td> 
+	<td>
+		<a href="#/profile/<%= model.get('to').id %>"><%= typeof model.get('to').get('firstName') !== typeof undefined ? model.get('to').get('firstName') : '' %> <%= typeof model.get('to').get('lastName') !== typeof undefined ? model.get('to').get('lastName') : '' %></a>
+	</td>
+	<td>
+		<% if( typeof model.get('from') !== typeof undefined ) { %>
+			<a href="#/profile/<%= model.get('from').id %>"><%= model.get('from').get('firstName') %> <%= model.get('from').get('lastName') %></a>
+		<% } %>
+	</td>
+	<td>
+		<% if( typeof model.get('boatday') !== typeof undefined ) { %>
+			<a href="#/boatday/<%= model.get('boatday').id %>"><%= model.get('boatday').get('name') %></a>
+		<% } %>
+	</td>
+
+	<td>
+		<% if( typeof model.get('request') !== typeof undefined ? model.get('request') : '') { %>
+			<a href="#/seat-request/<%= model.get('request').id %>">Seat request</a>
+		<% } %>
+	</td>
+	<td>
+		<%= typeof model.get('read') !== typeof undefined ? model.get('read') : ''  %>
+	</td>
+	<td>
+		<%= typeof model.get('sendEmail') !== typeof undefined ? model.get('sendEmail') : ''  %>
+	</td>
+</tr>
+
+
+

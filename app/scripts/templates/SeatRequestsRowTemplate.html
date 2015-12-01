@@ -6,9 +6,11 @@
 		</a>
 	</td>
 	<td>
-		<a href="#/boatday/<%= model.get('boatday').id %>">
-			<%= model.get('boatday').get('name') %>
-		</a>
+		<% if( model.get('boatday')) { %> 
+			<a href="#/boatday/<%= model.get('boatday').id %>">
+				<%= model.get('boatday').get('name') %>
+			</a>
+		<% } %>
 	</td>
 	<td><%= model.get('ratingHost') %></td>
 	<td><%= model.get('ratingGuest') %></td>

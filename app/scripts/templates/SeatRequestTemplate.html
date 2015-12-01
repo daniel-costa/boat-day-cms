@@ -63,12 +63,7 @@
 							<%= typeof contributionPaid !== typeof undefined ? contributionPaid : '' %>
 						</div>
 					</div>
-					<!-- <div class="form-group">
-						<label for="guestLastRead" class="col-sm-3 control-label">Guest last read</label>
-						<div class="col-sm-6">
-							<%= typeof guestLastRead !== typeof undefined ? guestLastRead.iso : '' %>
-						</div>
-					</div> -->
+					
 					<div class="form-group">
 						<label for="ratingGuest" class="col-sm-3 control-label">Rating guest</label>
 						<div class="col-sm-6">
@@ -102,12 +97,13 @@
 					<div class="form-group">
 						<label for="otherActions" class="col-sm-3 control-label">Other actions</label>
 						<div class="col-sm-6">
-							<a class="btn btn-default" href="#/boatday/<%= boatday.objectId %>">See BoatDay</a>
+							<% if( boatday ) { %>
+								<a class="btn btn-default" href="#/boatday/<%= boatday.objectId %>">See BoatDay</a>
+							<% } %>
 							<a class="btn btn-default" href="#/profile/<%= profile.objectId %>">See Profile</a>
 							<% if( typeof promoCode !== typeof undefined && promoCode ) { %>
 								<a class="btn btn-default" href="#/coupon/<%= promoCode.objectId %>">See Coupon</a>
 							<% } %>
-							
 						</div>
 					</div>
 				</div>

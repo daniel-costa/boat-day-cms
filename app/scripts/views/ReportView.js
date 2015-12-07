@@ -94,6 +94,7 @@ define([
 			query.include('fromProfile');
 			query.include('profile');
 			query.include('boatday');
+			query.include('user');
 
 			var tpl = _.template(ReportRowTemplate);
 

@@ -12,6 +12,11 @@
 		<a href="#/profile/<%= model.get('user').get('profile').id %>">
 			<%= model.get('user').get('profile').get('displayName') %>
 		</a>
+		<a class="btn btn-default" href="mailto: <% if( typeof model.get('user').get('email') !== typeof undefined && model.get('user').get('email') ) { %>
+			<%= model.get('user').get('email') %>
+			<% } %> ">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</a>
 	</td>
 	<td>
 		<a class="btn btn-default btn-read" data-status="<%= model.get('status') %>">

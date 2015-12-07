@@ -127,16 +127,22 @@ define([
 
 			var seatRequestNumber = new Parse.Query(Parse.Object.extend("SeatRequest"));
 
-			Parse.Promise.when(guestNumber.count(), seatRequestNumber.count()).then(function(guestNumberTotal, seatRequestNumberTotal) {
+			var unreadHelpCenterNumber = new Parse.Query(Parse.Object.extend("HelpCenter"));
+			unreadHelpCenterNumber.equalTo("status", "unread");
+
+			var unreadReportNumber = new Parse.Query(Parse.Object.extend("Report"));
+			unreadReportNumber.notEqualTo("read", true);
+
+			Parse.Promise.when(guestNumber.count(), seatRequestNumber.count(), unreadHelpCenterNumber.count(), unreadReportNumber.count()).then(function(guestNumberTotal, seatRequestNumberTotal, unreadHelpCenterNumberTotal, unreadReportNumberTotal) {
 
 				self.$el.find('.guestsNumber').text(guestNumberTotal);
 				self.$el.find('.seatRequestNumber').text(seatRequestNumberTotal);
+				self.$el.find('.newHelpCenter').text(unreadHelpCenterNumberTotal);
+				self.$el.find('.newReport').text(unreadReportNumberTotal);
 
 			});
 
 		}
-
-
 
 	});
 	return DashboardView;

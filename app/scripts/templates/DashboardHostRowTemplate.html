@@ -7,7 +7,7 @@
 		(<a href='#/host/<%= host.id %>'>Host</a>, <a href='#/profile/<%= profile.id %>' >Profile</a>)
 	</td>
 	<td><%= host.get('SSN') %></td>
-	<td><%= new Date(host.get('birthdate')).toLocaleDateString() %> </td>
+	<td><%= new Date(host.createdAt).toLocaleDateString() %> </td>
 	<td class="text-center">
 		<a href="#/host-validation/<%= host.id %>" class='btn btn-success'>Validation</a>
 	</td>

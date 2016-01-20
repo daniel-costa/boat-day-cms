@@ -10,46 +10,47 @@ define([
 		
 		template: _.template(DashboardTemplate),
 
+		events: {
+			'click .btn-contacted': 'contacted'
+		},
+
+		hosts: {},
+
+		contacted: function(event) {
+			var self = this;
+			self.hosts[$(event.currentTarget).closest('tr').attr('data-id')].save({
+				contacted: new Date()
+			}).then(function() {
+				self.renderHosts();
+			}, function(error) {
+				alert('An error occured (contacted host change date)');
+				console.log(error);
+			})
+		},
+
 		render: function() {
-
 			BaseView.prototype.render.call(this);
-
-
 			this.renderBoats();
 			this.renderHosts();
 			this.renderBoatDaysStats();
 			this.renderStatistics();
-
 			return this;
-
 		},
 
 		renderHosts: function() {
-
 			var self = this;
-
 			var query = new Parse.Query(Parse.Object.extend("Host"));
 			query.equalTo("status", "complete");
 			query.include('profile');
 			query.find().then(function(hosts) {
-
 				self.$el.find('#hostsComplete').html("");
-				var tpl = _.template(DashboardHostRowTemplate);
-
 				_.each(hosts, function(host) {
-
-					var data = { 
-						host: host,
-						url: host.get('profile').get('profilePicture') ? host.get('profile').get('profilePicture').url() : '',
-						user: host.get('user'),
-						profile: host.get('profile'), 
-						profileId: host.get('profile').id
-					};
-					
-					self.$el.find('#hostsComplete').append( tpl(data) );
-
+					self.hosts[host.id] = host;
+					self.$el.find('#hostsComplete').append(_.template(DashboardHostRowTemplate)({ 
+						self: self,
+						model: host
+					}));
 				});
-
 			});
 		},
 

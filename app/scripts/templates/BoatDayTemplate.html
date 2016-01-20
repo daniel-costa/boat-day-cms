@@ -95,6 +95,15 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label for="displayInWebsite" class="col-sm-3 control-label">Display in Website</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" id="displayInWebsite" name="displayInWebsite">
+								<option value="false" <%= typeof displayInWebsite != typeof undefined && displayInWebsite == false ? 'selected' : '' %>>No</option>
+								<option value="true" <%= typeof displayInWebsite != typeof undefined && displayInWebsite == true ? 'selected' : '' %>>Yes</option> 
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
 						<label for="bookingPolicy" class="col-sm-3 control-label">Booking policy</label>
 						<div class="col-sm-6">
 							<select class="input-small form-control" name="bookingPolicy">

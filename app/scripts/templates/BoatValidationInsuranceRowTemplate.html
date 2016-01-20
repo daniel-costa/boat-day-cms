@@ -3,14 +3,15 @@
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
 		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
 	</td>
-	<!-- <td>
-		<a href="<%= file.get('file').url() %>" target="_blank">Proof of Insurance</a>
-	</td> -->
 	<td>
 		<%= new Date(file.createdAt).toLocaleDateString() %> at
 		<%= new Date(file.createdAt).toLocaleTimeString() %> 
 	</td>
+	<td>
+		<input type="text" class="form-control expiryDate" placeholder="mm/dd/yyyy"  name="expiryDate" value="<%= typeof file.get('expiryDate') !== typeof undefined ? file.get('expiryDate') : '' %>"/> 
+	</td>
 	<td class="text-center">
+		<button type="button" class="btn btn-default update-insurance">Update</button>
 		<button type="button" class="btn btn-danger delete-insurance">Delete</button>
 	</td>
 </tr>

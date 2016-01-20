@@ -1,14 +1,24 @@
-<tr>
+<tr data-id="<%= model.id %>">
 	<td>
-		<div class="profile-picture" style="background-image:url(<%= url %>)"></div>
+		<div class="profile-picture" style="background-image:url(<%= model.get('profile').get('profilePicture') ? model.get('profile').get('profilePicture').url() : '' %>)"></div>
 	<td>
-		<%= host.get('firstname') %>
-		<%= host.get('lastname') %><br/>
-		(<a href='#/host/<%= host.id %>'>Host</a>, <a href='#/profile/<%= profile.id %>' >Profile</a>)
+		<%= model.get('firstname') %>
+		<%= model.get('lastname') %><br/>
+		(<a href='#/host/<%= model.id %>'>Host</a>, <a href='#/profile/<%= model.get('profile').id %>' >Profile</a>)
 	</td>
-	<td><%= host.get('SSN') %></td>
-	<td><%= new Date(host.createdAt).toLocaleDateString() %> </td>
+	<td>
+		<%= model.get('city') %>,
+		<%= model.get('state') %>
+	</td>
+	<td><%= new Date(model.createdAt).toLocaleDateString() %> </td>
 	<td class="text-center">
-		<a href="#/host-validation/<%= host.id %>" class='btn btn-success'>Validation</a>
+		<a class='btn btn-default btn-contacted'>
+			<strong><%= typeof model.get('contacted') !== typeof undefined ? self.dateParseToDisplayDate(model.get('contacted')) : 'Never' %></strong>
+			<br/>
+			Click to Update
+		</a>
+	</td>
+	<td class="text-center">
+		<a href="#/host-validation/<%= model.id %>" class='btn btn-success'>Validation</a>
 	</td>
 </tr>

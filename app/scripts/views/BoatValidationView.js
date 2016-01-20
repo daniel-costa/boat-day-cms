@@ -21,6 +21,7 @@ define([
 			"click .update-picture": "updateBoatPicture",
 			"change .upload": "uploadNewFile",
 			"click .notify-host": "sendBoatNotification", 
+			"click .update-insurance": "updateInsurance", 
 			"click .idInfo": "alertObjectID"
 		},
 
@@ -30,7 +31,7 @@ define([
 			BaseView.prototype.render.call(this);
 
 			this.displayBoatPictures();
-			this.displayProofsOfInurance();
+			this.displayProofsOfInsurance();
 
 			return this;
 		},
@@ -116,7 +117,7 @@ define([
 
 		},
 
-		displayProofsOfInurance: function() {
+		displayProofsOfInsurance: function() {
 
 			var self = this;
 			self.proofOfInsurance = {};
@@ -151,11 +152,26 @@ define([
 				this.model.relation('proofOfInsurance').remove(self.proofOfInsurance[id]);
 				this.model.save().then(function() {
 					delete this.proofOfInsurance[id];
-					self.displayProofsOfInurance();
+					self.displayProofsOfInsurance();
 				});
 			}
 
 		},
+
+		updateInsurance: function(event) {
+			event.preventDefault();
+			var self = this;
+			var e = $(event.currentTarget);
+			var parent = e.closest('tr');
+
+			self.proofOfInsurance[parent.attr('data-id')].save({ 
+				expiryDate: new Date(parent.find('[name="expiryDate"]').val())
+			}).then(function() {
+				self.displayProofsOfInsurance();
+			}, function(e) {
+				console.log(e);
+			});
+		}, 
 
 		uploadNewFile: function (event) {
 
@@ -180,7 +196,7 @@ define([
 					new FileHolderModel({ file: file }).save().then(function(fh) {
 						self.model.relation('proofOfInsurance').add(fh);
 						self.model.save().then(function() {
-							self.displayProofsOfInurance();
+							self.displayProofsOfInsurance();
 						});
 					});
 				};

@@ -283,6 +283,7 @@ define([
 				bookedSeats: parseInt(this._in('bookSeats').val()), 
 				earnings: parseFloat(this._in('earnings').val()),
 				featured: parseInt(this._in('featured').val()), 
+				displayInWebsite: Boolean(this._in('displayInWebsite').val() == "true"), 
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

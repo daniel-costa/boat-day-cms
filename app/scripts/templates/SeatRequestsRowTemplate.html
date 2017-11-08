@@ -1,5 +1,5 @@
 <tr data-id="<%= model.id %>">
-	<td colspan="2">
+	<td>
 		<span class="glyphicon glyphicon glyphicon-star-empty idInfo"></span>
 		<a href="#/profile/<%= model.get('profile').id %>">
 			<%= model.get('profile').get('displayName') %>
@@ -8,6 +8,7 @@
 	<td>
 		<% if( model.get('boatday')) { %> 
 			<a href="#/boatday/<%= model.get('boatday').id %>">
+				<%= model.get('boatday').get('category') %>
 				<%= model.get('boatday').get('name') %>
 			</a>
 		<% } %>

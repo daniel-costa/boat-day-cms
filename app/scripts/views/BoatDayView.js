@@ -137,15 +137,42 @@ define([
 			event.preventDefault();
 
 			var self = this;
-			var e = $(event.currentTarget);
-			var parent = e.closest('tr');
+			var parent = $(event.currentTarget).closest('tr');
+			var id = parent.attr('data-id');
+			var request = self.seatRequests[id];
+			
+			var baseSeats = request.get('seats');
+			var nextSeats = parseInt(parent.find('[name="seats"]').val());
+
+			var baseStatus = request.get('status');
+			var nextStatus = parent.find('[name="status"]').val();
 
 			self.seatRequests[parent.attr('data-id')].save({ 
-				status: parent.find('[name="status"]').val(),
+				status: nextStatus,
+				seats: nextSeats,
 				contribution: parseInt(parent.find('[name="contribution"]').val()),
-				seats: parseInt(parent.find('[name="seats"]').val())
 			}).then(function() {
-				self.renderSeatRequests();
+				
+				if( nextStatus === 'approved' && baseStatus !== 'approved' ) {
+					self.model.increment('bookedSeats', nextSeats);
+					self.model.save().then(function() {
+						self.render();
+					});
+				} 
+
+				if( baseStatus === 'approved' && nextStatus !== 'approved' ) {
+					self.model.increment('bookedSeats', nextSeats * -1);
+					self.model.save().then(function() {
+						self.render();
+					});
+				}
+
+				if( baseStatus === 'approved' && nextStatus === 'approved' && baseSeats !== nextSeats ) {
+					self.model.increment('bookedSeats', nextSeats - baseSeats);
+					self.model.save().then(function() {
+						self.render();
+					});
+				}
 			}, function(e) {
 				console.log(e);
 			});
@@ -283,7 +310,7 @@ define([
 				bookedSeats: parseInt(this._in('bookSeats').val()), 
 				earnings: parseFloat(this._in('earnings').val()),
 				featured: parseInt(this._in('featured').val()), 
-				displayInWebsite: Boolean(this._in('displayInWebsite').val() == "true"), 
+				displayInWebsite: Boolean(this._in('displayInWebsite').val()), 
 				features: {
 					leisure: {
 						cruising: Boolean(this.$el.find('[name="featuresLeisureCruising"]').is(':checked')),

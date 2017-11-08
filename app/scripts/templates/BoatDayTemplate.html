@@ -86,7 +86,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="featured" class="col-sm-3 control-label">Featured</label>
+						<label for="displayInWebsite" class="col-sm-3 control-label">Display in website</label>
+						<div class="col-sm-6">
+							<select class="input-small form-control" name="displayInWebsite">
+								<option value="false" <%= typeof displayInWebsite != typeof undefined && !displayInWebsite ? 'selected' : '' %>>No</option>
+								<option value="true"  <%= typeof displayInWebsite != typeof undefined && displayInWebsite ? 'selected' : '' %>>Yes</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="featured" class="col-sm-3 control-label">Featured in App</label>
 						<div class="col-sm-6">
 							<select class="input-small form-control" name="featured">
 								<option value="0" <%= typeof featured != typeof undefined && featured=='0' ? 'selected' : '' %>>No</option>
